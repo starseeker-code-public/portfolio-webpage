@@ -1,31 +1,33 @@
+import { SITE } from '../data'
+import { Section, SectionHeading } from '../components/ui'
+import { IcoGithub, IcoLinkedin, IcoInstagram, IcoCodewars, IcoMail } from '../components/icons'
 
-const Contact = () => {
+export function Contact() {
+  const links = [
+    { label: 'GitHub',    icon: <IcoGithub />,    href: SITE.social.github },
+    { label: 'LinkedIn',  icon: <IcoLinkedin />,  href: SITE.social.linkedin },
+    { label: 'Instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
+    { label: 'Codewars',  icon: <IcoCodewars />,  href: SITE.social.codewars },
+  ]
+
   return (
-    <section id="contact" className="py-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-12 text-center">Contact Us</h2>
-        <div className="max-w-xl mx-auto">
-          <form className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-              <input type="text" id="name" className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-              <input type="email" id="email" className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-              <textarea id="message" rows={4} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
-            </div>
-            <button type="submit" className="w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition-colors">
-              Send Message
-            </button>
-          </form>
-        </div>
+    <Section id="contact">
+      <SectionHeading>Contact</SectionHeading>
+      <p className="text-slate-400 mb-8 max-w-md">
+        Have a project in mind or just want to talk Python? Feel free to reach out.
+      </p>
+      <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+        <a href={`mailto:${SITE.email}`}
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm transition-colors">
+          <IcoMail /> {SITE.email}
+        </a>
+        {links.map(l => (
+          <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
+            {l.icon} {l.label}
+          </a>
+        ))}
       </div>
-    </section>
-  );
-};
-
-export default Contact;
+    </Section>
+  )
+}

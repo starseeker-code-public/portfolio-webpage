@@ -1,12 +1,12 @@
-import LandingPage from './pages/LandingPage';
-import './index.css';
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import CV from './pages/CV'
 
-function App() {
+export default function App() {
   return (
-    <div className='App'>
-      <LandingPage />
-    </div>
-  );
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/cv" element={<CV />} />
+    </Routes>
+  )
 }
-
-export default App;
