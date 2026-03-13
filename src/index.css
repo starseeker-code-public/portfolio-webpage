@@ -19,14 +19,22 @@
   animation: blink 1s step-end infinite;
 }
 
-/* First experience card subtle highlight */
+/* First experience card subtle highlight — 3 pulses, stays glowing on the third */
 @keyframes card-highlight {
-  0%   { box-shadow: none; border-color: rgba(255,255,255,0.1); }
-  50%  { box-shadow: 0 0 0 1px rgba(99,102,241,0.35), 0 0 28px rgba(99,102,241,0.10); border-color: rgba(99,102,241,0.35); }
-  100% { box-shadow: none; border-color: rgba(255,255,255,0.1); }
+  /* pulse 1 up */
+  0%  { box-shadow: none; border-color: rgba(255,255,255,0.1); animation-timing-function: ease-in-out; }
+  11% { box-shadow: 0 0 0 1px rgba(99,102,241,0.35), 0 0 28px rgba(99,102,241,0.10); border-color: rgba(99,102,241,0.35); animation-timing-function: ease-in-out; }
+  /* pulse 1 down → hold off */
+  22%, 44% { box-shadow: none; border-color: rgba(255,255,255,0.1); animation-timing-function: ease-in-out; }
+  /* pulse 2 up */
+  56% { box-shadow: 0 0 0 1px rgba(99,102,241,0.35), 0 0 28px rgba(99,102,241,0.10); border-color: rgba(99,102,241,0.35); animation-timing-function: ease-in-out; }
+  /* pulse 2 down → hold off */
+  67%, 89% { box-shadow: none; border-color: rgba(255,255,255,0.1); animation-timing-function: ease-in-out; }
+  /* pulse 3 up — stays */
+  100% { box-shadow: 0 0 0 1px rgba(99,102,241,0.35), 0 0 28px rgba(99,102,241,0.10); border-color: rgba(99,102,241,0.35); }
 }
 .first-card-highlight {
-  animation: card-highlight 2.5s ease-in-out 2s 1 both;
+  animation: card-highlight 9s linear 2s 1 forwards;
 }
 
 /* Slow star drift */
