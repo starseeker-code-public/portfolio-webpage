@@ -8,7 +8,7 @@ export function About() {
       <div className="grid sm:grid-cols-2 gap-10 items-start">
         <div>
           <h3 className="text-xl font-semibold text-white mb-3">{SITE.name}</h3>
-          <p className="text-slate-400 leading-relaxed">{BIO}</p>
+          <p className="text-slate-400 leading-relaxed text-justify">{BIO}</p>
         </div>
         <div>
           <p className="text-xs text-slate-500 uppercase tracking-wider mb-3">Tech Stack</p>

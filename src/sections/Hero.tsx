@@ -1,5 +1,30 @@
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { SITE, STATS } from '../data'
+
+function Typewriter({ text, speed = 45 }: { text: string; speed?: number }) {
+  const [displayed, setDisplayed] = useState('')
+  const [done, setDone] = useState(false)
+
+  useEffect(() => {
+    let i = 0
+    setDisplayed('')
+    setDone(false)
+    const id = setInterval(() => {
+      i++
+      setDisplayed(text.slice(0, i))
+      if (i >= text.length) { clearInterval(id); setDone(true) }
+    }, speed)
+    return () => clearInterval(id)
+  }, [text, speed])
+
+  return (
+    <span>
+      {displayed}
+      {!done && <span className="typewriter-cursor" />}
+    </span>
+  )
+}
 
 export function Hero() {
   const scrollTo = (id: string) =>
@@ -11,13 +36,15 @@ export function Hero() {
       <div className="absolute top-1/2 left-1/4 w-48 h-48 rounded-full bg-violet-800/10 blur-3xl pointer-events-none" />
 
       <p className="text-indigo-400 text-xs tracking-[0.3em] uppercase mb-4">{SITE.role}</p>
-      <h1 className="text-5xl sm:text-7xl font-bold text-white leading-tight mb-6">
+      <h1 className="text-5xl sm:text-7xl font-bold text-white leading-tight mb-6 font-anta">
         {SITE.name.split(' ')[0]}{' '}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
           {SITE.name.split(' ')[1]}
         </span>
       </h1>
-      <p className="text-slate-400 max-w-lg text-base sm:text-lg mb-10">{SITE.tagline}</p>
+      <p className="text-slate-400 max-w-lg text-base sm:text-lg mb-10">
+        <Typewriter text={SITE.tagline} />
+      </p>
 
       <div className="flex flex-wrap justify-center gap-6 mb-10">
         {STATS.map(s => (

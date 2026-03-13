@@ -10,7 +10,7 @@ export function Services() {
           <div key={s.title} className="rounded-xl border border-white/10 bg-slate-900/50 p-6">
             <div className="text-3xl mb-3">{s.icon}</div>
             <h3 className="text-white font-semibold mb-2">{s.title}</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
+            <p className="text-slate-400 text-sm leading-relaxed text-justify">{s.desc}</p>
           </div>
         ))}
       </div>

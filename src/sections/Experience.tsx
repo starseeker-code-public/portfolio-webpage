@@ -15,7 +15,7 @@ export function Experience() {
               </div>
               <span className="text-xs text-slate-500 shrink-0">{e.period}</span>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">{e.desc}</p>
+            <p className="text-slate-400 text-sm leading-relaxed mb-4 text-justify">{e.desc}</p>
             <div className="flex flex-wrap gap-2">
               {e.tags.map(t => <Tag key={t} label={t} />)}
             </div>

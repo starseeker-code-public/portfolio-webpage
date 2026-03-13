@@ -1,6 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&family=Baumans&family=Megrim&family=Nova+Flat&family=Nova+Round&family=Press+Start+2P&family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+/* Slow star drift */
+@keyframes star-drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-60px, -40px); }
+}
+.stars-layer {
+  animation: star-drift 60s linear infinite alternate;
+}
 
 /* CV print styles — only active when printing /cv page */
 @media print {
