@@ -85,7 +85,7 @@ export default function CV() {
           <div>
             {/* Profile */}
             <CvHeading>Profile</CvHeading>
-            <p style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.5 }}>{BIO}</p>
+            <p style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.5, textAlign: 'justify' }}>{BIO}</p>
 
             {/* Experience */}
             <CvHeading>Professional Experience</CvHeading>
@@ -96,7 +96,7 @@ export default function CV() {
                   <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280', whiteSpace: 'nowrap' as const }}>{e.period}</span>
                 </div>
                 <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: '#6366f1', marginBottom: '3px' }}>{e.company}</div>
-                <div style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.45 }}>{e.desc}</div>
+                <div style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.45, textAlign: 'justify' }}>{e.desc}</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginTop: '4px' }}>
                   {e.tags.map(t => <CvTag key={t} label={t} />)}
                 </div>
@@ -111,7 +111,7 @@ export default function CV() {
                   <span style={{ fontFamily: 'sans-serif', fontSize: '9.5pt', fontWeight: 700 }}>{r.name}</span>
                   <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280' }}>★ {r.stars}</span>
                 </div>
-                <div style={{ fontSize: '9pt', color: '#374151' }}>{r.desc}</div>
+                <div style={{ fontSize: '9pt', color: '#374151', textAlign: 'justify' }}>{r.desc}</div>
               </div>
             ))}
 
@@ -125,7 +125,7 @@ export default function CV() {
                   </span>
                   <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280' }}>{v.period}</span>
                 </div>
-                <div style={{ fontSize: '9pt', color: '#374151' }}>{v.desc}</div>
+                <div style={{ fontSize: '9pt', color: '#374151', textAlign: 'justify' }}>{v.desc}</div>
               </div>
             ))}
           </div>

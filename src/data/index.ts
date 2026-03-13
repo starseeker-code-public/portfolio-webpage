@@ -55,6 +55,13 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Mercedes Benz',
     desc:    'Senior Python engineer in Automation team. Responsible of Pulumi infrastructure as code for Azure MLOps and Data Warehouse resources, as well as Azure administration and giving support to data and AI teams. Very complex infrastructure as code and Pulumi microservices architecture for Azure provisioning.',
     tags:    ['Python', 'Pulumi', 'FastAPI', 'Azure', 'Docker'],
+  },
+  {
+    period:  'May 2024 – April 2025',
+    role:    'Senior Backend engineer',
+    company: 'Mercedes Benz',
+    desc:    'Senior Python engineer in Automation team. Responsible of Pulumi infrastructure as code for Azure MLOps and Data Warehouse resources, as well as Azure administration and giving support to data and AI teams. Very complex infrastructure as code and Pulumi microservices architecture for Azure provisioning.',
+    tags:    ['Python', 'Pulumi', 'FastAPI', 'Azure', 'Docker'],
   }
 ]
 
