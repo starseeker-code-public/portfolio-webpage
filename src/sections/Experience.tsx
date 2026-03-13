@@ -7,7 +7,7 @@ export function Experience() {
       <SectionHeading>Professional Experience</SectionHeading>
       <div className="space-y-6">
         {EXPERIENCE.map((e, i) => (
-          <div key={i} className="rounded-xl border border-white/10 bg-slate-900/50 p-6">
+          <div key={i} className={`rounded-xl border border-white/10 bg-slate-900/50 p-6${i === 0 ? ' first-card-highlight' : ''}`}>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
               <div>
                 <h3 className="text-white font-semibold text-lg">{e.role}</h3>

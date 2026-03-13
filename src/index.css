@@ -19,6 +19,16 @@
   animation: blink 1s step-end infinite;
 }
 
+/* First experience card subtle highlight */
+@keyframes card-highlight {
+  0%   { box-shadow: none; border-color: rgba(255,255,255,0.1); }
+  50%  { box-shadow: 0 0 0 1px rgba(99,102,241,0.35), 0 0 28px rgba(99,102,241,0.10); border-color: rgba(99,102,241,0.35); }
+  100% { box-shadow: none; border-color: rgba(255,255,255,0.1); }
+}
+.first-card-highlight {
+  animation: card-highlight 2.5s ease-in-out 2s 1 both;
+}
+
 /* Slow star drift */
 @keyframes star-drift {
   from { transform: translate(0, 0); }
