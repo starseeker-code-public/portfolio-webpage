@@ -44,24 +44,31 @@ export const SKILLS = SKILL_GROUPS.flatMap(g => g.items)
 export const EXPERIENCE: ExperienceEntry[] = [
   {
     period:  'May 2025 – Present',
-    role:    'Senior Python Developer',
+    role:    'Senior Python Backend Developer',
     company: 'Allot',
     desc:    'Senior Python engineer in ASM (Allot Secure Management) team. Responsible of ASM microservices code, as well as QA testing. Very complex cybersecurity backend for ISP traffic and user security management.',
-    tags:    ['Python', 'Flask', 'MongoDB', 'Redis', 'Kubernetes', 'OpenAPI'],
+    tags:    ['Python', 'Flask', 'MongoDB', 'Redis', 'Kubernetes', 'OpenAPI', 'Go'],
   },
   {
     period:  'May 2024 – April 2025',
-    role:    'Senior Backend engineer',
+    role:    'Senior Backend Engineer',
     company: 'Mercedes Benz',
     desc:    'Senior Python engineer in Automation team. Responsible of Pulumi infrastructure as code for Azure MLOps and Data Warehouse resources, as well as Azure administration and giving support to data and AI teams. Very complex infrastructure as code and Pulumi microservices architecture for Azure provisioning.',
-    tags:    ['Python', 'Pulumi', 'FastAPI', 'Azure', 'Docker'],
+    tags:    ['Python', 'Pulumi', 'FastAPI', 'Azure', 'Docker', 'Go'],
   },
   {
-    period:  'May 2024 – April 2025',
-    role:    'Senior Backend engineer',
-    company: 'Mercedes Benz',
-    desc:    'Senior Python engineer in Automation team. Responsible of Pulumi infrastructure as code for Azure MLOps and Data Warehouse resources, as well as Azure administration and giving support to data and AI teams. Very complex infrastructure as code and Pulumi microservices architecture for Azure provisioning.',
-    tags:    ['Python', 'Pulumi', 'FastAPI', 'Azure', 'Docker'],
+    period:  'Nov 2022 – April 2024',
+    role:    'Lead Python Engineer',
+    company: 'Frenetic',
+    desc:    'Python expert for Engine team. Refactor of a complex calculation’s monolith with an AI module.',
+    tags:    ['Python', 'Flask', 'Pytest', 'Redis', 'Jenkins', 'AsyncIO', 'Poetry', 'Concurrent programming'],
+  },
+  {
+    period:  'Jun 2021 – Nov 2022',
+    role:    'Senior Python Engineer and DevOps Specialist',
+    company: 'Frenetic',
+    desc:    'Python developer for Robotics team. Developer of Vanish, a devOps python framework and operative support for BNP Paribas microservices system.',
+    tags:    ['Python', 'FastAPI', 'Pytest', 'SQLAlchemy', 'Ansible (Tower)', 'Kubernetes', 'Apigee', 'Airflow', 'Go'],
   }
 ]
 
