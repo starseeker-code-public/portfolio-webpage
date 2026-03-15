@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 import {
   SITE, BIO, SKILL_GROUPS, SPECIALIZATIONS,
   EXPERIENCE, TEACHING,
@@ -7,7 +9,7 @@ import {
   // CV_VOLUNTEERING,
   // OPEN_SOURCE,
 } from '../data'
-import { IcoDownload, IcoPrint } from '../components/icons'
+import { IcoDownload } from '../components/icons'
 
 /* ── Inline GitHub SVG for CV header (matches CV font size) ── */
 function CvGithubIcon() {
@@ -103,8 +105,134 @@ function CvTag({ label, t }: { label: string; t: ThemeColors }) {
 }
 
 export default function CV() {
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(true)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const cvRef = useRef<HTMLDivElement>(null)
   const t = dark ? DARK : LIGHT
+
+  const waitForNextPaint = () =>
+    new Promise<void>(resolve => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => resolve())
+      })
+    })
+
+  const generatePDF = async () => {
+    if (!cvRef.current || isGenerating) return
+
+    const cvElement = cvRef.current
+    const previousTransition = cvElement.style.transition
+    const previousDark = dark
+    const exportScale = 2
+
+    setIsGenerating(true)
+
+    try {
+      // Export must always use day mode for a consistent PDF result.
+      if (previousDark) {
+        setDark(false)
+        await waitForNextPaint()
+      }
+
+      cvElement.style.transition = 'none'
+
+      const cvRect = cvElement.getBoundingClientRect()
+      const breakCandidatesPx = Array.from(
+        cvElement.querySelectorAll<HTMLElement>('[data-pdf-break-before], .cv-entry, h2, .section-no-break'),
+      )
+        .map(node => Math.round((node.getBoundingClientRect().top - cvRect.top) * exportScale))
+        .filter(y => y > 0)
+        .sort((a, b) => a - b)
+        .filter((value, index, arr) => index === 0 || value !== arr[index - 1])
+
+      const canvas = await html2canvas(cvElement, {
+        scale: exportScale,
+        useCORS: true,
+        logging: false,
+        backgroundColor: null,
+        width: cvElement.scrollWidth,
+        height: cvElement.scrollHeight,
+        windowWidth: cvElement.scrollWidth,
+        windowHeight: cvElement.scrollHeight,
+        scrollX: 0,
+        scrollY: -window.scrollY,
+      })
+
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+      const pageWidthMm = pdf.internal.pageSize.getWidth()
+      const pageHeightMm = pdf.internal.pageSize.getHeight()
+      const pageHeightPx = Math.floor((canvas.width * pageHeightMm) / pageWidthMm)
+
+      let renderedHeightPx = 0
+      let pageIndex = 0
+
+      while (renderedHeightPx < canvas.height) {
+        const remainingPx = canvas.height - renderedHeightPx
+        let sliceHeightPx = Math.min(pageHeightPx, remainingPx)
+
+        if (remainingPx > pageHeightPx) {
+          const minSmartBreak = renderedHeightPx + Math.floor(pageHeightPx * 0.65)
+          const maxSmartBreak = renderedHeightPx + pageHeightPx
+          const smartBreak = breakCandidatesPx
+            .filter(y => y > minSmartBreak && y < maxSmartBreak)
+            .pop()
+
+          if (smartBreak) {
+            sliceHeightPx = smartBreak - renderedHeightPx
+          }
+        }
+
+        if (sliceHeightPx <= 0) {
+          sliceHeightPx = Math.min(pageHeightPx, remainingPx)
+        }
+
+        const sliceCanvas = document.createElement('canvas')
+        sliceCanvas.width = canvas.width
+        sliceCanvas.height = sliceHeightPx
+
+        const sliceContext = sliceCanvas.getContext('2d')
+        if (!sliceContext) {
+          throw new Error('Could not create canvas context for PDF page')
+        }
+
+        sliceContext.fillStyle = '#ffffff'
+        sliceContext.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height)
+        sliceContext.drawImage(
+          canvas,
+          0,
+          renderedHeightPx,
+          canvas.width,
+          sliceHeightPx,
+          0,
+          0,
+          sliceCanvas.width,
+          sliceCanvas.height,
+        )
+
+        const imageData = sliceCanvas.toDataURL('image/jpeg', 1)
+        const sliceHeightMm = (sliceHeightPx * pageWidthMm) / canvas.width
+
+        if (pageIndex > 0) {
+          pdf.addPage()
+        }
+
+        pdf.addImage(imageData, 'JPEG', 0, 0, pageWidthMm, sliceHeightMm, undefined, 'FAST')
+
+        renderedHeightPx += sliceHeightPx
+        pageIndex += 1
+      }
+
+      pdf.save(`CV_${SITE.name.replace(/\s+/g, '_')}.pdf`)
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+    } finally {
+      cvElement.style.transition = previousTransition
+      if (previousDark) {
+        setDark(true)
+      }
+      setIsGenerating(false)
+    }
+  }
 
   return (
     <>
@@ -123,19 +251,15 @@ export default function CV() {
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
             <IcoDownload /> Recommendation Letters
           </a>
-          <a href="/cv.pdf" download
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
-            <IcoDownload /> Download PDF
-          </a>
-          <button onClick={() => window.print()}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors">
-            <IcoPrint /> Print
+          <button onClick={generatePDF} disabled={isGenerating}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
+            <IcoDownload /> {isGenerating ? 'Generating PDF...' : 'Download PDF'}
           </button>
         </div>
       </div>
 
       {/* ── CV Document ── */}
-      <div className="cv-page" style={{
+      <div ref={cvRef} className="cv-page" style={{
         width: '210mm', minHeight: '297mm',
         margin: '24px auto', background: t.bg,
         padding: '14mm', boxShadow: t.shadow,
@@ -175,8 +299,10 @@ export default function CV() {
           {/* LEFT */}
           <div>
             {/* Profile */}
+            <div className="section-no-break">
             <CvHeading t={t}>Profile</CvHeading>
             <p style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.5, textAlign: 'justify', transition: 'color 0.5s' }}>{BIO}</p>
+            </div>
 
             {/* Experience */}
             <CvHeading t={t}>Professional Experience</CvHeading>
@@ -185,7 +311,7 @@ export default function CV() {
             {EXPERIENCE.length > 0 && (() => {
               const e = EXPERIENCE[0]
               return (
-                <div className="cv-entry" style={{ marginBottom: '10px' }}>
+                <div className="cv-entry section-no-break" style={{ marginBottom: '10px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
                     <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{e.role}</span>
                     <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
@@ -200,7 +326,7 @@ export default function CV() {
             })()}
 
             {/* Teaching (second position) */}
-            <div className="cv-entry" style={{ marginBottom: '14px' }}>
+            <div className="cv-entry section-no-break" style={{ marginBottom: '14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
                 <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{TEACHING.role} <span style={{ fontSize: '7.5pt', fontWeight: 400, fontStyle: 'italic', color: t.muted }}>(also teach)</span></span>
                 <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
@@ -214,7 +340,7 @@ export default function CV() {
 
             {/* Previous jobs */}
             {EXPERIENCE.slice(1).map((e, i) => (
-              <div key={i} className="cv-entry" style={{ marginBottom: '10px' }}>
+              <div key={i} className="cv-entry section-no-break" style={{ marginBottom: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
                   <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{e.role}</span>
                   <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
@@ -239,6 +365,7 @@ export default function CV() {
           {/* RIGHT */}
           <div>
             {/* Specialized in */}
+            <div className="section-no-break">
             <CvHeading t={t}>Specialized In</CvHeading>
             <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginBottom: '4px' }}>
               {SPECIALIZATIONS.map(s => (
@@ -252,8 +379,10 @@ export default function CV() {
                 </span>
               ))}
             </div>
+            </div>
 
             {/* Skills */}
+            <div className="section-no-break" data-pdf-break-before="skills">
             <CvHeading t={t}>Skills</CvHeading>
             {SKILL_GROUPS.map(g => (
               <div key={g.label} style={{ marginBottom: '6px' }}>
@@ -263,8 +392,10 @@ export default function CV() {
                 </div>
               </div>
             ))}
+            </div>
 
             {/* Languages */}
+            <div className="section-no-break">
             <CvHeading t={t}>Languages</CvHeading>
             {CV_LANGUAGES.map((l, i) => (
               <div key={i} style={{
@@ -277,8 +408,10 @@ export default function CV() {
                 <span style={{ color: t.accent, fontSize: '8.5pt', transition: 'color 0.5s' }}>{l.level}</span>
               </div>
             ))}
+            </div>
 
             {/* Education */}
+            <div className="section-no-break">
             <CvHeading t={t}>Education</CvHeading>
             {CV_EDUCATION.map((e, i) => (
               <div key={i} style={{ marginBottom: '7px' }}>
@@ -286,8 +419,10 @@ export default function CV() {
                 <div style={{ fontFamily: 'sans-serif', fontSize: '8.5pt', color: t.muted, transition: 'color 0.5s' }}>{e.school} · {e.year}</div>
               </div>
             ))}
+            </div>
 
             {/* Certifications */}
+            <div className="section-no-break" data-pdf-break-before="certifications">
             <CvHeading t={t}>Certifications</CvHeading>
             {CV_CERTIFICATIONS.map((c, i) => (
               <div key={i} style={{ marginBottom: '6px' }}>
@@ -295,6 +430,7 @@ export default function CV() {
                 <div style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, transition: 'color 0.5s' }}>{c.issuer} · {c.year}</div>
               </div>
             ))}
+            </div>
           </div>
 
         </div>{/* /grid */}

@@ -108,16 +108,38 @@ html, body {
 
 /* CV print styles — only active when printing /cv page */
 @media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    margin: 0;
+    padding: 0;
+  }
+
   .no-print { display: none !important; }
 
   .cv-page {
-    margin: 0;
-    box-shadow: none;
-    padding: 12mm 13mm;
-    width: 100%;
-    min-height: auto;
+    margin: 0 !important;
+    box-shadow: none !important;
+    padding: 14mm !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    height: auto !important;
+    background: white !important;
+    color: #1e1b4b !important;
+    overflow: visible !important;
   }
 
   h2 { page-break-after: avoid; }
   .cv-entry { page-break-inside: avoid; }
+  .section-no-break { page-break-inside: avoid; }
+
+  /* Ensure colors are correct even if dark mode was active */
+  .cv-page * {
+    transition: none !important;
+  }
 }
