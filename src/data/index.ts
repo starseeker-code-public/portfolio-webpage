@@ -84,9 +84,9 @@ export const EXPERIENCE: ExperienceEntry[] = [
   },
   {
     period:  'Aug 2018 – Jul 2022',
-    role:    'Python Developer (Freelance)',
-    company: 'ATM Maggioli · Prosegur (Cipher) · BBVA',
-    desc:    'Data engineer and Python developer across enterprise clients in finance, security, and public administration.',
+    role:    'Python Developer & Data Engineer',
+    company: 'BBVA · Prosegur (Cipher) · ATM Maggioli',
+    desc:    'Worked across several companies — some as freelance — in finance, cybersecurity, and public administration.',
     details: 'Built REST APIs, data pipelines, and backend services. Gained broad experience with PostgreSQL, Docker, CI/CD, and cloud platforms (AWS, Azure).',
     tags:    ['PostgreSQL', 'REST APIs', 'AWS', 'Python', 'Docker', 'Data Engineering', 'CI/CD'],
   },
@@ -128,8 +128,16 @@ export const SERVICES: Service[] = [
     desc: 'Breaking monoliths into microservices and tackling large-scale technical debt. Led a 2 M+ line refactor at Frenetic, growing the team from 4 to 9 engineers.' },
   { icon: '🧪', title: 'Testing, CI/CD & Observability',
     desc: 'Automated BDD/TDD pipelines with 90 %+ coverage, E2E test automation that cut weekly tickets from 12 to 3, and production monitoring with Grafana, Prometheus, and Datadog.' },
+  { icon: '☁️', title: 'Cloud Platforms & Infrastructure',
+    desc: 'Infrastructure as code with Pulumi and Terraform across AWS, Azure, and GCP. Ansible configuration, cost optimization, and granular deployment automation.' },
+  { icon: '🔐', title: 'API Security & SSO Integration',
+    desc: 'Secure API design with Apigee and OpenAPI. SSO implementation, cybersecurity backend experience at Allot, and production run-readiness across enterprise systems.' },
+  { icon: '⚛️', title: 'React UIs & Fullstack Delivery',
+    desc: 'Adjusting or building React frontends when needed, integrating with Python backends. TypeScript, Tailwind, and end-to-end ownership from UI to database.' },
   { icon: '🚀', title: 'Leadership & AI-Driven Delivery',
-    desc: 'Mentoring developers, leading code reviews, and using AI/Copilot daily. Currently training professional engineers as a Software Engineering Instructor.' },
+    desc: 'Mentoring developers, leading code reviews, and using AI/Copilot daily. Currently training professional engineers as a Python Instructor.' },
+  { icon: '📦', title: 'Data Pipelines & Message Brokers',
+    desc: 'Event-driven architectures with Kafka, RabbitMQ, and Celery. Data engineering with Airflow, Pandas, and async processing for high-throughput systems.' },
 ]
 
 // ── Blog (commented out per request) ──

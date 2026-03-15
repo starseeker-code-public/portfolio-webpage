@@ -79,6 +79,24 @@ html, body {
   transform: translateY(0);
 }
 
+/* Teaching card sparkle twinkle */
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50%      { opacity: 1;    transform: scale(1.2); }
+}
+.teaching-sparkle {
+  animation: sparkle-twinkle 3s ease-in-out infinite;
+}
+.sparkle-delay-0 { animation-delay: 0s; }
+.sparkle-delay-1 { animation-delay: 0.8s; }
+.sparkle-delay-2 { animation-delay: 1.6s; }
+.sparkle-delay-3 { animation-delay: 2.4s; }
+
+/* Teaching card subtle border glow */
+.teaching-card {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.06), 0 0 60px rgba(139, 92, 246, 0.04);
+}
+
 /* CV print styles — only active when printing /cv page */
 @media print {
   .no-print { display: none !important; }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   SITE, BIO, SKILL_GROUPS,
@@ -8,25 +9,93 @@ import {
 } from '../data'
 import { IcoDownload, IcoPrint } from '../components/icons'
 
-function CvHeading({ children }: { children: React.ReactNode }) {
+/* ── Inline GitHub SVG for CV header (matches CV font size) ── */
+function CvGithubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '12px', height: '12px', display: 'inline', verticalAlign: 'middle', marginRight: '3px' }}>
+      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844a9.59 9.59 0 012.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+    </svg>
+  )
+}
+
+/* ── Dark/light mode toggle icon ── */
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+      <circle cx="12" cy="12" r="5" />
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+/* ── Theme-aware helpers ── */
+interface ThemeColors {
+  bg: string
+  text: string
+  muted: string
+  accent: string
+  accentLight: string
+  border: string
+  tagBg: string
+  tagText: string
+  headingBorder: string
+  shadow: string
+}
+
+const LIGHT: ThemeColors = {
+  bg: '#ffffff',
+  text: '#1e1b4b',
+  muted: '#374151',
+  accent: '#4f46e5',
+  accentLight: '#6366f1',
+  border: '#e0e0e8',
+  tagBg: '#eef2ff',
+  tagText: '#4f46e5',
+  headingBorder: '#e0e0e8',
+  shadow: '0 4px 32px rgba(79,70,229,.10)',
+}
+
+const DARK: ThemeColors = {
+  bg: '#0f0e1a',
+  text: '#e2e0f0',
+  muted: '#a0a0b8',
+  accent: '#818cf8',
+  accentLight: '#a5b4fc',
+  border: '#2a2840',
+  tagBg: 'rgba(99,102,241,0.15)',
+  tagText: '#a5b4fc',
+  headingBorder: '#2a2840',
+  shadow: '0 4px 32px rgba(0,0,0,.30)',
+}
+
+function CvHeading({ children, t }: { children: React.ReactNode; t: ThemeColors }) {
   return (
     <h2 style={{
       fontFamily: 'sans-serif', fontSize: '7.5pt', fontWeight: 700,
       letterSpacing: '.12em', textTransform: 'uppercase' as const,
-      color: '#4f46e5', borderBottom: '1px solid #e0e0e8',
+      color: t.accent, borderBottom: `1px solid ${t.headingBorder}`,
       paddingBottom: '3px', margin: '14px 0 8px',
+      transition: 'color 0.5s, border-color 0.5s',
     }}>
       {children}
     </h2>
   )
 }
 
-function CvTag({ label }: { label: string }) {
+function CvTag({ label, t }: { label: string; t: ThemeColors }) {
   return (
     <span style={{
       fontFamily: 'sans-serif', fontSize: '7.5pt',
-      background: '#eef2ff', color: '#4f46e5',
+      background: t.tagBg, color: t.tagText,
       borderRadius: '3px', padding: '1px 6px',
+      transition: 'background 0.5s, color 0.5s',
     }}>
       {label}
     </span>
@@ -34,6 +103,9 @@ function CvTag({ label }: { label: string }) {
 }
 
 export default function CV() {
+  const [dark, setDark] = useState(false)
+  const t = dark ? DARK : LIGHT
+
   return (
     <>
       {/* ── Toolbar (hidden on print) ── */}
@@ -42,6 +114,11 @@ export default function CV() {
           {SITE.initials}
         </Link>
         <div className="flex items-center gap-3">
+          <button onClick={() => setDark(d => !d)}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors"
+            title={dark ? 'Light mode' : 'Dark mode'}>
+            {dark ? <SunIcon /> : <MoonIcon />}
+          </button>
           <a href="/cv.pdf" download
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
             <IcoDownload /> Download PDF
@@ -56,25 +133,34 @@ export default function CV() {
       {/* ── CV Document ── */}
       <div className="cv-page" style={{
         width: '210mm', minHeight: '297mm',
-        margin: '24px auto', background: '#fff',
-        padding: '14mm', boxShadow: '0 4px 32px rgba(79,70,229,.10)',
+        margin: '24px auto', background: t.bg,
+        padding: '14mm', boxShadow: t.shadow,
         fontFamily: 'Georgia, Times New Roman, serif',
-        fontSize: '10.5pt', color: '#1e1b4b', lineHeight: '1.5',
+        fontSize: '10.5pt', color: t.text, lineHeight: '1.5',
+        transition: 'background 0.5s, color 0.5s, box-shadow 0.5s',
       }}>
 
         {/* Header */}
-        <header style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', paddingBottom: '10px', borderBottom: '2px solid #4f46e5', marginBottom: '12px' }}>
-          <img src={SITE.photo} alt={SITE.name} style={{ width: '68px', height: '68px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #4f46e5', flexShrink: 0 }} />
+        <header style={{
+          display: 'flex', alignItems: 'flex-start', gap: '14px',
+          paddingBottom: '10px', borderBottom: `2px solid ${t.accent}`,
+          marginBottom: '12px', transition: 'border-color 0.5s',
+        }}>
+          <img src={SITE.photo} alt={SITE.name} style={{
+            width: '68px', height: '68px', borderRadius: '50%',
+            objectFit: 'cover', border: `2px solid ${t.accent}`,
+            flexShrink: 0, transition: 'border-color 0.5s',
+          }} />
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '22pt', fontWeight: 700, color: '#4f46e5', lineHeight: 1.1, fontFamily: 'sans-serif' }}>{SITE.name}</div>
-            <div style={{ fontSize: '10.5pt', color: '#6b7280', fontFamily: 'sans-serif', marginTop: '2px', marginBottom: '7px' }}>{SITE.role}</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px 18px', fontSize: '8.5pt', color: '#6b7280', fontFamily: 'sans-serif' }}>
+            <div style={{ fontSize: '22pt', fontWeight: 700, color: t.accent, lineHeight: 1.1, fontFamily: 'sans-serif', transition: 'color 0.5s' }}>{SITE.name}</div>
+            <div style={{ fontSize: '10.5pt', color: t.muted, fontFamily: 'sans-serif', marginTop: '2px', marginBottom: '7px', transition: 'color 0.5s' }}>{SITE.role}</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px 18px', fontSize: '8.5pt', color: t.muted, fontFamily: 'sans-serif', transition: 'color 0.5s' }}>
               <span>📍 {SITE.location}</span>
               <span>📞 {SITE.phone}</span>
-              <span>✉ <a href={`mailto:${SITE.email}`} style={{ color: '#4f46e5', textDecoration: 'none' }}>{SITE.email}</a></span>
-              <span>🌐 <a href={SITE.website} style={{ color: '#4f46e5', textDecoration: 'none' }}>{SITE.website.replace('https://', '')}</a></span>
-              <span>🐙 <a href={SITE.social.github} style={{ color: '#4f46e5', textDecoration: 'none' }}>{SITE.social.github.replace('https://', '')}</a></span>
-              <span>🔗 <a href={SITE.social.linkedin} style={{ color: '#4f46e5', textDecoration: 'none' }}>{SITE.social.linkedin.replace('https://', '')}</a></span>
+              <span>✉ <a href={`mailto:${SITE.email}`} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.email}</a></span>
+              <span>🌐 <a href={SITE.website} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.website.replace('https://', '')}</a></span>
+              <span><CvGithubIcon /><a href={SITE.social.github} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.social.github.replace('https://', '')}</a></span>
+              <span>🔗 <a href={SITE.social.linkedin} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.social.linkedin.replace('https://', '')}</a></span>
             </div>
           </div>
         </header>
@@ -85,22 +171,22 @@ export default function CV() {
           {/* LEFT */}
           <div>
             {/* Profile */}
-            <CvHeading>Profile</CvHeading>
-            <p style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.5, textAlign: 'justify' }}>{BIO}</p>
+            <CvHeading t={t}>Profile</CvHeading>
+            <p style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.5, textAlign: 'justify', transition: 'color 0.5s' }}>{BIO}</p>
 
             {/* Experience */}
-            <CvHeading>Professional Experience</CvHeading>
+            <CvHeading t={t}>Professional Experience</CvHeading>
 
             {EXPERIENCE.map((e, i) => (
               <div key={i} className="cv-entry" style={{ marginBottom: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
-                  <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700 }}>{e.role}</span>
-                  <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280', whiteSpace: 'nowrap' as const }}>{e.period}</span>
+                  <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{e.role}</span>
+                  <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
                 </div>
-                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: '#6366f1', marginBottom: '3px' }}>{e.company}</div>
-                <div style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.45, textAlign: 'justify' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
+                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{e.company}</div>
+                <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginTop: '4px' }}>
-                  {e.tags.map(t => <CvTag key={t} label={t} />)}
+                  {e.tags.map(tag => <CvTag key={tag} label={tag} t={t} />)}
                 </div>
               </div>
             ))}
@@ -108,79 +194,64 @@ export default function CV() {
             {/* Teaching */}
             <div className="cv-entry" style={{ marginBottom: '10px', marginTop: '6px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
-                <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700 }}>{TEACHING.role}</span>
-                <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280', whiteSpace: 'nowrap' as const }}>{TEACHING.period}</span>
+                <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{TEACHING.role}</span>
+                <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
               </div>
-              <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: '#6366f1', marginBottom: '3px' }}>{TEACHING.company}</div>
-              <div style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.45, textAlign: 'justify' }}>{TEACHING.desc}</div>
+              <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{TEACHING.company}</div>
+              <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{TEACHING.desc}</div>
             </div>
 
             {/* Open Source (commented out per request)
-            <CvHeading>Open Source</CvHeading>
-            {OPEN_SOURCE.map((r, i) => (
-              <div key={i} className="cv-entry" style={{ marginBottom: '7px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <span style={{ fontFamily: 'sans-serif', fontSize: '9.5pt', fontWeight: 700 }}>{r.name}</span>
-                  <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280' }}>★ {r.stars}</span>
-                </div>
-                <div style={{ fontSize: '9pt', color: '#374151', textAlign: 'justify' }}>{r.desc}</div>
-              </div>
-            ))}
+            <CvHeading t={t}>Open Source</CvHeading>
             */}
 
             {/* Volunteering (commented out per request)
-            <CvHeading>Volunteering</CvHeading>
-            {CV_VOLUNTEERING.map((v, i) => (
-              <div key={i} className="cv-entry" style={{ marginBottom: '7px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ fontFamily: 'sans-serif', fontSize: '9pt', fontWeight: 600 }}>
-                    {v.role} — <span style={{ color: '#6366f1' }}>{v.org}</span>
-                  </span>
-                  <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280' }}>{v.period}</span>
-                </div>
-                <div style={{ fontSize: '9pt', color: '#374151', textAlign: 'justify' }}>{v.desc}</div>
-              </div>
-            ))}
+            <CvHeading t={t}>Volunteering</CvHeading>
             */}
           </div>
 
           {/* RIGHT */}
           <div>
             {/* Skills */}
-            <CvHeading>Skills</CvHeading>
+            <CvHeading t={t}>Skills</CvHeading>
             {SKILL_GROUPS.map(g => (
               <div key={g.label} style={{ marginBottom: '6px' }}>
-                <div style={{ fontFamily: 'sans-serif', fontSize: '8.5pt', fontWeight: 700, marginBottom: '3px' }}>{g.label}</div>
+                <div style={{ fontFamily: 'sans-serif', fontSize: '8.5pt', fontWeight: 700, marginBottom: '3px', transition: 'color 0.5s' }}>{g.label}</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '3px' }}>
-                  {g.items.map(s => <CvTag key={s} label={s} />)}
+                  {g.items.map(s => <CvTag key={s} label={s} t={t} />)}
                 </div>
               </div>
             ))}
 
             {/* Languages */}
-            <CvHeading>Languages</CvHeading>
+            <CvHeading t={t}>Languages</CvHeading>
             {CV_LANGUAGES.map((l, i) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'sans-serif', fontSize: '9pt', padding: '3px 0', borderBottom: i < CV_LANGUAGES.length - 1 ? '1px solid #e0e0e8' : 'none' }}>
+              <div key={i} style={{
+                display: 'flex', justifyContent: 'space-between', fontFamily: 'sans-serif',
+                fontSize: '9pt', padding: '3px 0',
+                borderBottom: i < CV_LANGUAGES.length - 1 ? `1px solid ${t.border}` : 'none',
+                transition: 'border-color 0.5s, color 0.5s',
+              }}>
                 <span>{l.lang}</span>
-                <span style={{ color: '#4f46e5', fontSize: '8.5pt' }}>{l.level}</span>
+                <span style={{ color: t.accent, fontSize: '8.5pt', transition: 'color 0.5s' }}>{l.level}</span>
               </div>
             ))}
 
             {/* Education */}
-            <CvHeading>Education</CvHeading>
+            <CvHeading t={t}>Education</CvHeading>
             {CV_EDUCATION.map((e, i) => (
               <div key={i} style={{ marginBottom: '7px' }}>
-                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', fontWeight: 600 }}>{e.degree}</div>
-                <div style={{ fontFamily: 'sans-serif', fontSize: '8.5pt', color: '#6b7280' }}>{e.school} · {e.year}</div>
+                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', fontWeight: 600, transition: 'color 0.5s' }}>{e.degree}</div>
+                <div style={{ fontFamily: 'sans-serif', fontSize: '8.5pt', color: t.muted, transition: 'color 0.5s' }}>{e.school} · {e.year}</div>
               </div>
             ))}
 
             {/* Certifications */}
-            <CvHeading>Certifications</CvHeading>
+            <CvHeading t={t}>Certifications</CvHeading>
             {CV_CERTIFICATIONS.map((c, i) => (
               <div key={i} style={{ marginBottom: '6px' }}>
-                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', fontWeight: 600 }}>{c.name}</div>
-                <div style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280' }}>{c.issuer} · {c.year}</div>
+                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', fontWeight: 600, transition: 'color 0.5s' }}>{c.name}</div>
+                <div style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, transition: 'color 0.5s' }}>{c.issuer} · {c.year}</div>
               </div>
             ))}
           </div>

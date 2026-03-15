@@ -5,7 +5,7 @@ import {
   IcoGithub, IcoLinkedin, IcoInstagram, IcoCodewars, IcoMail, IcoMenu, IcoClose,
 } from '../icons'
 
-const NAV_SECTIONS = ['About', 'Experience', 'Projects', 'Open Source', 'Services', 'Blog', 'Testimonials', 'Contact']
+const NAV_SECTIONS = ['About', 'Experience', 'Projects', 'Services', 'Testimonials', 'Contact']
 
 const SOCIAL = [
   { key: 'github',    icon: <IcoGithub />,    href: SITE.social.github },
@@ -32,7 +32,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/85 backdrop-blur border-b border-white/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur border-b border-white/5" style={{ background: 'rgba(6, 5, 22, 0.88)' }}>
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
 
         {/* Logo */}
@@ -76,7 +76,7 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       {open && (
-        <div className="lg:hidden bg-slate-950 border-t border-white/5 px-4 pb-6">
+        <div className="lg:hidden border-t border-white/5 px-4 pb-6" style={{ background: 'rgb(6, 5, 22)' }}>
           {NAV_SECTIONS.map(l => (
             <button key={l} onClick={() => scrollTo(l)}
               className="block w-full text-left py-3 text-slate-300 hover:text-white text-sm border-b border-white/5">

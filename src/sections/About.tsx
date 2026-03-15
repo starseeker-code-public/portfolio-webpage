@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { SITE, SKILL_GROUPS } from '../data'
 import { Section, SectionHeading } from '../components/ui'
 
@@ -45,17 +45,34 @@ function ExpandableGroup({ label, items }: { label: string; items: string[] }) {
 
 export function About() {
   const [showHint, setShowHint] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const show = setTimeout(() => setShowHint(true), 1500)
-    const hide = setTimeout(() => setShowHint(false), 5500)
-    return () => { clearTimeout(show); clearTimeout(hide) }
+    const el = sectionRef.current
+    if (!el) return
+
+    let showTimer: ReturnType<typeof setTimeout>
+    let hideTimer: ReturnType<typeof setTimeout>
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          showTimer = setTimeout(() => setShowHint(true), 1500)
+          hideTimer = setTimeout(() => setShowHint(false), 7500)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.3 },
+    )
+
+    observer.observe(el)
+    return () => { observer.disconnect(); clearTimeout(showTimer); clearTimeout(hideTimer) }
   }, [])
 
   return (
     <Section id="about">
       <SectionHeading>About Me</SectionHeading>
-      <div className="grid sm:grid-cols-2 gap-10 items-start">
+      <div ref={sectionRef} className="grid sm:grid-cols-2 gap-10 items-start">
 
         {/* Bio */}
         <div>
