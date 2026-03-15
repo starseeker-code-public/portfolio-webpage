@@ -8,7 +8,7 @@ export const SITE = {
   initials:  'JOA.DEV',
   name:      'Joaquín Hernández Martínez',
   role:      ['Senior Backend Engineer', 'Fullstack Developer', 'Leader and Architect'],
-  tagline:   'Building reliable back-end services, APIs, and cloud infrastructure — with 7+ years turning complex requirements into production-ready systems.',
+  tagline:   'Building reliable back-end services, APIs, and cloud infrastructure — almost 8 years turning complex requirements into production-ready systems. Now with AI expertise',
   email:     'proyecto_noether@outlook.com',
   photo:     '/photo.png',
   location:  'Albacete, Spain (open to Madrid on-site once a week)',

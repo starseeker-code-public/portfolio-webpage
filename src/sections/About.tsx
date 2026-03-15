@@ -13,11 +13,15 @@ function ExpandableGroup({ label, items }: { label: string; items: string[] }) {
 
   return (
     <div
-      className="relative"
+      className="relative w-full sm:w-auto"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <span className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full cursor-default select-none transition-all duration-300 ${
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        aria-expanded={open}
+        className={`inline-flex items-center justify-between sm:justify-start w-full sm:w-auto gap-1.5 text-xs px-3 py-1.5 rounded-full cursor-pointer select-none transition-all duration-300 ${
         open
           ? 'bg-transparent text-indigo-300 border border-indigo-400 shadow-lg shadow-indigo-500/10'
           : 'bg-indigo-900/60 text-indigo-300 border border-indigo-700/50'
@@ -26,9 +30,21 @@ function ExpandableGroup({ label, items }: { label: string; items: string[] }) {
         <svg className={`w-3 h-3 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
-      </span>
+      </button>
 
-      <div className={`absolute top-full left-0 mt-1.5 z-10 transition-all duration-300 ${
+      <div className={`sm:hidden mt-2 transition-all duration-300 overflow-hidden ${
+        open ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+      }`}>
+        <div className="bg-slate-900/50 border border-indigo-500/30 rounded-lg p-2.5 flex flex-wrap gap-1.5 shadow-xl shadow-black/20">
+          {items.map(item => (
+            <span key={item} className="text-xs px-2 py-0.5 rounded-full bg-transparent text-indigo-300 border border-indigo-700/50 whitespace-nowrap">
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className={`hidden sm:block absolute top-full left-0 mt-1.5 z-10 transition-all duration-300 ${
         open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1 pointer-events-none'
       }`}>
         <div className="bg-transparent backdrop-blur border border-indigo-500/30 rounded-lg p-2.5 flex flex-wrap gap-1.5 max-w-xs shadow-xl shadow-black/20">
@@ -96,10 +112,10 @@ export function About() {
 
           {/* Hint popup */}
           <div className={`hint-popup ${showHint ? 'hint-visible' : ''}`}>
-            Hover tags to explore
+            Hover or tap tags to explore
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
             {SKILL_GROUPS.map(g => (
               <ExpandableGroup key={g.label} label={g.label} items={g.items} />
             ))}

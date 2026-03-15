@@ -111,6 +111,7 @@ export default function CV() {
   const cvRef = useRef<HTMLDivElement>(null)
   const overlayTimeoutRef = useRef<number | null>(null)
   const t = dark ? DARK : LIGHT
+  const pageBg = dark ? '#060516' : '#eef2ff'
 
   useEffect(() => {
     return () => {
@@ -131,7 +132,9 @@ export default function CV() {
     if (!cvRef.current || isGenerating) return
 
     const cvElement = cvRef.current
-    const previousTransition = cvElement.style.transition
+    const cvGridElement = cvElement.querySelector<HTMLElement>('.cv-grid')
+    const previousCvStyle = cvElement.style.cssText
+    const previousGridStyle = cvGridElement?.style.cssText ?? ''
     const previousDark = dark
     const exportScale = 2
 
@@ -150,7 +153,21 @@ export default function CV() {
         await waitForNextPaint()
       }
 
+      // Force desktop CV layout for export so small-screen responsive rules do not alter PDF structure.
       cvElement.style.transition = 'none'
+      cvElement.style.setProperty('width', '210mm', 'important')
+      cvElement.style.setProperty('min-height', '297mm', 'important')
+      cvElement.style.setProperty('margin', '24px auto', 'important')
+      cvElement.style.setProperty('padding', '14mm', 'important')
+      cvElement.style.setProperty('font-size', '10.5pt', 'important')
+
+      if (cvGridElement) {
+        cvGridElement.style.setProperty('display', 'grid', 'important')
+        cvGridElement.style.setProperty('grid-template-columns', '1fr 34%', 'important')
+        cvGridElement.style.setProperty('gap', '0 16px', 'important')
+      }
+
+      await waitForNextPaint()
 
       const cvRect = cvElement.getBoundingClientRect()
       const breakCandidatesPx = Array.from(
@@ -242,7 +259,11 @@ export default function CV() {
     } catch (error) {
       console.error('Error generating PDF:', error)
     } finally {
-      cvElement.style.transition = previousTransition
+      cvElement.style.cssText = previousCvStyle
+      if (cvGridElement) {
+        cvGridElement.style.cssText = previousGridStyle
+      }
+
       if (previousDark) {
         setDark(true)
       }
@@ -257,13 +278,16 @@ export default function CV() {
 
   return (
     <>
-      <div className={showPrintingOverlay ? 'pointer-events-none select-none' : ''}>
+      <div
+        className={`${showPrintingOverlay ? 'pointer-events-none select-none' : ''} min-h-screen transition-colors duration-500`}
+        style={{ background: pageBg }}
+      >
         {/* ── Toolbar (hidden on print) ── */}
-        <div className="no-print sticky top-0 z-50 bg-slate-950/90 backdrop-blur border-b border-white/5 px-4 h-14 flex items-center justify-between">
+        <div className="no-print cv-toolbar sticky top-0 z-50 bg-slate-950/90 backdrop-blur border-b border-white/5 px-4 h-14 flex items-center justify-between">
           <Link to="/" className="text-indigo-400 font-bold tracking-widest text-sm">
             {SITE.initials}
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="cv-toolbar-actions flex items-center gap-3">
             <button onClick={() => setDark(d => !d)}
               className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors"
               title={dark ? 'Light mode' : 'Dark mode'}>
@@ -316,7 +340,7 @@ export default function CV() {
         </header>
 
         {/* Two-column body */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 34%', gap: '0 16px' }}>
+        <div className="cv-grid">
 
           {/* LEFT */}
           <div>

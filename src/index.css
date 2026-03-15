@@ -106,6 +106,53 @@ html, body {
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.06), 0 0 60px rgba(139, 92, 246, 0.04);
 }
 
+.cv-grid {
+  display: grid;
+  grid-template-columns: 1fr 34%;
+  gap: 0 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  .cv-toolbar {
+    height: auto !important;
+    min-height: 56px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .cv-toolbar-actions {
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .cv-page {
+    width: calc(100vw - 18px) !important;
+    min-height: auto !important;
+    margin: 12px auto 20px !important;
+    padding: 16px !important;
+  }
+
+  .cv-grid {
+    grid-template-columns: 1fr;
+    gap: 14px 0;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .cv-toolbar-actions {
+    width: 100%;
+  }
+
+  .cv-page {
+    width: calc(100vw - 14px) !important;
+    margin: 10px auto 18px !important;
+    padding: 14px !important;
+    font-size: 10pt !important;
+  }
+}
+
 /* CV print styles — only active when printing /cv page */
 @media print {
   @page {
@@ -132,6 +179,11 @@ html, body {
     background: white !important;
     color: #1e1b4b !important;
     overflow: visible !important;
+  }
+
+  .cv-grid {
+    grid-template-columns: 1fr 34% !important;
+    gap: 0 16px !important;
   }
 
   h2 { page-break-after: avoid; }
