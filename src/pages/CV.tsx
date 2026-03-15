@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
@@ -107,8 +107,18 @@ function CvTag({ label, t }: { label: string; t: ThemeColors }) {
 export default function CV() {
   const [dark, setDark] = useState(true)
   const [isGenerating, setIsGenerating] = useState(false)
+  const [showPrintingOverlay, setShowPrintingOverlay] = useState(false)
   const cvRef = useRef<HTMLDivElement>(null)
+  const overlayTimeoutRef = useRef<number | null>(null)
   const t = dark ? DARK : LIGHT
+
+  useEffect(() => {
+    return () => {
+      if (overlayTimeoutRef.current !== null) {
+        window.clearTimeout(overlayTimeoutRef.current)
+      }
+    }
+  }, [])
 
   const waitForNextPaint = () =>
     new Promise<void>(resolve => {
@@ -125,6 +135,12 @@ export default function CV() {
     const previousDark = dark
     const exportScale = 2
 
+    if (overlayTimeoutRef.current !== null) {
+      window.clearTimeout(overlayTimeoutRef.current)
+      overlayTimeoutRef.current = null
+    }
+
+    setShowPrintingOverlay(true)
     setIsGenerating(true)
 
     try {
@@ -231,42 +247,48 @@ export default function CV() {
         setDark(true)
       }
       setIsGenerating(false)
+
+      overlayTimeoutRef.current = window.setTimeout(() => {
+        setShowPrintingOverlay(false)
+        overlayTimeoutRef.current = null
+      }, 1000)
     }
   }
 
   return (
     <>
-      {/* ── Toolbar (hidden on print) ── */}
-      <div className="no-print sticky top-0 z-50 bg-slate-950/90 backdrop-blur border-b border-white/5 px-4 h-14 flex items-center justify-between">
-        <Link to="/" className="text-indigo-400 font-bold tracking-widest text-sm">
-          {SITE.initials}
-        </Link>
-        <div className="flex items-center gap-3">
-          <button onClick={() => setDark(d => !d)}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors"
-            title={dark ? 'Light mode' : 'Dark mode'}>
-            {dark ? <SunIcon /> : <MoonIcon />}
-          </button>
-          <a href="/recommendations/carta - maggioli.pdf" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
-            <IcoDownload /> Recommendation Letters
-          </a>
-          <button onClick={generatePDF} disabled={isGenerating}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
-            <IcoDownload /> {isGenerating ? 'Generating PDF...' : 'Download PDF'}
-          </button>
+      <div className={showPrintingOverlay ? 'pointer-events-none select-none' : ''}>
+        {/* ── Toolbar (hidden on print) ── */}
+        <div className="no-print sticky top-0 z-50 bg-slate-950/90 backdrop-blur border-b border-white/5 px-4 h-14 flex items-center justify-between">
+          <Link to="/" className="text-indigo-400 font-bold tracking-widest text-sm">
+            {SITE.initials}
+          </Link>
+          <div className="flex items-center gap-3">
+            <button onClick={() => setDark(d => !d)}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors"
+              title={dark ? 'Light mode' : 'Dark mode'}>
+              {dark ? <SunIcon /> : <MoonIcon />}
+            </button>
+            <a href="/recommendations/carta - maggioli.pdf" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
+              <IcoDownload /> Recommendation Letters
+            </a>
+            <button onClick={generatePDF} disabled={isGenerating || showPrintingOverlay}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
+              <IcoDownload /> {showPrintingOverlay ? 'Generating PDF...' : 'Download PDF'}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* ── CV Document ── */}
-      <div ref={cvRef} className="cv-page" style={{
-        width: '210mm', minHeight: '297mm',
-        margin: '24px auto', background: t.bg,
-        padding: '14mm', boxShadow: t.shadow,
-        fontFamily: 'Georgia, Times New Roman, serif',
-        fontSize: '10.5pt', color: t.text, lineHeight: '1.5',
-        transition: 'background 0.5s, color 0.5s, box-shadow 0.5s',
-      }}>
+        {/* ── CV Document ── */}
+        <div ref={cvRef} className="cv-page" style={{
+          width: '210mm', minHeight: '297mm',
+          margin: '24px auto', background: t.bg,
+          padding: '14mm', boxShadow: t.shadow,
+          fontFamily: 'Georgia, Times New Roman, serif',
+          fontSize: '10.5pt', color: t.text, lineHeight: '1.5',
+          transition: 'background 0.5s, color 0.5s, box-shadow 0.5s',
+        }}>
 
         {/* Header */}
         <header style={{
@@ -434,7 +456,19 @@ export default function CV() {
           </div>
 
         </div>{/* /grid */}
-      </div>{/* /cv-page */}
+        </div>{/* /cv-page */}
+      </div>
+
+      {showPrintingOverlay && (
+        <div className="fixed inset-0 z-[120] bg-slate-950/45 backdrop-blur-md flex items-center justify-center">
+          <p
+            className="text-white text-3xl md:text-5xl font-bold tracking-[0.2em] uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.35)]"
+            style={{ fontFamily: 'Audiowide, sans-serif' }}
+          >
+            Printing PDF...
+          </p>
+        </div>
+      )}
     </>
   )
 }
