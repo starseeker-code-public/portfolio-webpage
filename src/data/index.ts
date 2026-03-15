@@ -12,12 +12,15 @@ export const SITE = {
   email:     'proyecto_noether@outlook.com',
   photo:     '/photo.png',
   location:  'Albacete, Spain (open to Madrid on-site once a week)',
+  fullAddress: 'C. Hermanos Jiménez, 24, 1B, 02004 Albacete',
+  locationUrl: 'https://maps.app.goo.gl/DLYp7yCkraK8mQS69',
   phone:     '+34 696 02 68 63',
+  phoneUrl:  'tel:+34696026863',
   website:   'https://www.joaquin.com',
   social: {
     github:    'https://github.com/starseeker-code-public',
     linkedin:  'https://www.linkedin.com/in/joaquin-hernandez-martinez-91a57221a/',
-    instagram: '#',
+    instagram: 'https://www.instagram.com/starseeker-code/',
     codewars:  'https://www.codewars.com/users/Starseeker1414',
   },
 }
@@ -63,7 +66,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Allot',
     desc:    'Senior Python engineer in ASM (Allot Secure Management) team. Complex cybersecurity backend for ISP traffic and user security management.',
     details: 'Responsible for ASM microservices code as well as QA testing. Building and maintaining a highly available security platform that processes ISP traffic at scale.',
-    tags:    ['Flask', 'MongoDB', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', 'Go'],
+    tags:    ['Flask', 'MongoDB', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', "Kafka", "RedPanda", "Connexion", 'Go', "OpenLens", "Grafana", "Prometheus", "Claude Code", "Copilot", ],
   },
   {
     period:  'May 2024 – Apr 2025',
@@ -71,7 +74,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Mercedes-Benz (Infoser New Technologies)',
     desc:    'Evolved a large-scale FastAPI microservices system for Azure provisioning. Main testing engineer with 90%+ automated coverage.',
     details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism.',
-    tags:    ['FastAPI', 'Azure', 'BDD/TDD', 'Python', 'Pulumi', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
+    tags:    ['FastAPI', 'Azure', 'BDD/TDD', "SQLAlchemy", "Alembic", 'Python', 'Pulumi', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
   },
   {
     period:  'Nov 2022 – Apr 2024',
@@ -79,7 +82,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Frenetic',
     desc:    'Led the refactor of a complex calculation monolith with an AI module, growing the team from 4 to 9 engineers.',
     details: 'Refactored over 2 million lines of Python technical debt. Drove the main refactor effort across the full engineering team. Specialized in concurrent code debugging, advanced Python features, and package/framework development.',
-    tags:    ['Leadership', 'AsyncIO', 'Kafka', 'Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry'],
+    tags:    ['Leadership', 'AsyncIO', 'Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry', "Copilot"],
   },
   {
     period:  'Jun 2021 – Nov 2022',
@@ -102,18 +105,11 @@ export const EXPERIENCE: ExperienceEntry[] = [
 export const PROJECTS: Project[] = [
   {
     title:  'Joy - AI Journal',
-    desc:   'Full-stack journaling application with AI-powered insights. Built with FastAPI backend, PostgreSQL database, and React frontend. Features SSO authentication, RESTful APIs, and containerized deployment.',
+    desc:   'Full-stack journaling application with AI-powered insights. Built with Flask backend, PostgreSQL database, and React frontend. Features SSO authentication, RESTful APIs, and containerized deployment.',
     image:  'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80',
-    github: 'https://github.com',
+    github: 'https://github.com/starseeker-code-public/joy-ai-rest-journaling-system',
     tags:   ['Python', 'FastAPI', 'PostgreSQL', 'React', 'Docker', 'SSO'],
-  },
-  {
-    title:  'Five a Day eVolution',
-    desc:   'Event-driven data processing platform with asynchronous task queues, scheduled jobs, and real-time monitoring dashboards. Deployed on Kubernetes with CI/CD pipelines.',
-    image:  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80',
-    github: 'https://github.com',
-    tags:   ['Celery', 'Redis', 'Pandas', 'Docker', 'Kubernetes', 'Grafana'],
-  },
+  }
 ]
 
 // ── Open Source (commented out per request) ──
@@ -155,15 +151,15 @@ export const SERVICES: Service[] = [
 export const BLOG_POSTS: BlogPost[] = []
 
 export const TESTIMONIALS: Testimonial[] = [
-  { name: 'Sven Rieke', role: 'Software Manager at Allot',
-    text: '...WIP...',
-    email: 'test@example.com', phone: '+34 600 000 000' },
+  { name: 'María Jesús Martínez Leo', role: 'Senior HR specialist',
+    text: 'I recommend Joaquín Hernández Martínez as a capable engineer. He demonstrated leadership overcoming the challenges in our team, and proved to be a worthy member and team player of the Systems team. To be noted were his contributions to software design, his attention to PR reviews and quality code, and his deep knowledge of Python backend frameworks like Django and Flask. He is a valuable team member due to his experience and knowledge.',
+    email: 'mariajesus.martinez@atm-maggioli.es', phone: '+34 628 077 018' },
   { name: 'Cesar Boria', role: 'Senior Python Engineer at Mercedes Benz',
     text: '...WIP...',
-    email: 'test@example.com', phone: '+34 600 000 000' },
+    email: 'cesar.boria@mercedes-benz.com', phone: '+34 620 35 05 37' },
   { name: 'Silvia Yubitza', role: 'Five a Day Owner',
-    text: '...WIP...',
-    email: 'test@example.com', phone: '+34 600 000 000' },
+    text: '',
+    email: 'hellofiveaday@gmail.com', phone: '+34 967 04 90 96' },
 ]
 
 export const CV_CERTIFICATIONS: Certification[] = [

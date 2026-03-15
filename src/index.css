@@ -79,6 +79,15 @@ html, body {
   transform: translateY(0);
 }
 
+/* Projects "more to come" gentle flash */
+@keyframes gentle-flash {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
+}
+.projects-coming-soon {
+  animation: gentle-flash 3s ease-in-out infinite;
+}
+
 /* Teaching card sparkle twinkle */
 @keyframes sparkle-twinkle {
   0%, 100% { opacity: 0.15; transform: scale(0.8); }

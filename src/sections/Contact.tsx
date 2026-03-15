@@ -21,6 +21,14 @@ export function Contact() {
           className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm transition-colors">
           <IcoMail /> {SITE.email}
         </a>
+        <a href={SITE.phoneUrl}
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
+          📞 {SITE.phone}
+        </a>
+        <a href={SITE.locationUrl} target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
+          📍 {SITE.location}
+        </a>
         {links.map(l => (
           <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">

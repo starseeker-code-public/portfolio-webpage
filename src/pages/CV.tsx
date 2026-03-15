@@ -119,12 +119,10 @@ export default function CV() {
             title={dark ? 'Light mode' : 'Dark mode'}>
             {dark ? <SunIcon /> : <MoonIcon />}
           </button>
-          {/* Recommendation Letters — uncomment when ready
-          <a href="/recommendations.pdf" download
+          <a href="/recommendations/carta - maggioli.pdf" target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
             <IcoDownload /> Recommendation Letters
           </a>
-          */}
           <a href="/cv.pdf" download
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
             <IcoDownload /> Download PDF
@@ -161,8 +159,8 @@ export default function CV() {
             <div style={{ fontSize: '22pt', fontWeight: 700, color: t.accent, lineHeight: 1.1, fontFamily: 'sans-serif', transition: 'color 0.5s' }}>{SITE.name}</div>
             <div style={{ fontSize: '10.5pt', color: t.muted, fontFamily: 'sans-serif', marginTop: '2px', marginBottom: '7px', transition: 'color 0.5s' }}>{SITE.role}</div>
             <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px 18px', fontSize: '8.5pt', color: t.muted, fontFamily: 'sans-serif', transition: 'color 0.5s' }}>
-              <span>📍 {SITE.location}</span>
-              <span>📞 {SITE.phone}</span>
+              <span>📍 <a href={SITE.locationUrl} target="_blank" rel="noopener noreferrer" style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.fullAddress}</a></span>
+              <span>📞 <a href={SITE.phoneUrl} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.phone}</a></span>
               <span>✉ <a href={`mailto:${SITE.email}`} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.email}</a></span>
               <span>🌐 <a href={SITE.website} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.website.replace('https://', '')}</a></span>
               <span><CvGithubIcon /><a href={SITE.social.github} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.social.github.replace('https://', '')}</a></span>
