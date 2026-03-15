@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  SITE, BIO, SKILL_GROUPS,
+  SITE, BIO, SKILL_GROUPS, SPECIALIZATIONS,
   EXPERIENCE, TEACHING,
   CV_EDUCATION, CV_CERTIFICATIONS, CV_LANGUAGES,
   // CV_VOLUNTEERING,
@@ -177,7 +177,39 @@ export default function CV() {
             {/* Experience */}
             <CvHeading t={t}>Professional Experience</CvHeading>
 
-            {EXPERIENCE.map((e, i) => (
+            {/* Current job (first entry) */}
+            {EXPERIENCE.length > 0 && (() => {
+              const e = EXPERIENCE[0]
+              return (
+                <div className="cv-entry" style={{ marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
+                    <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{e.role}</span>
+                    <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
+                  </div>
+                  <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{e.company}</div>
+                  <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginTop: '4px' }}>
+                    {e.tags.map(tag => <CvTag key={tag} label={tag} t={t} />)}
+                  </div>
+                </div>
+              )
+            })()}
+
+            {/* Teaching (second position) */}
+            <div className="cv-entry" style={{ marginBottom: '14px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
+                <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{TEACHING.role}</span>
+                <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
+              </div>
+              <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{TEACHING.company}</div>
+              <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{TEACHING.desc}</div>
+            </div>
+
+            {/* Separator between current roles and previous */}
+            <div style={{ borderTop: `1px dashed ${t.border}`, margin: '4px 0 14px', transition: 'border-color 0.5s' }} />
+
+            {/* Previous jobs */}
+            {EXPERIENCE.slice(1).map((e, i) => (
               <div key={i} className="cv-entry" style={{ marginBottom: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
                   <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{e.role}</span>
@@ -191,16 +223,6 @@ export default function CV() {
               </div>
             ))}
 
-            {/* Teaching */}
-            <div className="cv-entry" style={{ marginBottom: '10px', marginTop: '6px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
-                <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{TEACHING.role}</span>
-                <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
-              </div>
-              <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{TEACHING.company}</div>
-              <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{TEACHING.desc}</div>
-            </div>
-
             {/* Open Source (commented out per request)
             <CvHeading t={t}>Open Source</CvHeading>
             */}
@@ -212,6 +234,21 @@ export default function CV() {
 
           {/* RIGHT */}
           <div>
+            {/* Specialized in */}
+            <CvHeading t={t}>Specialized In</CvHeading>
+            <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginBottom: '4px' }}>
+              {SPECIALIZATIONS.map(s => (
+                <span key={s} style={{
+                  fontFamily: 'sans-serif', fontSize: '7.5pt', fontWeight: 600,
+                  background: dark ? 'rgba(129,140,248,0.2)' : '#e0e7ff',
+                  color: t.accent, borderRadius: '3px', padding: '2px 8px',
+                  transition: 'background 0.5s, color 0.5s',
+                }}>
+                  {s}
+                </span>
+              ))}
+            </div>
+
             {/* Skills */}
             <CvHeading t={t}>Skills</CvHeading>
             {SKILL_GROUPS.map(g => (

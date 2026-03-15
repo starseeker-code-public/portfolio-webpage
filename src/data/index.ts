@@ -31,12 +31,19 @@ export const STATS: Stat[] = [
 export const BIO =
   "Senior Python engineer with 7+ years of back-end experience building production-grade services, REST APIs, and microservices architectures. Proven track record at Mercedes-Benz, BNP Paribas, and high-growth startups — delivering end-to-end solutions with PostgreSQL, Docker/Kubernetes, and robust CI/CD pipelines. Passionate about clean architecture, automated testing (90%+ coverage with BDD/TDD), and mentoring engineering teams. Fluent in English (C2) and Spanish. I use AI daily to accelerate development and improve code quality."
 
+export const SPECIALIZATIONS = [
+  'Advanced Python',
+  'Distributed Backend Design',
+  'AI Integration in Development & Backends',
+  'Team Leadership & Mentoring',
+]
+
 export const SKILL_GROUPS: SkillGroup[] = [
-  { label: 'Backend',              items: ['Python', 'OOP', 'FastAPI', 'Flask', 'Django', 'Celery', 'AsyncIO', 'Go', 'Rust'] },
-  { label: 'Databases & Brokers',  items: ['PostgreSQL', 'Redis', 'MongoDB', 'MySQL', 'Kafka', 'RabbitMQ', 'SQLAlchemy'] },
-  { label: 'Cloud & DevOps',       items: ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Pulumi', 'Ansible', 'Jenkins'] },
+  { label: 'Backend',              items: ['Python', 'OOP', 'FastAPI', 'Flask', 'Django', 'Sanic', 'Celery', 'AsyncIO', 'Concurrency', 'Metaprogramming', 'Decorators', 'Generators', 'Package Development', 'Go', 'Rust'] },
+  { label: 'Databases & Brokers',  items: ['PostgreSQL', 'PostGIS', 'Redis', 'MongoDB', 'MySQL', 'Oracle', 'Elasticsearch', 'Cassandra', 'InfluxDB', 'Kafka', 'RabbitMQ', 'SQLAlchemy', 'SQLModel', 'Django ORM'] },
+  { label: 'Cloud & DevOps',       items: ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Pulumi', 'Ansible', 'Jenkins', 'GitHub Actions', 'Airflow'] },
   { label: 'Testing & Monitoring', items: ['Pytest', 'Behave (BDD)', 'TDD', 'E2E', 'CI/CD', 'Grafana', 'Prometheus', 'Datadog'] },
-  { label: 'Architecture & APIs',  items: ['REST', 'GraphQL', 'gRPC', 'OpenAPI', 'SSO', 'Microservices', 'Clean Arch', 'DDD', 'SOLID'] },
+  { label: 'Architecture & APIs',  items: ['REST', 'GraphQL', 'gRPC', 'OpenAPI', 'SSO', 'Apigee', 'API Security', 'Microservices', 'Hexagonal', 'Clean Arch', 'Event-Driven', 'DDD', 'SOLID'] },
   { label: 'Frontend',             items: ['React', 'TypeScript', 'JavaScript', 'Tailwind'] },
 ]
 
