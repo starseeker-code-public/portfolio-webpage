@@ -32,7 +32,7 @@ export const STATS: Stat[] = [
 ]
 
 export const BIO =
-  "Senior Python engineer with 7+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing and code standards, and leverage AI daily to ship production-ready software. Bilingual (C2 english certified)."
+  'Senior Python engineer with 7+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing and code standards, and leverage AI daily to ship production-ready software. Bilingual (C2 english certified).'
 
 export const SPECIALIZATIONS = [
   'Advanced Python',
@@ -66,7 +66,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Allot',
     desc:    'Senior Python engineer in ASM (Allot Secure Management) team. Complex cybersecurity backend for ISP traffic and user security management.',
     details: 'Responsible for ASM microservices code as well as QA testing. Building and maintaining a highly available security platform that processes ISP traffic at scale.',
-    tags:    ['Flask', 'MongoDB', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', "Kafka", "RedPanda", "Connexion", 'Go', "OpenLens", "Grafana", "Prometheus", "Claude Code", "Copilot", ],
+    tags:    ['Flask', 'MongoDB', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', 'Kafka', 'RedPanda', 'Connexion', 'Go', 'OpenLens', 'Grafana', 'Prometheus', 'Claude Code', 'Copilot'],
   },
   {
     period:  'May 2024 – Apr 2025',
@@ -74,7 +74,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Mercedes-Benz (Infoser New Technologies)',
     desc:    'Evolved a large-scale FastAPI microservices system for Azure provisioning. Main testing engineer with 90%+ automated coverage.',
     details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism.',
-    tags:    ['FastAPI', 'Azure', 'BDD/TDD', "SQLAlchemy", "Alembic", 'Python', 'Pulumi', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
+    tags:    ['FastAPI', 'Azure', 'BDD/TDD', 'SQLAlchemy', 'Alembic', 'Python', 'Pulumi', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
   },
   {
     period:  'Nov 2022 – Apr 2024',
@@ -82,7 +82,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Frenetic',
     desc:    'Led the refactor of a complex calculation monolith with an AI module, growing the team from 4 to 9 engineers.',
     details: 'Refactored over 2 million lines of Python technical debt. Drove the main refactor effort across the full engineering team. Specialized in concurrent code debugging, advanced Python features, and package/framework development.',
-    tags:    ['Leadership', 'AsyncIO', 'Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry', "Copilot"],
+    tags:    ['Leadership', 'AsyncIO', 'Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry', 'Copilot'],
   },
   {
     period:  'Jun 2021 – Nov 2022',
@@ -106,9 +106,9 @@ export const PROJECTS: Project[] = [
   {
     title:  'Joy - AI Journal',
     desc:   'Full-stack journaling application with AI-powered insights. Built with Flask backend, PostgreSQL database, and React frontend. Features SSO authentication, RESTful APIs, and containerized deployment.',
-    image:  'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80',
+    image:  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80',
     github: 'https://github.com/starseeker-code-public/joy-ai-rest-journaling-system',
-    tags:   ['Python', 'FastAPI', 'PostgreSQL', 'React', 'Docker', 'SSO'],
+    tags:   ['Python', 'Flask', 'PostgreSQL', 'React', 'Docker', 'SSO', "Still in progress"],
   }
 ]
 

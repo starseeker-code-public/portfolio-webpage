@@ -24,11 +24,11 @@ export default function Home() {
       <Divider />
       {/* <OpenSource /> */}
       {/* <Divider /> */}
-      <Services />
+      <Testimonials />
       {/* <Divider /> */}
       {/* <Blog /> */}
       <Divider />
-      <Testimonials />
+      <Services />
       <Divider />
       <Contact />
       <Footer />
