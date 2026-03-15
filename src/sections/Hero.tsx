@@ -26,6 +26,31 @@ function Typewriter({ text, speed = 45 }: { text: string; speed?: number }) {
   )
 }
 
+function RoleRotator({ roles }: { roles: string[] }) {
+  const [index, setIndex] = useState(0)
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setVisible(false)
+      setTimeout(() => {
+        setIndex(i => (i + 1) % roles.length)
+        setVisible(true)
+      }, 600)
+    }, 4000)
+    return () => clearInterval(id)
+  }, [roles.length])
+
+  return (
+    <span
+      className="inline-block transition-all duration-500 ease-in-out"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(6px)' }}
+    >
+      {roles[index]}
+    </span>
+  )
+}
+
 export function Hero() {
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -35,7 +60,7 @@ export function Hero() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-indigo-700/15 blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 left-1/4 w-48 h-48 rounded-full bg-violet-800/10 blur-3xl pointer-events-none" />
 
-      <p className="text-indigo-400 text-xs tracking-[0.3em] uppercase mb-4">{SITE.role}</p>
+      <p className="text-indigo-400 text-xs tracking-[0.3em] uppercase mb-4"><RoleRotator roles={SITE.role} /></p>
       <h1 className="text-5xl sm:text-7xl font-bold text-white leading-tight mb-6 font-anta">
         {SITE.name.split(' ')[0]}{' '}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">

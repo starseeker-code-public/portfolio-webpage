@@ -7,7 +7,7 @@ import type {
 export const SITE = {
   initials:  'JOA.DEV',
   name:      'Joaquín Hernández Martínez',
-  role:      'Senior Backend Engineer | Fullstack Developer  | Leader and Architect',
+  role:      ['Senior Backend Engineer', 'Fullstack Developer', 'Leader and Architect'],
   tagline:   'Building reliable back-end services, APIs, and cloud infrastructure — with 7+ years turning complex requirements into production-ready systems.',
   email:     'proyecto_noether@outlook.com',
   photo:     '/photo.png',
@@ -32,7 +32,7 @@ export const STATS: Stat[] = [
 ]
 
 export const BIO =
-  "Senior Python engineer with 7+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing standards, and leverage AI daily to ship production-ready software. Native Spanish speaker, fluent in English (C2 certified), and immediately available."
+  "Senior Python engineer with 7+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing and code standards, and leverage AI daily to ship production-ready software. Bilingual (C2 english certified)."
 
 export const SPECIALIZATIONS = [
   'Advanced Python',
@@ -155,10 +155,10 @@ export const TESTIMONIALS: Testimonial[] = [
     text: 'I recommend Joaquín Hernández Martínez as a capable engineer. He demonstrated leadership overcoming the challenges in our team, and proved to be a worthy member and team player of the Systems team. To be noted were his contributions to software design, his attention to PR reviews and quality code, and his deep knowledge of Python backend frameworks like Django and Flask. He is a valuable team member due to his experience and knowledge.',
     email: 'mariajesus.martinez@atm-maggioli.es', phone: '+34 628 077 018' },
   { name: 'Cesar Boria', role: 'Senior Python Engineer at Mercedes Benz',
-    text: '...WIP...',
+    text: 'Joaquín is a very good team mate. I worked with him developing Pulumi services in a microservices architecture to provision Azure services for AI and Data teams worldwide. His knowledge of design patterns and distributed backend systems was particularly useful. He lead a BDD E2E testing project too and was responsible for ADX Azure component development from scratch. Excellent PR reviews.',
     email: 'cesar.boria@mercedes-benz.com', phone: '+34 620 35 05 37' },
   { name: 'Silvia Yubitza', role: 'Five a Day Owner',
-    text: '',
+    text: 'Joaquín Hernández Martínez demonstrated strong leadership and engineering skill by independently planning, developing, and delivering a production-ready web application for managing students, payments, and administrative workflows, showing the ability to turn complex requirements into practical and reliable software solutions.',
     email: 'hellofiveaday@gmail.com', phone: '+34 967 04 90 96' },
 ]
 

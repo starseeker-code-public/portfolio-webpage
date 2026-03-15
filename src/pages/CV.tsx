@@ -157,7 +157,7 @@ export default function CV() {
           }} />
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: '22pt', fontWeight: 700, color: t.accent, lineHeight: 1.1, fontFamily: 'sans-serif', transition: 'color 0.5s' }}>{SITE.name}</div>
-            <div style={{ fontSize: '10.5pt', color: t.muted, fontFamily: 'sans-serif', marginTop: '2px', marginBottom: '7px', transition: 'color 0.5s' }}>{SITE.role}</div>
+            <div style={{ fontSize: '10.5pt', color: t.muted, fontFamily: 'sans-serif', marginTop: '2px', marginBottom: '7px', transition: 'color 0.5s' }}>{SITE.role.join(' · ')}</div>
             <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px 18px', fontSize: '8.5pt', color: t.muted, fontFamily: 'sans-serif', transition: 'color 0.5s' }}>
               <span>📍 <a href={SITE.locationUrl} target="_blank" rel="noopener noreferrer" style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.fullAddress}</a></span>
               <span>📞 <a href={SITE.phoneUrl} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.phone}</a></span>
