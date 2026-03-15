@@ -7,16 +7,16 @@ import type {
 export const SITE = {
   initials:  'JOA.DEV',
   name:      'Joaquín Hernández Martínez',
-  role:      'Senior Python Engineer | Fullstack Developer',
+  role:      'Senior Backend Engineer | Fullstack Developer  | Leader and Architect',
   tagline:   'Building reliable back-end services, APIs, and cloud infrastructure — with 7+ years turning complex requirements into production-ready systems.',
   email:     'proyecto_noether@outlook.com',
   photo:     '/photo.png',
-  location:  'Albacete, Spain (open to Madrid on-site weekly)',
+  location:  'Albacete, Spain (open to Madrid on-site once a week)',
   phone:     '+34 696 02 68 63',
-  website:   'joaquin.com',
+  website:   'https://www.joaquin.com',
   social: {
     github:    'https://github.com/starseeker-code-public',
-    linkedin:  '#',
+    linkedin:  'https://www.linkedin.com/in/joaquin-hernandez-martinez-91a57221a/',
     instagram: '#',
     codewars:  'https://www.codewars.com/users/Starseeker1414',
   },
@@ -29,7 +29,7 @@ export const STATS: Stat[] = [
 ]
 
 export const BIO =
-  "Senior Python engineer with 7+ years of back-end experience building production-grade services, REST APIs, and microservices architectures. Proven track record at Mercedes-Benz, BNP Paribas, and high-growth startups — delivering end-to-end solutions with PostgreSQL, Docker/Kubernetes, and robust CI/CD pipelines. Passionate about clean architecture, automated testing (90%+ coverage with BDD/TDD), and mentoring engineering teams. Fluent in English (C2) and Spanish. I use AI daily to accelerate development and improve code quality."
+  "Senior Python engineer with 7+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing standards, and leverage AI daily to ship production-ready software. Native Spanish speaker, fluent in English (C2 certified), and immediately available."
 
 export const SPECIALIZATIONS = [
   'Advanced Python',
@@ -156,11 +156,14 @@ export const BLOG_POSTS: BlogPost[] = []
 
 export const TESTIMONIALS: Testimonial[] = [
   { name: 'Sven Rieke', role: 'Software Manager at Allot',
-    text: '...WIP...' },
+    text: '...WIP...',
+    email: 'test@example.com', phone: '+34 600 000 000' },
   { name: 'Cesar Boria', role: 'Senior Python Engineer at Mercedes Benz',
-    text: '...WIP...' },
+    text: '...WIP...',
+    email: 'test@example.com', phone: '+34 600 000 000' },
   { name: 'Silvia Yubitza', role: 'Five a Day Owner',
-    text: '...WIP...' }
+    text: '...WIP...',
+    email: 'test@example.com', phone: '+34 600 000 000' },
 ]
 
 export const CV_CERTIFICATIONS: Certification[] = [

@@ -47,6 +47,8 @@ export interface Testimonial {
   name: string
   role: string
   text: string
+  email: string
+  phone: string
 }
 
 export interface Certification {

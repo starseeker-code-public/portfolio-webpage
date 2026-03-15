@@ -119,6 +119,12 @@ export default function CV() {
             title={dark ? 'Light mode' : 'Dark mode'}>
             {dark ? <SunIcon /> : <MoonIcon />}
           </button>
+          {/* Recommendation Letters — uncomment when ready
+          <a href="/recommendations.pdf" download
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
+            <IcoDownload /> Recommendation Letters
+          </a>
+          */}
           <a href="/cv.pdf" download
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
             <IcoDownload /> Download PDF
@@ -198,7 +204,7 @@ export default function CV() {
             {/* Teaching (second position) */}
             <div className="cv-entry" style={{ marginBottom: '14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
-                <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{TEACHING.role}</span>
+                <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{TEACHING.role} <span style={{ fontSize: '7.5pt', fontWeight: 400, fontStyle: 'italic', color: t.muted }}>(also teach)</span></span>
                 <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
               </div>
               <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{TEACHING.company}</div>

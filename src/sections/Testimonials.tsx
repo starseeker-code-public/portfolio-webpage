@@ -13,6 +13,7 @@ export function Testimonials() {
             <div>
               <p className="text-white text-sm font-semibold">{t.name}</p>
               <p className="text-slate-500 text-xs">{t.role}</p>
+              <p className="text-slate-600 text-xs mt-1">{t.email} · {t.phone}</p>
             </div>
           </div>
         ))}
