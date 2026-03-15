@@ -11,7 +11,15 @@ export interface ExperienceEntry {
   role: string
   company: string
   desc: string
+  details: string
   tags: string[]
+}
+
+export interface TeachingEntry {
+  period: string
+  role: string
+  company: string
+  desc: string
 }
 
 export interface OpenSourceRepo {

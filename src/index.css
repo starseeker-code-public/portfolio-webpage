@@ -43,7 +43,40 @@
   to   { transform: translate(-60px, -40px); }
 }
 .stars-layer {
-  animation: star-drift 60s linear infinite alternate;
+  animation: star-drift 20s linear infinite alternate;
+}
+
+/* Keyword glow for About bio */
+.keyword-glow {
+  color: #a5b4fc;
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(129, 140, 248, 0.35);
+}
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Hint popup for tech stack */
+.hint-popup {
+  position: absolute;
+  top: -4px;
+  right: 0;
+  font-size: 0.75rem;
+  color: #818cf8;
+  background: rgba(30, 27, 75, 0.85);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 0.5rem;
+  padding: 4px 12px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.hint-popup.hint-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* CV print styles — only active when printing /cv page */

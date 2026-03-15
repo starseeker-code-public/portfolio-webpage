@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import {
   SITE, BIO, SKILL_GROUPS,
-  EXPERIENCE,
-  CV_EDUCATION, CV_CERTIFICATIONS, CV_LANGUAGES, CV_VOLUNTEERING,
-  OPEN_SOURCE,
+  EXPERIENCE, TEACHING,
+  CV_EDUCATION, CV_CERTIFICATIONS, CV_LANGUAGES,
+  // CV_VOLUNTEERING,
+  // OPEN_SOURCE,
 } from '../data'
 import { IcoDownload, IcoPrint } from '../components/icons'
 
@@ -89,6 +90,7 @@ export default function CV() {
 
             {/* Experience */}
             <CvHeading>Professional Experience</CvHeading>
+
             {EXPERIENCE.map((e, i) => (
               <div key={i} className="cv-entry" style={{ marginBottom: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
@@ -96,14 +98,24 @@ export default function CV() {
                   <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280', whiteSpace: 'nowrap' as const }}>{e.period}</span>
                 </div>
                 <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: '#6366f1', marginBottom: '3px' }}>{e.company}</div>
-                <div style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.45, textAlign: 'justify' }}>{e.desc}</div>
+                <div style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.45, textAlign: 'justify' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginTop: '4px' }}>
                   {e.tags.map(t => <CvTag key={t} label={t} />)}
                 </div>
               </div>
             ))}
 
-            {/* Open Source */}
+            {/* Teaching */}
+            <div className="cv-entry" style={{ marginBottom: '10px', marginTop: '6px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
+                <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700 }}>{TEACHING.role}</span>
+                <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: '#6b7280', whiteSpace: 'nowrap' as const }}>{TEACHING.period}</span>
+              </div>
+              <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: '#6366f1', marginBottom: '3px' }}>{TEACHING.company}</div>
+              <div style={{ fontSize: '9.5pt', color: '#374151', lineHeight: 1.45, textAlign: 'justify' }}>{TEACHING.desc}</div>
+            </div>
+
+            {/* Open Source (commented out per request)
             <CvHeading>Open Source</CvHeading>
             {OPEN_SOURCE.map((r, i) => (
               <div key={i} className="cv-entry" style={{ marginBottom: '7px' }}>
@@ -114,8 +126,9 @@ export default function CV() {
                 <div style={{ fontSize: '9pt', color: '#374151', textAlign: 'justify' }}>{r.desc}</div>
               </div>
             ))}
+            */}
 
-            {/* Volunteering */}
+            {/* Volunteering (commented out per request)
             <CvHeading>Volunteering</CvHeading>
             {CV_VOLUNTEERING.map((v, i) => (
               <div key={i} className="cv-entry" style={{ marginBottom: '7px' }}>
@@ -128,6 +141,7 @@ export default function CV() {
                 <div style={{ fontSize: '9pt', color: '#374151', textAlign: 'justify' }}>{v.desc}</div>
               </div>
             ))}
+            */}
           </div>
 
           {/* RIGHT */}

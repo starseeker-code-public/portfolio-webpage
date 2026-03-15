@@ -1,17 +1,17 @@
 import type {
   Project, ExperienceEntry, OpenSourceRepo, Service,
   BlogPost, Testimonial, Certification, Language,
-  Education, Volunteering, Stat, SkillGroup,
+  Education, Volunteering, Stat, SkillGroup, TeachingEntry,
 } from '../types'
 
 export const SITE = {
   initials:  'JOA.DEV',
   name:      'Joaquín Hernández Martínez',
-  role:      'Senior Software Engineer',
-  tagline:   'Building systems that scale — from data pipelines to APIs — with the same precision required to navigate the cosmos.',
+  role:      'Senior Python Engineer | Fullstack Developer',
+  tagline:   'Building reliable back-end services, APIs, and cloud infrastructure — with 7+ years turning complex requirements into production-ready systems.',
   email:     'proyecto_noether@outlook.com',
   photo:     '/photo.png',
-  location:  'Albacete, Spain',
+  location:  'Albacete, Spain (open to Madrid on-site weekly)',
   phone:     '+34 696 02 68 63',
   website:   'joaquin.com',
   social: {
@@ -29,91 +29,115 @@ export const STATS: Stat[] = [
 ]
 
 export const BIO =
-  "I build robust backend systems, data pipelines, and infrastructure as code. Passionate about clean architecture, automation, and the occasional stargazing session. When I'm not writing Python, I'm seting up my telescope."
+  "Senior Python engineer with 7+ years of back-end experience building production-grade services, REST APIs, and microservices architectures. Proven track record at Mercedes-Benz, BNP Paribas, and high-growth startups — delivering end-to-end solutions with PostgreSQL, Docker/Kubernetes, and robust CI/CD pipelines. Passionate about clean architecture, automated testing (90%+ coverage with BDD/TDD), and mentoring engineering teams. Fluent in English (C2) and Spanish. I use AI daily to accelerate development and improve code quality."
 
 export const SKILL_GROUPS: SkillGroup[] = [
-  { label: 'Languages',    items: ['Python', 'Go', 'Rust'] },
-  { label: 'Frameworks',   items: ['FastAPI', 'Django', 'Flask', 'Celery'] },
-  { label: 'Data & Infra', items: ['PostgreSQL', 'Redis', 'Airflow', 'Pulumi'] },
-  { label: 'DevOps',       items: ['Docker', 'AWS', 'Terraform', 'Jenkins'] },
-  { label: 'Practices',    items: ['TDD', 'Clean Arch.', 'OpenAPI', 'Async'] },
+  { label: 'Backend',              items: ['Python', 'OOP', 'FastAPI', 'Flask', 'Django', 'Celery', 'AsyncIO', 'Go', 'Rust'] },
+  { label: 'Databases & Brokers',  items: ['PostgreSQL', 'Redis', 'MongoDB', 'MySQL', 'Kafka', 'RabbitMQ', 'SQLAlchemy'] },
+  { label: 'Cloud & DevOps',       items: ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Pulumi', 'Ansible', 'Jenkins'] },
+  { label: 'Testing & Monitoring', items: ['Pytest', 'Behave (BDD)', 'TDD', 'E2E', 'CI/CD', 'Grafana', 'Prometheus', 'Datadog'] },
+  { label: 'Architecture & APIs',  items: ['REST', 'GraphQL', 'gRPC', 'OpenAPI', 'SSO', 'Microservices', 'Clean Arch', 'DDD', 'SOLID'] },
+  { label: 'Frontend',             items: ['React', 'TypeScript', 'JavaScript', 'Tailwind'] },
 ]
 
 export const SKILLS = SKILL_GROUPS.flatMap(g => g.items)
+
+export const TEACHING: TeachingEntry = {
+  period:  '2023 – Present',
+  role:    'Python Instructor',
+  company: 'Tajamar',
+  desc:    'Delivering advanced Python programming training to professional developers. Hands-on mentoring on code quality, architecture design, and best practices adoption.',
+}
 
 export const EXPERIENCE: ExperienceEntry[] = [
   {
     period:  'May 2025 – Present',
     role:    'Senior Python Backend Developer',
     company: 'Allot',
-    desc:    'Senior Python engineer in ASM (Allot Secure Management) team. Responsible of ASM microservices code, as well as QA testing. Very complex cybersecurity backend for ISP traffic and user security management.',
-    tags:    ['Python', 'Flask', 'MongoDB', 'Redis', 'Kubernetes', 'OpenAPI', 'Go'],
+    desc:    'Senior Python engineer in ASM (Allot Secure Management) team. Complex cybersecurity backend for ISP traffic and user security management.',
+    details: 'Responsible for ASM microservices code as well as QA testing. Building and maintaining a highly available security platform that processes ISP traffic at scale.',
+    tags:    ['Flask', 'MongoDB', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', 'Go'],
   },
   {
-    period:  'May 2024 – April 2025',
-    role:    'Senior Backend Engineer',
-    company: 'Mercedes Benz',
-    desc:    'Senior Python engineer in Automation team. Responsible of Pulumi infrastructure as code for Azure MLOps and Data Warehouse resources, as well as Azure administration and giving support to data and AI teams. Very complex infrastructure as code and Pulumi microservices architecture for Azure provisioning.',
-    tags:    ['Python', 'Pulumi', 'FastAPI', 'Azure', 'Docker', 'Go'],
+    period:  'May 2024 – Apr 2025',
+    role:    'Senior Python Developer',
+    company: 'Mercedes-Benz (Infoser New Technologies)',
+    desc:    'Evolved a large-scale FastAPI microservices system for Azure provisioning. Main testing engineer with 90%+ automated coverage.',
+    details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism.',
+    tags:    ['FastAPI', 'Azure', 'BDD/TDD', 'Python', 'Pulumi', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
   },
   {
-    period:  'Nov 2022 – April 2024',
-    role:    'Lead Python Engineer',
+    period:  'Nov 2022 – Apr 2024',
+    role:    'Senior Python Developer & Lead Developer',
     company: 'Frenetic',
-    desc:    'Python expert for Engine team. Refactor of a complex calculation’s monolith with an AI module.',
-    tags:    ['Python', 'Flask', 'Pytest', 'Redis', 'Jenkins', 'AsyncIO', 'Poetry', 'Concurrent programming'],
+    desc:    'Led the refactor of a complex calculation monolith with an AI module, growing the team from 4 to 9 engineers.',
+    details: 'Refactored over 2 million lines of Python technical debt. Drove the main refactor effort across the full engineering team. Specialized in concurrent code debugging, advanced Python features, and package/framework development.',
+    tags:    ['Leadership', 'AsyncIO', 'Kafka', 'Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry'],
   },
   {
     period:  'Jun 2021 – Nov 2022',
-    role:    'Senior Python Engineer and DevOps Specialist',
-    company: 'Frenetic',
-    desc:    'Python developer for Robotics team. Developer of Vanish, a devOps python framework and operative support for BNP Paribas microservices system.',
-    tags:    ['Python', 'FastAPI', 'Pytest', 'SQLAlchemy', 'Ansible (Tower)', 'Kubernetes', 'Apigee', 'Airflow', 'Go'],
-  }
+    role:    'Senior Python Developer & DevOps',
+    company: 'BNP Paribas',
+    desc:    'Built and maintained FastAPI microservices and created Vanish, a DevOps Python framework for the BNP Paribas system.',
+    details: 'Improved 3 existing services, developed 1 new service, and provided ongoing maintenance for several others. Ansible configuration and security support. Production run-readiness and monitoring setup.',
+    tags:    ['Kubernetes', 'Ansible', 'Terraform', 'Python', 'FastAPI', 'Pytest', 'Redis', 'Docker', 'Apigee', 'PostgreSQL', 'Airflow', 'Go'],
+  },
+  {
+    period:  'Aug 2018 – Jul 2022',
+    role:    'Python Developer (Freelance)',
+    company: 'ATM Maggioli · Prosegur (Cipher) · BBVA',
+    desc:    'Data engineer and Python developer across enterprise clients in finance, security, and public administration.',
+    details: 'Built REST APIs, data pipelines, and backend services. Gained broad experience with PostgreSQL, Docker, CI/CD, and cloud platforms (AWS, Azure).',
+    tags:    ['PostgreSQL', 'REST APIs', 'AWS', 'Python', 'Docker', 'Data Engineering', 'CI/CD'],
+  },
 ]
 
 export const PROJECTS: Project[] = [
   {
     title:  'Joy - AI Journal',
-    desc:   '',
+    desc:   'Full-stack journaling application with AI-powered insights. Built with FastAPI backend, PostgreSQL database, and React frontend. Features SSO authentication, RESTful APIs, and containerized deployment.',
     image:  'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80',
     github: 'https://github.com',
-    tags:   ['Python', 'PostgreSQL', 'FastAPI'],
+    tags:   ['Python', 'FastAPI', 'PostgreSQL', 'React', 'Docker', 'SSO'],
   },
   {
     title:  'Five a Day eVolution',
-    desc:   '',
+    desc:   'Event-driven data processing platform with asynchronous task queues, scheduled jobs, and real-time monitoring dashboards. Deployed on Kubernetes with CI/CD pipelines.',
     image:  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80',
     github: 'https://github.com',
-    tags:   ['Celery', 'Redis', 'Pandas'],
-  }
+    tags:   ['Celery', 'Redis', 'Pandas', 'Docker', 'Kubernetes', 'Grafana'],
+  },
 ]
 
-export const OPEN_SOURCE: OpenSourceRepo[] = [
-  {
-    name:   'fastapi-pagination-cursor',
-    desc:   'Cursor-based pagination extension for FastAPI with SQLAlchemy support.',
-    stars:  95,
-    github: 'https://github.com',
-    tags:   ['FastAPI', 'SQLAlchemy'],
-  }
-]
+// ── Open Source (commented out per request) ──
+// export const OPEN_SOURCE: OpenSourceRepo[] = [
+//   {
+//     name:   'fastapi-pagination-cursor',
+//     desc:   'Cursor-based pagination extension for FastAPI with SQLAlchemy support.',
+//     stars:  95,
+//     github: 'https://github.com',
+//     tags:   ['FastAPI', 'SQLAlchemy'],
+//   }
+// ]
+export const OPEN_SOURCE: OpenSourceRepo[] = []
 
 export const SERVICES: Service[] = [
-  { icon: '⚙️', title: 'Backend Development',
-    desc: 'Senior engineer for backend projects. Polyglot of languages like Python, Go, Rust, etc...' },
-  { icon: '🔁', title: 'Infrastructure Automation',
-    desc: 'Robust infrastructure as code with Terraform or Pulumi, and Software Ops automation (specialized in AI).' },
-  { icon: '🐳', title: 'DevOps & Cloud',
-    desc: 'Dockerized deployments, CI/CD pipelines with Jenkins or Github Actions, and AWS, Azure or GCP administration and development.' },
-  { icon: '💻', title: 'AI for Engineering & AI Integrations',
-    desc: 'Specialized in AI workflows and tooling for development. Experience integrating AI with abckends and software as a service.' },
+  { icon: '⚙️', title: 'Production Backend & APIs',
+    desc: 'End-to-end Python back-end services with PostgreSQL — from design to containerized deployment on Docker/Kubernetes — including tests, docs, alerting, and redundancy.' },
+  { icon: '🔄', title: 'Legacy Migration & Modernization',
+    desc: 'Breaking monoliths into microservices and tackling large-scale technical debt. Led a 2 M+ line refactor at Frenetic, growing the team from 4 to 9 engineers.' },
+  { icon: '🧪', title: 'Testing, CI/CD & Observability',
+    desc: 'Automated BDD/TDD pipelines with 90 %+ coverage, E2E test automation that cut weekly tickets from 12 to 3, and production monitoring with Grafana, Prometheus, and Datadog.' },
+  { icon: '🚀', title: 'Leadership & AI-Driven Delivery',
+    desc: 'Mentoring developers, leading code reviews, and using AI/Copilot daily. Currently training professional engineers as a Software Engineering Instructor.' },
 ]
 
-export const BLOG_POSTS: BlogPost[] = [
-  { title: 'Why I switched from Celery to asyncio queues for I/O-bound tasks',
-    date: 'Feb 2025', url: '#', readTime: '8 min' }
-]
+// ── Blog (commented out per request) ──
+// export const BLOG_POSTS: BlogPost[] = [
+//   { title: 'Why I switched from Celery to asyncio queues for I/O-bound tasks',
+//     date: 'Feb 2025', url: '#', readTime: '8 min' }
+// ]
+export const BLOG_POSTS: BlogPost[] = []
 
 export const TESTIMONIALS: Testimonial[] = [
   { name: 'Sven Rieke', role: 'Software Manager at Allot',
@@ -125,19 +149,27 @@ export const TESTIMONIALS: Testimonial[] = [
 ]
 
 export const CV_CERTIFICATIONS: Certification[] = [
-  { name: 'AWS Certified Developer – Associate', issuer: 'Amazon Web Services', year: '2023' }
+  { name: 'AWS Certified Cloud Practitioner', issuer: 'Amazon Web Services', year: '2023' },
+  { name: 'Azure Developer Course', issuer: 'Freecodecamp', year: '2024' },
+  { name: 'Azure Fundamentals Course', issuer: 'Freecodecamp', year: '2024' },
+  { name: 'AWS Cloud Complete Bootcamp', issuer: 'AWS', year: '2023' },
+  { name: 'Docker Mastery with Kubernetes & Swarm', issuer: 'Docker Captain', year: '2022' },
+  { name: 'React – The Complete Guide', issuer: 'Udemy', year: '2023' },
+  { name: 'FastAPI – The Complete Course', issuer: 'Udemy', year: '2022' },
+  { name: 'Go Programming with Bonus Projects', issuer: 'Golang Course', year: '2024' },
 ]
 
 export const CV_LANGUAGES: Language[] = [
   { lang: 'Spanish', level: 'Native' },
-  { lang: 'English', level: 'Fluent (C2)' }
+  { lang: 'English', level: 'Fluent (C2 certified)' },
+  { lang: 'German',  level: 'Learning' },
 ]
 
 export const CV_EDUCATION: Education[] = [
-  { degree: 'Electrical Engineering (TBF)', school: 'UNED', year: '2016 – 2026' }
+  { degree: 'Degree in Electrical Engineering', school: 'UNED', year: '2016 – Present' },
 ]
 
 export const CV_VOLUNTEERING: Volunteering[] = [
   { role: 'Mentor', org: 'PyLadies Madrid', period: '2021 – Now',
-    desc: 'Weekly mentoring sessions for women entering Python development.'}
+    desc: 'Weekly mentoring sessions for women entering Python development.' }
 ]
