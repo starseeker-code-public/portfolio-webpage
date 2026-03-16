@@ -12,6 +12,7 @@ export interface ExperienceEntry {
   period: string
   role: string
   company: string
+  companyUrl: string
   desc: string
   details: string
   tags: string[]
@@ -21,6 +22,7 @@ export interface TeachingEntry {
   period: string
   role: string
   company: string
+  companyUrl: string
   desc: string
 }
 

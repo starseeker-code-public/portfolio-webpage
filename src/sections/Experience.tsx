@@ -47,7 +47,18 @@ export function Experience() {
               <div>
                 {i === 0 && <p className="text-xs text-indigo-400 uppercase tracking-wider mb-1">Currently working</p>}
                 <h3 className="text-white font-semibold text-lg">{e.role}</h3>
-                <p className="text-indigo-400 text-sm">{e.company}</p>
+                {e.companyUrl.trim().length > 0 ? (
+                  <a
+                    href={e.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-indigo-400 text-sm hover:text-indigo-300 transition-colors hover:underline underline-offset-2"
+                  >
+                    {e.company}
+                  </a>
+                ) : (
+                  <p className="text-indigo-400 text-sm">{e.company}</p>
+                )}
               </div>
               <span className="text-xs text-slate-500 shrink-0">{e.period}</span>
             </div>
@@ -84,7 +95,18 @@ export function Experience() {
               Also teaching
             </p>
             <h3 className="text-white font-semibold text-lg">{TEACHING.role}</h3>
-            <p className="text-indigo-400 text-sm">{TEACHING.company}</p>
+            {TEACHING.companyUrl.trim().length > 0 ? (
+              <a
+                href={TEACHING.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-indigo-400 text-sm hover:text-indigo-300 transition-colors hover:underline underline-offset-2"
+              >
+                {TEACHING.company}
+              </a>
+            ) : (
+              <p className="text-indigo-400 text-sm">{TEACHING.company}</p>
+            )}
           </div>
           <span className="text-xs text-slate-500 shrink-0">{TEACHING.period}</span>
         </div>

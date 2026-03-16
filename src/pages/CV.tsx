@@ -363,7 +363,20 @@ export default function CV() {
                     <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{e.role}</span>
                     <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
                   </div>
-                  <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{e.company}</div>
+                  <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>
+                    {e.companyUrl.trim().length > 0 ? (
+                      <a
+                        href={e.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: t.accentLight, textDecoration: 'none', transition: 'color 0.5s' }}
+                      >
+                        {e.company}
+                      </a>
+                    ) : (
+                      e.company
+                    )}
+                  </div>
                   <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
                   <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginTop: '4px' }}>
                     {e.tags.map(tag => <CvTag key={tag} label={tag} t={t} />)}
@@ -378,7 +391,20 @@ export default function CV() {
                 <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{TEACHING.role} <span style={{ fontSize: '7.5pt', fontWeight: 400, fontStyle: 'italic', color: t.muted }}>(also teach)</span></span>
                 <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
               </div>
-              <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{TEACHING.company}</div>
+              <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>
+                {TEACHING.companyUrl.trim().length > 0 ? (
+                  <a
+                    href={TEACHING.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: t.accentLight, textDecoration: 'none', transition: 'color 0.5s' }}
+                  >
+                    {TEACHING.company}
+                  </a>
+                ) : (
+                  TEACHING.company
+                )}
+              </div>
               <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{TEACHING.desc}</div>
             </div>
 
@@ -392,7 +418,20 @@ export default function CV() {
                   <span style={{ fontFamily: 'sans-serif', fontSize: '10pt', fontWeight: 700, transition: 'color 0.5s' }}>{e.role}</span>
                   <span style={{ fontFamily: 'sans-serif', fontSize: '8pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
                 </div>
-                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>{e.company}</div>
+                <div style={{ fontFamily: 'sans-serif', fontSize: '9pt', color: t.accentLight, marginBottom: '3px', transition: 'color 0.5s' }}>
+                  {e.companyUrl.trim().length > 0 ? (
+                    <a
+                      href={e.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: t.accentLight, textDecoration: 'none', transition: 'color 0.5s' }}
+                    >
+                      {e.company}
+                    </a>
+                  ) : (
+                    e.company
+                  )}
+                </div>
                 <div style={{ fontSize: '9.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginTop: '4px' }}>
                   {e.tags.map(tag => <CvTag key={tag} label={tag} t={t} />)}

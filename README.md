@@ -4,6 +4,12 @@
 
 Personal portfolio and CV website for **Joaquin Hernandez Martinez**, a senior backend engineer who decided that it was about time he had his own static portfolio website.
 
+
+<p align="center">
+  <img src="https://github.com/starseeker-code-public/portfolio-webpage/blob/main/public/logo.png" width="60%">
+</p>
+
+
 ---
 
 ## Tech Stack
