@@ -2,7 +2,7 @@
 
 > A backend engineer walked into a frontend project. The CSS didn't crash. Miracles happen.
 
-Personal portfolio and CV website for **Joaquin Hernandez Martinez**, a senior backend engineer who decided that it was about time I had his own static portfolio website.
+Personal portfolio and CV website for **Joaquin Hernandez Martinez**, a senior backend engineer who decided that it was about time he had his own static portfolio website.
 
 ---
 
