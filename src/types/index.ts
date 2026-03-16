@@ -3,7 +3,9 @@ export interface Project {
   desc: string
   image: string
   github: string
+  projectUrl: string
   tags: string[]
+  isInDevelopment: boolean
 }
 
 export interface ExperienceEntry {

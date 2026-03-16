@@ -53,10 +53,10 @@ export const SKILL_GROUPS: SkillGroup[] = [
 export const SKILLS = SKILL_GROUPS.flatMap(g => g.items)
 
 export const TEACHING: TeachingEntry = {
-  period:  '2023 – Present',
+  period:  '2024 – Present',
   role:    'Python Instructor',
   company: 'Tajamar',
-  desc:    'Delivering advanced Python programming training to professional developers. Hands-on mentoring on code quality, architecture design, and best practices adoption.',
+  desc:    'Delivering advanced Python programming training to professional developers. Hands-on mentoring on code quality, architecture design, and best practices adoption. Focused on quality code, advanced Python and project-based learning.',
 }
 
 export const EXPERIENCE: ExperienceEntry[] = [
@@ -66,7 +66,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Allot',
     desc:    'Senior Python engineer in ASM (Allot Secure Management) team. Complex cybersecurity backend for ISP traffic and user security management.',
     details: 'Responsible for ASM microservices code as well as QA testing. Building and maintaining a highly available security platform that processes ISP traffic at scale.',
-    tags:    ['Flask', 'MongoDB', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', 'Kafka', 'RedPanda', 'Connexion', 'Go', 'OpenLens', 'Grafana', 'Prometheus', 'Claude Code', 'Copilot'],
+    tags:    ['Flask', 'MongoDB', 'Kafka', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', 'RedPanda', 'Connexion', 'Go', 'OpenLens', 'Grafana', 'Prometheus', 'Claude Code', 'Copilot'],
   },
   {
     period:  'May 2024 – Apr 2025',
@@ -74,7 +74,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Mercedes-Benz (Infoser New Technologies)',
     desc:    'Evolved a large-scale FastAPI microservices system for Azure provisioning. Main testing engineer with 90%+ automated coverage.',
     details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism.',
-    tags:    ['FastAPI', 'Azure', 'BDD/TDD', 'SQLAlchemy', 'Alembic', 'Python', 'Pulumi', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
+    tags:    ['FastAPI', 'Azure', 'Pulumi', 'SQLAlchemy', 'Alembic', 'Python', 'BDD/TDD', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
   },
   {
     period:  'Nov 2022 – Apr 2024',
@@ -82,7 +82,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Frenetic',
     desc:    'Led the refactor of a complex calculation monolith with an AI module, growing the team from 4 to 9 engineers.',
     details: 'Refactored over 2 million lines of Python technical debt. Drove the main refactor effort across the full engineering team. Specialized in concurrent code debugging, advanced Python features, and package/framework development.',
-    tags:    ['Leadership', 'AsyncIO', 'Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry', 'Copilot'],
+    tags:    ['Leadership', 'AsyncIO and concurrency', 'Advanced Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry', 'Copilot'],
   },
   {
     period:  'Jun 2021 – Nov 2022',
@@ -98,17 +98,28 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'BBVA · Prosegur (Cipher) · ATM Maggioli',
     desc:    'Worked across several companies — some as freelance — in finance, cybersecurity, and public administration.',
     details: 'Built REST APIs, data pipelines, and backend services. Gained broad experience with PostgreSQL, Docker, CI/CD, and cloud platforms (AWS, Azure).',
-    tags:    ['PostgreSQL', 'REST APIs', 'AWS', 'Python', 'Docker', 'Data Engineering', 'CI/CD'],
+    tags:    ['PostgreSQL', 'REST APIs', 'Python', 'Docker', 'AWS', 'Data Engineering', 'CI/CD'],
   },
 ]
 
 export const PROJECTS: Project[] = [
   {
     title:  'Joy - AI Journal',
-    desc:   'Full-stack journaling application with AI-powered insights. Built with Flask backend, PostgreSQL database, and React frontend. Features SSO authentication, RESTful APIs, and containerized deployment.',
+    desc:   'Full-stack journaling application with AI-powered insights. Built with Flask backend, PostgreSQL database, and React frontend. Features SSO authentication, RESTful APIs, and containerized deployment. AI models yet to be determined but probably Gemini or Grok, and full AI workflow and architecture along with backend services.',
     image:  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80',
     github: 'https://github.com/starseeker-code-public/joy-ai-rest-journaling-system',
-    tags:   ['Python', 'Flask', 'PostgreSQL', 'React', 'Docker', 'SSO', "Still in progress"],
+    projectUrl: '',
+    tags:   ['Docker', 'Python', 'Flask', 'PostgreSQL', 'React', 'Google Oauth'],
+    isInDevelopment: true,
+  },
+  {
+    title:  'Five a Day eVolution - Academy Management Software',
+    desc:   'Full-stack academy software for payments, students and batteries included automation (emails, tasks, etc...). Built with Django, PostgreSQL database and Redis with Celery. Features Google Oauth authentication, several embedded apps (email automation, todo list and sync, excel processing and import/export, google automation, accountability and management), and containerized deployment as well as production deployment in Google Cloud Platform.',
+    image:  'https://images.pexels.com/photos/10638075/pexels-photo-10638075.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    github: '',
+    projectUrl: 'https://fiveaday-web.onrender.com',
+    tags:   ['Docker', 'Python', 'Django', 'PostgreSQL', 'Google Oauth', "Redis", 'Celery', 'Django Rest Framework', 'Google Cloud Platform (GCP)', 'Admin', 'CI/CD', 'Pytest'],
+    isInDevelopment: false,
   }
 ]
 

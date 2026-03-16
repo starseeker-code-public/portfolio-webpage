@@ -10,6 +10,7 @@ import {
   // OPEN_SOURCE,
 } from '../data'
 import { IcoDownload } from '../components/icons'
+import Footer from '../components/layout/Footer'
 
 /* ── Inline GitHub SVG for CV header (matches CV font size) ── */
 function CvGithubIcon() {
@@ -481,6 +482,10 @@ export default function CV() {
 
         </div>{/* /grid */}
         </div>{/* /cv-page */}
+
+        <div className="no-print">
+          <Footer />
+        </div>
       </div>
 
       {showPrintingOverlay && (

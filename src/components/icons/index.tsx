@@ -59,6 +59,20 @@ export const IcoExternal = () => (
   </svg>
 )
 
+export const IcoLab = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+    <path d="M10 2v6l-5.5 9.5A2 2 0 006.24 21h11.52a2 2 0 001.74-3L14 8V2" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M8 2h8M8 13h8" strokeLinecap="round" />
+  </svg>
+)
+
+export const IcoProduction = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+    <circle cx="12" cy="12" r="9" />
+    <path d="M8.5 12.5l2.2 2.2L15.8 9.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
 export const IcoPrint = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
     <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2" />

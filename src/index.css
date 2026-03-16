@@ -88,6 +88,41 @@ html, body {
   animation: gentle-flash 3s ease-in-out infinite;
 }
 
+@keyframes project-under-dev-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.28), 0 0 26px rgba(99, 102, 241, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.46), 0 0 34px rgba(99, 102, 241, 0.2);
+  }
+}
+
+.project-under-development {
+  animation: project-under-dev-glow 2.8s ease-in-out infinite;
+}
+
+.project-under-development::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(129, 140, 248, 0.05),
+    rgba(129, 140, 248, 0.05) 9px,
+    rgba(129, 140, 248, 0.01) 9px,
+    rgba(129, 140, 248, 0.01) 18px
+  );
+}
+
+.project-dev-badge {
+  animation: gentle-flash 1.8s ease-in-out infinite;
+}
+
+.project-finished-badge {
+  box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.22), 0 0 22px rgba(16, 185, 129, 0.12);
+}
+
 /* Teaching card sparkle twinkle */
 @keyframes sparkle-twinkle {
   0%, 100% { opacity: 0.15; transform: scale(0.8); }
