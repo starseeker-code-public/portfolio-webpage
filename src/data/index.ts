@@ -102,7 +102,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     tags:    ['Kubernetes', 'Ansible', 'Terraform', 'Python', 'FastAPI', 'Pytest', 'Redis', 'Docker', 'Apigee', 'PostgreSQL', 'Airflow', 'Go'],
   },
   {
-    period:  'Aug 2018 – Jul 2022',
+    period:  'Total of 3 years',
     role:    'Python Developer',
     company: 'BBVA · Prosegur (Cipher) · ATM Maggioli',
     companyUrl: '',
