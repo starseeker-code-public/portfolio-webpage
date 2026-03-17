@@ -15,6 +15,7 @@ export interface ExperienceEntry {
   companyUrl: string
   desc: string
   details: string
+  projectInfo?: string
   tags: string[]
 }
 

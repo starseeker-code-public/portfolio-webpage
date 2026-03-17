@@ -16,7 +16,7 @@ export const SITE = {
   locationUrl: 'https://maps.app.goo.gl/DLYp7yCkraK8mQS69',
   phone:     '+34 696 02 68 63',
   phoneUrl:  'tel:+34696026863',
-  website:   'https://www.joaquin.com',
+  website:   'https://joaquin-hernandez.netlify.app/',
   social: {
     github:    'https://github.com/starseeker-code-public',
     linkedin:  'https://www.linkedin.com/in/joaquin-hernandez-martinez-91a57221a/',
@@ -47,7 +47,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
   { label: 'Cloud & DevOps',       items: ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Pulumi', 'Ansible', 'Jenkins', 'GitHub Actions', 'Airflow'] },
   { label: 'Testing & Monitoring', items: ['Pytest', 'Behave (BDD)', 'TDD', 'E2E', 'CI/CD', 'Grafana', 'Prometheus', 'Datadog'] },
   { label: 'Architecture & APIs',  items: ['REST', 'GraphQL', 'gRPC', 'OpenAPI', 'SSO', 'Apigee', 'API Security', 'Microservices', 'Hexagonal', 'Clean Arch', 'Event-Driven', 'DDD', 'SOLID'] },
-  { label: 'Frontend',             items: ['React', 'TypeScript', 'JavaScript', 'Tailwind'] },
+  { label: 'Frontend',             items: ['React', 'TypeScript', 'JavaScript', 'Tailwind', 'Vite'] },
 ]
 
 export const SKILLS = SKILL_GROUPS.flatMap(g => g.items)
@@ -57,7 +57,7 @@ export const TEACHING: TeachingEntry = {
   role:    'Python Instructor',
   company: 'Tajamar',
   companyUrl: 'https://www.tajamar.es',
-  desc:    'Delivering advanced Python programming training to professional developers. Hands-on mentoring on code quality, architecture design, and best practices adoption. Focused on quality code, advanced Python and project-based learning.',
+  desc:    'Delivering advanced Python programming training to professional developers and recommended by them for my soft skills and technical knowledge. Hands-on mentoring on code quality, architecture design, and best practices adoption. Focused on quality code, advanced Python and project-based learning.',
 }
 
 export const EXPERIENCE: ExperienceEntry[] = [
@@ -67,25 +67,28 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Allot',
     companyUrl: 'https://www.allot.com',
     desc:    'Senior Python engineer in ASM (Allot Secure Management) team. Complex cybersecurity backend for ISP traffic and user security management.',
-    details: 'Responsible for ASM microservices code as well as QA testing. Building and maintaining a highly available security platform that processes ISP traffic at scale.',
+    details: 'Responsible for ASM microservices code as well as QA testing, achieving an excellent feedback during 2025 in my performance review. Building and maintaining a highly available security platform that processes ISP traffic at scale. Part of a team of 5 senior developers that evolve and maintain a big microservices system for cybersecurity software as a service. Both Kafka, Redis and MongoDB is used for different kind of data and messages. QA testing is done using Kubernetes and deploying/installing the software in OpenNebula VMs, using ArtiFactory releases and config files as well as Helm charts that define how Kubernetes deploys pods.',
+    projectInfo: 'ASM (Allot Secure Management) is a cybersecurity SaaS platform sold to ISPs worldwide. It provides per-subscriber traffic analysis, threat detection, and parental-control enforcement at network level, processing millions of events per second across a distributed microservices architecture.',
     tags:    ['Flask', 'MongoDB', 'Kafka', 'Kubernetes', 'Python', 'Redis', 'OpenAPI', 'RedPanda', 'Connexion', 'Go', 'OpenLens', 'Grafana', 'Prometheus', 'Claude Code', 'Copilot'],
   },
   {
     period:  'May 2024 – Apr 2025',
     role:    'Senior Python Developer',
-    company: 'Mercedes-Benz (Infoser New Technologies)',
+    company: 'Mercedes-Benz (Infoser NT)',
     companyUrl: 'https://www.mercedes-benz.com',
     desc:    'Evolved a large-scale FastAPI microservices system for Azure provisioning. Main testing engineer with 90%+ automated coverage.',
-    details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism.',
+    details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism. Leader of a senior team of 12 developers responsible of Pulumi services development and a critical architectural change of this microservices system.',
+    projectInfo: 'Large-scale Azure cloud-provisioning platform used by Mercedes-Benz AI and Data teams worldwide. The system automates the lifecycle of hundreds of Azure resources (ADX clusters, storage accounts, networking) via Pulumi IaC services, enabling data scientists to self-serve cloud infrastructure through a FastAPI-backed API layer.',
     tags:    ['FastAPI', 'Azure', 'Pulumi', 'SQLAlchemy', 'Alembic', 'Python', 'BDD/TDD', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
   },
   {
     period:  'Nov 2022 – Apr 2024',
-    role:    'Senior Python Developer & Lead Developer',
+    role:    'Senior & Lead Python Developer',
     company: 'Frenetic',
     companyUrl: '',
     desc:    'Led the refactor of a complex calculation monolith with an AI module, growing the team from 4 to 9 engineers.',
-    details: 'Refactored over 2 million lines of Python technical debt. Drove the main refactor effort across the full engineering team. Specialized in concurrent code debugging, advanced Python features, and package/framework development.',
+    details: 'Refactored over 2 million lines of Python technical debt leading a team of senior engineers. Drove the main refactor effort across the full engineering team. Specialized in concurrent code debugging, advanced Python features, and package/framework development.',
+    projectInfo: 'Frenetic is a SaaS platform for power magnetics design used by hardware engineers. Its core is a complex calculation engine that models electromagnetic components with an embedded AI module for design optimization. The codebase had accumulated 2M+ lines of legacy Python, which the team systematically refactored into a clean, modular architecture.',
     tags:    ['Leadership', 'AsyncIO and concurrency', 'Advanced Python', 'Flask', 'Pytest', 'Redis', 'Docker', 'Jenkins', 'PostgreSQL', 'Poetry', 'Copilot'],
   },
   {
@@ -95,15 +98,17 @@ export const EXPERIENCE: ExperienceEntry[] = [
     companyUrl: 'https://group.bnpparibas',
     desc:    'Built and maintained FastAPI microservices and created Vanish, a DevOps Python framework for the BNP Paribas system.',
     details: 'Improved 3 existing services, developed 1 new service, and provided ongoing maintenance for several others. Ansible configuration and security support. Production run-readiness and monitoring setup.',
+    projectInfo: 'Internal banking microservices platform supporting BNP Paribas back-office operations. Also developed Vanish, an internal Python DevOps framework that standardized service scaffolding, configuration management, and deployment pipelines across the engineering organisation.',
     tags:    ['Kubernetes', 'Ansible', 'Terraform', 'Python', 'FastAPI', 'Pytest', 'Redis', 'Docker', 'Apigee', 'PostgreSQL', 'Airflow', 'Go'],
   },
   {
     period:  'Aug 2018 – Jul 2022',
-    role:    'Python Developer & Data Engineer',
+    role:    'Python Developer',
     company: 'BBVA · Prosegur (Cipher) · ATM Maggioli',
     companyUrl: '',
     desc:    'Worked across several companies — some as freelance — in finance, cybersecurity, and public administration.',
     details: 'Built REST APIs, data pipelines, and backend services. Gained broad experience with PostgreSQL, Docker, CI/CD, and cloud platforms (AWS, Azure).',
+    projectInfo: 'Projects spanned finance (BBVA internal risk-data pipelines), cybersecurity (Prosegur/Cipher threat-intelligence backend), and public administration (ATM Maggioli document-management REST services). Each engagement involved full-cycle backend development from requirements through production deployment.',
     tags:    ['PostgreSQL', 'REST APIs', 'Python', 'Docker', 'AWS', 'Data Engineering', 'CI/CD'],
   },
 ]
@@ -180,14 +185,22 @@ export const TESTIMONIALS: Testimonial[] = [
 ]
 
 export const CV_CERTIFICATIONS: Certification[] = [
-  { name: 'AWS Certified Cloud Practitioner', issuer: 'Amazon Web Services', year: '2023' },
-  { name: 'Azure Developer Course', issuer: 'Freecodecamp', year: '2024' },
-  { name: 'Azure Fundamentals Course', issuer: 'Freecodecamp', year: '2024' },
-  { name: 'AWS Cloud Complete Bootcamp', issuer: 'AWS', year: '2023' },
-  { name: 'Docker Mastery with Kubernetes & Swarm', issuer: 'Docker Captain', year: '2022' },
-  { name: 'React – The Complete Guide', issuer: 'Udemy', year: '2023' },
-  { name: 'FastAPI – The Complete Course', issuer: 'Udemy', year: '2022' },
-  { name: 'Go Programming with Bonus Projects', issuer: 'Golang Course', year: '2024' },
+  { name: 'Pearson Python Certification', issuer: 'Pearson', year: '' },
+  { name: 'AWS Certified Cloud Practitioner', issuer: 'Amazon Web Services', year: '' },
+  { name: 'AWS Cloud Complete Bootcamp Course', issuer: 'Udemy', year: '' },
+  { name: 'AWS Serverless Microservices with Patterns and Best Practices', issuer: 'Udemy', year: '' },
+  { name: 'Architecting Python Microservices with AWS and EC2', issuer: 'Udemy', year: '' },
+  { name: 'Azure Fundamentals Course', issuer: 'Microsoft', year: '' },
+  { name: 'Docker Mastery with Kubernetes & Swarm from a Docker Captain', issuer: 'Udemy', year: '' },
+  { name: 'Go Programming – Golang Course with Bonus Projects', issuer: 'Udemy', year: '' },
+  { name: 'Curso Completo del Lenguaje Rust', issuer: 'Udemy', year: '' },
+  { name: 'Apache Kafka Crash Course', issuer: 'Udemy', year: '' },
+  { name: 'Django Ultimate Web Security', issuer: 'Udemy', year: '' },
+  { name: 'FastAPI – The Complete Course', issuer: 'Udemy', year: '' },
+  { name: 'Python API Development – The Full Course', issuer: 'freeCodeCamp', year: '' },
+  { name: 'Python Django – The Practical Guide', issuer: 'Udemy', year: '' },
+  { name: 'React – The Complete Guide', issuer: 'Udemy', year: '' },
+  { name: 'SQL Server – Programación Avanzada', issuer: 'Udemy', year: '' },
 ]
 
 export const CV_LANGUAGES: Language[] = [

@@ -4,7 +4,7 @@ import { Section, SectionHeading, Tag } from '../components/ui'
 
 const HIGHLIGHT_COUNT = 3
 
-function DetailsToggle({ details }: { details: string }) {
+function CollapseToggle({ text, label, openLabel }: { text: string; label: string; openLabel: string }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -16,10 +16,10 @@ function DetailsToggle({ details }: { details: string }) {
         <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
-        {open ? 'Less details' : 'More details'}
+        {open ? openLabel : label}
       </button>
       <div className={`overflow-hidden transition-all duration-400 ease-in-out ${open ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-        <p className="text-slate-500 text-sm leading-relaxed text-justify">{details}</p>
+        <p className="text-slate-500 text-sm leading-relaxed text-justify">{text}</p>
       </div>
     </>
   )
@@ -64,7 +64,8 @@ export function Experience() {
             </div>
             <p className="text-slate-400 text-sm leading-relaxed text-justify">{e.desc}</p>
 
-            {e.details && <DetailsToggle details={e.details} />}
+            {e.details && <CollapseToggle text={e.details} label="More details" openLabel="Less details" />}
+            {e.projectInfo && <CollapseToggle text={e.projectInfo} label="About the project" openLabel="Hide project info" />}
 
             <div className="flex flex-wrap gap-2 mt-3">
               {e.tags.slice(0, HIGHLIGHT_COUNT).map(t => (
