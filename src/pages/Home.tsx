@@ -3,9 +3,9 @@ import Footer from '../components/layout/Footer'
 import { Stars, Divider } from '../components/ui'
 import {
   Hero, About, Experience, Projects,
-  // OpenSource,
+  OpenSource,
   Services,
-  // Blog,
+  Blog,
   Testimonials, Contact,
 } from '../sections'
 
@@ -22,11 +22,11 @@ export default function Home() {
       <Divider />
       <Projects />
       <Divider />
-      {/* <OpenSource /> */}
-      {/* <Divider /> */}
+      <OpenSource />
+      <Divider />
       <Testimonials />
-      {/* <Divider /> */}
-      {/* <Blog /> */}
+      <Divider />
+      <Blog />
       <Divider />
       <Services />
       <Divider />

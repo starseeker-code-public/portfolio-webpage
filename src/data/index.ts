@@ -7,7 +7,7 @@ import type {
 export const SITE = {
   initials:  'JOA.DEV',
   name:      'Joaquín Hernández Martínez',
-  role:      ['Senior Backend Engineer', 'Fullstack Developer', 'Leader and Architect'],
+  role:      ['Senior Backend Engineer', 'Leader and Architect', 'Fullstack Developer'],
   tagline:   'Building reliable back-end services, APIs, and cloud infrastructure — almost 8 years turning complex requirements into production-ready systems. Now with AI expertise',
   email:     'proyecto_noether@outlook.com',
   photo:     '/photo.png',
@@ -35,9 +35,9 @@ export const BIO =
   'Senior Python engineer with 7+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing and code standards, and leverage AI daily to ship production-ready software. Bilingual (C2 english certified).'
 
 export const SPECIALIZATIONS = [
-  'Advanced Python',
+  'Advanced Python & Engineering',
   'Distributed Backend Design',
-  'AI Integration in Development & Backends',
+  'AI Integration in Development Workflows & Distributed Backends',
   'Team Leadership & Mentoring',
 ]
 
@@ -127,7 +127,7 @@ export const PROJECTS: Project[] = [
     title:  'Five a Day eVolution - Academy Management Software',
     desc:   'Full-stack academy software for payments, students and batteries included automation (emails, tasks, etc...). Built with Django, PostgreSQL database and Redis with Celery. Features Google Oauth authentication, several embedded apps (email automation, todo list and sync, excel processing and import/export, google automation, accountability and management), and containerized deployment as well as production deployment in Google Cloud Platform.',
     image:  'https://images.pexels.com/photos/10638075/pexels-photo-10638075.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    github: '',
+    github: 'https://github.com/starseeker-code-public/five-a-day',
     projectUrl: 'https://fiveaday-web.onrender.com',
     tags:   ['Docker', 'Python', 'Django', 'PostgreSQL', 'Google Oauth', "Redis", 'Celery', 'Django Rest Framework', 'Google Cloud Platform (GCP)', 'Admin', 'CI/CD', 'Pytest'],
     isInDevelopment: false,

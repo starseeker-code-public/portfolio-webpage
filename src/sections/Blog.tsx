@@ -5,7 +5,7 @@ import { IcoExternal } from '../components/icons'
 export function Blog() {
   return (
     <Section id="blog">
-      <SectionHeading>Blog / Writing</SectionHeading>
+      <SectionHeading>Personal Blog</SectionHeading>
       <div className="space-y-4">
         {BLOG_POSTS.map((p, i) => (
           <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
