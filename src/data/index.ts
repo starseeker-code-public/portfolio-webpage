@@ -4,6 +4,9 @@ import type {
   Education, Volunteering, Stat, SkillGroup, TeachingEntry,
 } from '../types'
 
+export { useRandomQuote, getRandomQuote } from './quotes'
+export type { Quote } from './quotes'
+
 export const SITE = {
   initials:  'JOA.DEV',
   name:      'Joaquín Hernández Martínez',
@@ -16,12 +19,14 @@ export const SITE = {
   locationUrl: 'https://maps.app.goo.gl/DLYp7yCkraK8mQS69',
   phone:     '+34 696 02 68 63',
   phoneUrl:  'tel:+34696026863',
-  website:   'https://joaquin-hernandez.netlify.app/',
+  website:   'https://joaquin-hm.com/',
   social: {
     github:    'https://github.com/starseeker-code-public',
     linkedin:  'https://www.linkedin.com/in/joaquin-hernandez-martinez-91a57221a/',
     instagram: 'https://www.instagram.com/starseeker-code/',
     codewars:  'https://www.codewars.com/users/Starseeker1414',
+    devto:     'https://dev.to/starseeker-code',
+    whatsapp:  'https://wa.me/34696026863',
   },
 }
 
@@ -42,7 +47,7 @@ export const SPECIALIZATIONS = [
 ]
 
 export const SKILL_GROUPS: SkillGroup[] = [
-  { label: 'Backend',              items: ['Python', 'OOP', 'FastAPI', 'Flask', 'Django', 'Sanic', 'Celery', 'AsyncIO', 'Concurrency', 'Metaprogramming', 'Decorators', 'Generators', 'Package Development', 'Go', 'Rust'] },
+  { label: 'Backend',              items: ['Python', 'OOP', 'FastAPI', 'Flask', 'Django', 'Sanic', 'Celery', 'AsyncIO', 'Concurrency', 'Metaprogramming', 'Decorators', 'Generators', 'Package Development', 'Distributed Architecture', 'Go', 'Rust'] },
   { label: 'Databases & Brokers',  items: ['PostgreSQL', 'PostGIS', 'Redis', 'MongoDB', 'MySQL', 'Oracle', 'Elasticsearch', 'Cassandra', 'InfluxDB', 'Kafka', 'RabbitMQ', 'SQLAlchemy', 'SQLModel', 'Django ORM'] },
   { label: 'Cloud & DevOps',       items: ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Pulumi', 'Ansible', 'Jenkins', 'GitHub Actions', 'Airflow'] },
   { label: 'Testing & Monitoring', items: ['Pytest', 'Behave (BDD)', 'TDD', 'E2E', 'CI/CD', 'Grafana', 'Prometheus', 'Datadog'] },
@@ -77,7 +82,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     company: 'Mercedes-Benz (Infoser NT)',
     companyUrl: 'https://www.mercedes-benz.com',
     desc:    'Evolved a large-scale FastAPI microservices system for Azure provisioning. Main testing engineer with 90%+ automated coverage.',
-    details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism. Leader of a senior team of 12 developers responsible of Pulumi services development and a critical architectural change of this microservices system.',
+    details: 'Achieved 8/9 excellent feedback sessions. Developed two new components in under 5 months. Reduced weekly ticket volume from 12 to 3-4 by automating E2E testing with Behave and pipeline triggers. Cut computing costs 8-10% by implementing RabbitMQ. Implemented granular component deployment using toggles and tag automation in Azure. Recommended as a professional due to results and professionalism.',
     projectInfo: 'Large-scale Azure cloud-provisioning platform used by Mercedes-Benz AI and Data teams worldwide. The system automates the lifecycle of hundreds of Azure resources (ADX clusters, storage accounts, networking) via Pulumi IaC services, enabling data scientists to self-serve cloud infrastructure through a FastAPI-backed API layer.',
     tags:    ['FastAPI', 'Azure', 'Pulumi', 'SQLAlchemy', 'Alembic', 'Python', 'BDD/TDD', 'Docker', 'Pytest', 'Behave', 'Redis', 'RabbitMQ', 'Celery', 'CI/CD'],
   },
@@ -147,22 +152,46 @@ export const PROJECTS: Project[] = [
 export const OPEN_SOURCE: OpenSourceRepo[] = []
 
 export const SERVICES: Service[] = [
-  { icon: '⚙️', title: 'Production Backend & APIs',
-    desc: 'End-to-end Python back-end services with PostgreSQL — from design to containerized deployment on Docker/Kubernetes — including tests, docs, alerting, and redundancy.' },
-  { icon: '🔄', title: 'Legacy Migration & Modernization',
-    desc: 'Breaking monoliths into microservices and tackling large-scale technical debt. Led a 2 M+ line refactor at Frenetic, growing the team from 4 to 9 engineers.' },
-  { icon: '🧪', title: 'Testing, CI/CD & Observability',
-    desc: 'Automated BDD/TDD pipelines with 90 %+ coverage, E2E test automation that cut weekly tickets from 12 to 3, and production monitoring with Grafana, Prometheus, and Datadog.' },
-  { icon: '☁️', title: 'Cloud Platforms & Infrastructure',
-    desc: 'Infrastructure as code with Pulumi and Terraform across AWS, Azure, and GCP. Ansible configuration, cost optimization, and granular deployment automation.' },
-  { icon: '🔐', title: 'API Security & SSO Integration',
-    desc: 'Secure API design with Apigee and OpenAPI. SSO implementation, cybersecurity backend experience at Allot, and production run-readiness across enterprise systems.' },
-  { icon: '⚛️', title: 'React UIs & Fullstack Delivery',
-    desc: 'Adjusting or building React frontends when needed, integrating with Python backends. TypeScript, Tailwind, and end-to-end ownership from UI to database.' },
-  { icon: '🚀', title: 'Leadership & AI-Driven Delivery',
-    desc: 'Mentoring developers, leading code reviews, and using AI/Copilot daily. Currently training professional engineers as a Python Instructor.' },
-  { icon: '📦', title: 'Data Pipelines & Message Brokers',
-    desc: 'Event-driven architectures with Kafka, RabbitMQ, and Celery. Data engineering with Airflow, Pandas, and async processing for high-throughput systems.' },
+  {
+    icon: '🛡️', title: 'Cybersecurity & Network Security',
+    desc: 'ISP-grade traffic analysis, per-subscriber threat detection, and parental-control enforcement at scale.',
+    details: 'Built and maintained the ASM cybersecurity SaaS platform at Allot, processing millions of events per second across distributed microservices. Hands-on experience with real-time threat detection pipelines, network-level security enforcement, and subscriber management sold to ISPs worldwide.',
+  },
+  {
+    icon: '☁️', title: 'Cloud Infrastructure Automation',
+    desc: 'End-to-end cloud provisioning with IaC across Azure, AWS, and GCP — from resource lifecycle to cost optimization.',
+    details: 'At Mercedes-Benz, evolved a large-scale Azure provisioning platform used by AI and Data teams globally. Automated the lifecycle of hundreds of Azure resources via Pulumi IaC services, implemented granular deployment toggles, and cut computing costs 8–10% through RabbitMQ-based orchestration and pipeline automation.',
+  },
+  {
+    icon: '🏦', title: 'Banking & Financial Services',
+    desc: 'Secure microservices, API gateway architecture, and compliance-ready backends for the financial sector.',
+    details: 'Developed and maintained FastAPI microservices and the internal Vanish DevOps framework at BNP Paribas. Built REST APIs and data pipelines at BBVA for internal risk-data processing. Both engagements required strict security, API gateway management (Apigee), and production run-readiness with full monitoring.',
+  },
+  {
+    icon: '🔄', title: 'System Modernization & Technical Debt',
+    desc: 'Monolith decomposition, large-scale refactoring, and team scaling for legacy codebases.',
+    details: 'Led the refactoring of over 2 million lines of Python technical debt at Frenetic, a SaaS platform for power magnetics design. Grew the engineering team from 4 to 9 while driving the main refactor effort. Specialized in concurrent code debugging, package development, and migrating legacy code to clean, modular architecture.',
+  },
+  {
+    icon: '🤖', title: 'AI-Integrated Development',
+    desc: 'AI-powered workflows, LLM-backed services, and AI-assisted software delivery in production environments.',
+    details: 'Daily use of Claude Code, Copilot, and AI tooling in production workflows at Allot and personal projects. Currently building Joy, an AI-powered journaling application with LLM-backed insights. Experienced in designing AI architecture and integrating AI modules into existing backend systems, as done at Frenetic.',
+  },
+  {
+    icon: '👥', title: 'Engineering Leadership & Education',
+    desc: 'Team mentoring, code review culture, and professional Python training for developers.',
+    details: 'Led a senior team of 12 developers at Mercedes-Benz responsible for critical architectural changes. Grew and mentored the Frenetic team from 4 to 9 engineers. Currently a Python Instructor at Tajamar, delivering advanced programming training to professional developers and recommended for both soft skills and technical knowledge.',
+  },
+  {
+    icon: '⚡', title: 'Event-Driven & Real-Time Systems',
+    desc: 'High-throughput data pipelines with Kafka, RabbitMQ, and async processing for real-time workloads.',
+    details: 'Designed and maintained event-driven architectures across multiple companies: Kafka and Redis at Allot for cybersecurity event streams, RabbitMQ and Celery at Mercedes-Benz for cloud provisioning orchestration, and Airflow pipelines at BNP Paribas for data engineering. AsyncIO and concurrency are core specializations.',
+  },
+  {
+    icon: '🧪', title: 'Quality Engineering & Testing',
+    desc: 'BDD/TDD pipelines with 90%+ automated coverage, E2E automation, and production observability.',
+    details: 'Main testing engineer at Mercedes-Benz — achieved 90%+ automated coverage and reduced weekly ticket volume from 12 to 3–4 by automating E2E tests with Behave and pipeline triggers. Responsible for QA testing at Allot using Kubernetes-deployed test environments. Monitoring setup with Grafana, Prometheus, and Datadog across multiple engagements.',
+  },
 ]
 
 // ── Blog (commented out per request) ──

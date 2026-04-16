@@ -2,17 +2,19 @@ import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SITE } from '../../data'
 import {
-  IcoGithub, IcoLinkedin, IcoInstagram, IcoCodewars, IcoMail, IcoMenu, IcoClose,
+  IcoGithub, IcoLinkedin, IcoInstagram, IcoCodewars, IcoMail, IcoWhatsapp, IcoDevto, IcoMenu, IcoClose,
 } from '../icons'
 
-const NAV_SECTIONS = ['About', 'Experience', 'Projects', 'Testimonials', 'Services', 'Contact']
+const NAV_SECTIONS = ['About', 'Experience', 'Projects', 'Open Source', 'Testimonials', 'Blog', 'Services', 'Contact']
 
 const SOCIAL = [
   { key: 'github',    icon: <IcoGithub />,    href: SITE.social.github },
-  { key: 'linkedin',  icon: <IcoLinkedin />,  href: SITE.social.linkedin },
-  { key: 'instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
-  { key: 'codewars',  icon: <IcoCodewars />,  href: SITE.social.codewars },
   { key: 'email',     icon: <IcoMail />,      href: `mailto:${SITE.email}` },
+  { key: 'linkedin',  icon: <IcoLinkedin />,  href: SITE.social.linkedin },
+  { key: 'codewars',  icon: <IcoCodewars />,  href: SITE.social.codewars },
+  { key: 'devto',     icon: <IcoDevto />,     href: SITE.social.devto },
+  { key: 'whatsapp',  icon: <IcoWhatsapp />,  href: SITE.social.whatsapp },
+  { key: 'instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
 ]
 
 export default function Navbar() {
