@@ -1,7 +1,7 @@
 import { SITE } from '../data'
 import { useRandomQuote } from '../data/quotes'
 import { Section, SectionHeading } from '../components/ui'
-import { IcoGithub, IcoLinkedin, IcoInstagram, IcoCodewars, IcoMail, IcoWhatsapp, IcoDevto } from '../components/icons'
+import { IcoGithub, IcoLinkedin, /* IcoInstagram, */ IcoCodewars, IcoMail, IcoWhatsapp, IcoDevto } from '../components/icons'
 
 const SOCIAL_LINKS = [
   { label: 'GitHub',    icon: <IcoGithub />,    href: SITE.social.github },
@@ -9,7 +9,7 @@ const SOCIAL_LINKS = [
   { label: 'Codewars',  icon: <IcoCodewars />,  href: SITE.social.codewars },
   { label: 'DEV.to',    icon: <IcoDevto />,     href: SITE.social.devto },
   { label: 'WhatsApp',  icon: <IcoWhatsapp />,  href: SITE.social.whatsapp },
-  { label: 'Instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
+  // { label: 'Instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
 ]
 
 export function Contact() {

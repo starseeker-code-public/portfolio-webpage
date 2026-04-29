@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SITE } from '../../data'
 import {
-  IcoGithub, IcoLinkedin, IcoInstagram, IcoCodewars, IcoMail, IcoWhatsapp, IcoDevto, IcoMenu, IcoClose,
+  IcoGithub, IcoLinkedin, /* IcoInstagram, */ IcoCodewars, IcoMail, IcoWhatsapp, IcoDevto, IcoMenu, IcoClose,
 } from '../icons'
 
 const NAV_SECTIONS = ['About', 'Experience', 'Projects', 'Open Source', 'Testimonials', 'Blog', 'Services', 'Contact']
@@ -14,7 +14,7 @@ const SOCIAL = [
   { key: 'codewars',  icon: <IcoCodewars />,  href: SITE.social.codewars },
   { key: 'devto',     icon: <IcoDevto />,     href: SITE.social.devto },
   { key: 'whatsapp',  icon: <IcoWhatsapp />,  href: SITE.social.whatsapp },
-  { key: 'instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
+  // { key: 'instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
 ]
 
 export default function Navbar() {
