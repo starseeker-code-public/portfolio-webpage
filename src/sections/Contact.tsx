@@ -1,15 +1,12 @@
 import { SITE } from '../data'
 import { useRandomQuote } from '../data/quotes'
 import { Section, SectionHeading } from '../components/ui'
-import { IcoGithub, IcoLinkedin, /* IcoInstagram, */ IcoCodewars, IcoMail, IcoWhatsapp, IcoDevto } from '../components/icons'
+import { IcoGithub, IcoLinkedin, IcoWhatsapp, IcoMail } from '../components/icons'
 
-const SOCIAL_LINKS = [
-  { label: 'GitHub',    icon: <IcoGithub />,    href: SITE.social.github },
-  { label: 'LinkedIn',  icon: <IcoLinkedin />,  href: SITE.social.linkedin },
-  { label: 'Codewars',  icon: <IcoCodewars />,  href: SITE.social.codewars },
-  { label: 'DEV.to',    icon: <IcoDevto />,     href: SITE.social.devto },
-  { label: 'WhatsApp',  icon: <IcoWhatsapp />,  href: SITE.social.whatsapp },
-  // { label: 'Instagram', icon: <IcoInstagram />, href: SITE.social.instagram },
+const ICON_LINKS = [
+  { label: 'GitHub',   icon: <IcoGithub />,   href: SITE.social.github },
+  { label: 'LinkedIn', icon: <IcoLinkedin />,  href: SITE.social.linkedin },
+  { label: 'WhatsApp', icon: <IcoWhatsapp />,  href: SITE.social.whatsapp },
 ]
 
 export function Contact() {
@@ -38,21 +35,18 @@ export function Contact() {
           className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
           📞 {SITE.phone}
         </a>
-        <a href={SITE.social.whatsapp} target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
-          <IcoWhatsapp /> WhatsApp
-        </a>
         <a href={SITE.locationUrl} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
           📍 {SITE.location}
         </a>
       </div>
 
-      <div className="flex flex-wrap gap-3 mt-4">
-        {SOCIAL_LINKS.map(l => (
+      <div className="flex gap-3 mt-4">
+        {ICON_LINKS.map(l => (
           <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
-            {l.icon} {l.label}
+            aria-label={l.label}
+            className="flex items-center justify-center w-12 h-12 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors">
+            {l.icon}
           </a>
         ))}
       </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TESTIMONIALS } from '../data'
 import { Section, SectionHeading } from '../components/ui'
 
@@ -17,10 +17,16 @@ function Arrow({ direction, onClick }: { direction: 'left' | 'right'; onClick: (
 
 export function Testimonials() {
   const [active, setActive] = useState(0)
+  const [showNote, setShowNote] = useState(false)
   const total = TESTIMONIALS.length
 
   const prev = () => setActive(i => (i - 1 + total) % total)
   const next = () => setActive(i => (i + 1) % total)
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowNote(true), 2000)
+    return () => clearTimeout(t)
+  }, [])
 
   return (
     <Section id="testimonials">
@@ -84,6 +90,13 @@ export function Testimonials() {
             }`}
           />
         ))}
+      </div>
+
+      {/* Delayed recommendation note */}
+      <div className={`transition-opacity duration-700 ${showNote ? 'opacity-100' : 'opacity-0'}`}>
+        <p className="text-center text-slate-500 text-xs mt-6 border border-white/5 rounded-lg px-4 py-3 bg-slate-900/30 max-w-md mx-auto">
+          I also have two written recommendation letters and several LinkedIn recommendations — available on my CV.
+        </p>
       </div>
     </Section>
   )

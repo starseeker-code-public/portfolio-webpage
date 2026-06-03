@@ -4,20 +4,6 @@ import { IcoGithub, IcoStar } from '../components/icons'
 
 const MOCK_REPOS = [
   {
-    name: 'click',
-    desc: 'Python composable command line interface toolkit — contributed CLI tutorial and docs glossary.',
-    stars: 15800,
-    github: 'https://github.com/pallets/click',
-    tags: ['CLI', 'Python', 'Pallets'],
-  },
-  {
-    name: 'poetry',
-    desc: 'Python packaging and dependency management made easy — added test coverage and Windows author fix.',
-    stars: 32400,
-    github: 'https://github.com/python-poetry/poetry',
-    tags: ['Packaging', 'Python', 'Dependencies'],
-  },
-  {
     name: 'rich',
     desc: 'Rich text and beautiful formatting in the terminal — fixed Windows stderr handle bug.',
     stars: 51200,

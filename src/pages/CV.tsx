@@ -6,7 +6,6 @@ import {
   SITE, SKILL_GROUPS, SPECIALIZATIONS,
   EXPERIENCE, TEACHING,
   CV_EDUCATION, CV_CERTIFICATIONS, CV_LANGUAGES,
-  // CV_VOLUNTEERING,
   // OPEN_SOURCE,
 } from '../data'
 import { IcoDownload } from '../components/icons'
@@ -501,9 +500,7 @@ export default function CV() {
             <CvHeading t={t}>Open Source</CvHeading>
             */}
 
-            {/* Volunteering (commented out per request)
-            <CvHeading t={t}>Volunteering</CvHeading>
-            */}
+
           </div>
 
           {/* RIGHT */}

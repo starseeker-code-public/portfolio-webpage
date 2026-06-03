@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { SITE, SKILL_GROUPS } from '../data'
+import { SITE, SKILL_GROUPS, YEARS_EXP } from '../data'
 import { Section, SectionHeading } from '../components/ui'
 
 /* ── Highlighted keyword ── */
@@ -94,7 +94,7 @@ export function About() {
         <div>
           <h3 className="text-xl font-semibold text-white mb-3">{SITE.name}</h3>
           <p className="text-slate-400 leading-relaxed text-justify">
-            <K>Senior Python engineer</K> with <K>7+ years</K> building{' '}
+            <K>Senior Python engineer</K> with <K>{YEARS_EXP}+ years</K> building{' '}
             <K>back-end services</K>, <K>REST APIs</K>, and{' '}
             <K>microservices</K>. Most recently at <K>Mercedes-Benz</K>,{' '}
             where I evolved large-scale <K>cloud services</K> with 90%+{' '}

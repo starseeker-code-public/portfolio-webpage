@@ -1,29 +1,9 @@
-import { BLOG_POSTS } from '../data'
+import { useBlogPosts } from '../data/blog'
 import { Section, SectionHeading } from '../components/ui'
 import { IcoExternal } from '../components/icons'
+import type { BlogPost } from '../types'
 
-const MOCK_POSTS = [
-  {
-    title: 'Why I switched from Celery to asyncio queues for I/O-bound tasks',
-    date: 'Mar 2026',
-    url: '#',
-    readTime: '8 min',
-  },
-  {
-    title: 'Lessons from refactoring 2 million lines of Python at Frenetic',
-    date: 'Feb 2026',
-    url: '#',
-    readTime: '12 min',
-  },
-  {
-    title: 'Using Claude Code daily as a senior engineer — what actually works',
-    date: 'Jan 2026',
-    url: '#',
-    readTime: '6 min',
-  },
-]
-
-function PostCard({ p }: { p: typeof MOCK_POSTS[number] }) {
+function PostCard({ p }: { p: BlogPost }) {
   return (
     <a href={p.url} target="_blank" rel="noopener noreferrer"
       className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-slate-900/50 p-5 hover:border-indigo-700/60 transition-colors group">
@@ -37,13 +17,13 @@ function PostCard({ p }: { p: typeof MOCK_POSTS[number] }) {
 }
 
 export function Blog() {
-  const posts = BLOG_POSTS.length > 0 ? BLOG_POSTS : MOCK_POSTS
+  const { posts, isLive } = useBlogPosts()
 
   return (
     <Section id="blog">
       <SectionHeading>Personal Blog</SectionHeading>
 
-      {BLOG_POSTS.length === 0 && (
+      {!isLive && (
         <p className="text-slate-500 text-xs mb-5 tracking-wide uppercase">
           Preview — posts coming soon
         </p>

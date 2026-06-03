@@ -1,17 +1,20 @@
 import type {
   Project, ExperienceEntry, OpenSourceRepo, Service,
-  BlogPost, Testimonial, Certification, Language,
-  Education, Volunteering, Stat, SkillGroup, TeachingEntry,
+  Testimonial, Certification, Language,
+  Education, Stat, SkillGroup, TeachingEntry,
 } from '../types'
 
 export { useRandomQuote, getRandomQuote } from './quotes'
 export type { Quote } from './quotes'
 
+const _careerStart = new Date(2018, 5, 1)
+export const YEARS_EXP = Math.floor((Date.now() - _careerStart.getTime()) / (365.25 * 24 * 60 * 60 * 1000))
+
 export const SITE = {
   initials:  'JOA.DEV',
   name:      'Joaquín Hernández Martínez',
   role:      ['Senior Backend Engineer', 'Leader and Architect', 'Fullstack Developer'],
-  tagline:   'Building reliable back-end services, APIs, and cloud infrastructure — almost 8 years turning complex requirements into production-ready systems. Now with AI expertise',
+  tagline:   `Building reliable back-end services, APIs, and cloud infrastructure — ${YEARS_EXP}+ years turning complex requirements into production-ready systems. Now with AI expertise`,
   email:     'proyecto_noether@outlook.com',
   photo:     '/photo.png',
   location:  'Albacete, Spain',
@@ -31,13 +34,13 @@ export const SITE = {
 }
 
 export const STATS: Stat[] = [
-  { label: 'Years exp.',   value: '7+' },
+  { label: 'Years exp.',   value: `${YEARS_EXP}+` },
   { label: 'Projects',     value: '20+' },
   { label: 'Codewars kyu', value: '3' },
 ]
 
 export const BIO =
-  'Senior Python engineer with 7+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing and code standards, and leverage AI daily to ship production-ready software. Bilingual (C2 english certified).'
+  `Senior Python engineer with ${YEARS_EXP}+ years specializing in advanced backend development, distributed system design, and AI-integrated workflows. Recommended by both Allot and Mercedes-Benz for professionalism and consistent delivery. I lead and mentor engineering teams, maintain rigorous testing and code standards, and leverage AI daily to ship production-ready software. Bilingual (C2 english certified).`
 
 export const SPECIALIZATIONS = [
   'Advanced Python & Engineering',
@@ -194,12 +197,6 @@ export const SERVICES: Service[] = [
   },
 ]
 
-// ── Blog (commented out per request) ──
-// export const BLOG_POSTS: BlogPost[] = [
-//   { title: 'Why I switched from Celery to asyncio queues for I/O-bound tasks',
-//     date: 'Feb 2025', url: '#', readTime: '8 min' }
-// ]
-export const BLOG_POSTS: BlogPost[] = []
 
 export const TESTIMONIALS: Testimonial[] = [
   { name: 'María Jesús Martínez Leo', role: 'Senior HR specialist',
@@ -240,9 +237,4 @@ export const CV_LANGUAGES: Language[] = [
 
 export const CV_EDUCATION: Education[] = [
   { degree: 'Degree in Electrical Engineering', school: 'UNED', year: '2016 – Present' },
-]
-
-export const CV_VOLUNTEERING: Volunteering[] = [
-  { role: 'Mentor', org: 'PyLadies Madrid', period: '2021 – Now',
-    desc: 'Weekly mentoring sessions for women entering Python development.' }
 ]

@@ -74,12 +74,6 @@ export interface Education {
   year: string
 }
 
-export interface Volunteering {
-  role: string
-  org: string
-  desc: string
-  period: string
-}
 
 export interface Stat {
   label: string

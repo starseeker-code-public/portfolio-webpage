@@ -14,6 +14,8 @@ Personal portfolio and CV for Joaquin Hernandez Martinez
 
 > A backend engineer walked into a frontend project. The CSS didn't crash. Miracles happen.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/60f3ba65-b920-404f-b666-c6b75998a3b9/deploy-status)](https://app.netlify.com/projects/joaquinhm/deploys) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0) [![Last commit](https://img.shields.io/github/last-commit/starseeker-code-public/portfolio-webpage?style=flat-square)](https://github.com/starseeker-code-public/portfolio-webpage/commits/main) [![Open issues](https://img.shields.io/github/issues/starseeker-code-public/portfolio-webpage?style=flat-square)](https://github.com/starseeker-code-public/portfolio-webpage/issues)
+
 | Version | Date | Description |
 | ------- | ---- | ----------- |
 | **current** | 2026-04-16 | Blog and Contributions added back |
@@ -26,9 +28,9 @@ Personal portfolio and CV for Joaquin Hernandez Martinez
 
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
-- [Sections That Are Commented Out](#sections-that-are-commented-out)
 - [Local Development](#local-development)
 - [Deployment to Netlify](#deployment-to-netlify)
+- [Projects & Status](#projects--status)
 - [License](#license)
 
 ---
@@ -79,19 +81,24 @@ src/
 
 **Component composition over configuration.** Small, focused components (`Tag`, `Section`, `SectionHeading`) composed into section-level components.
 
----
+### Blog Posts
 
-## Sections That Are Commented Out
+The `Blog` section fetches live posts from the personal blog repository at runtime via `src/data/blog.ts`. The hook (`useBlogPosts`) calls `BLOG_API_URL` on mount and replaces the preview post with the live feed on success. On network failure it silently falls back to the single preview post — no broken UI.
 
-Some sections are wrapped in comments in the code — not bugs, features not yet finished.
+**To publish a post**, add an entry to `posts.json` in the [personal-blog](https://github.com/starseeker-code-public/personal-blog) repo:
 
-- **Open Source** — A showcase for OSS contributions. Component and data structure are ready; needs actual repos worth showing.
+```json
+[
+  {
+    "title": "Post title",
+    "date": "Jun 2026",
+    "readTime": "5 min",
+    "url": "https://link-to-post"
+  }
+]
+```
 
-- **Blog** — Post listing section. Interface is there (`title`, `date`, `url`, `readTime`), the component renders beautifully. What's missing? The actual blog posts. Turns out writing code is easier than writing *about* code.
-
-- **Volunteering** (CV page) — Commented out from the CV layout while figuring out the best way to present it without the page overflowing. Print CSS is an art form and I respect the A4 boundary.
-
-These can be re-enabled by uncommenting them in `src/pages/Home.tsx` and `src/pages/CV.tsx`. Data arrays in `src/data/index.ts` just need to be populated.
+The file must be served at `BLOG_API_URL` (currently the raw GitHub URL defined in `src/data/blog.ts`).
 
 ---
 
@@ -137,6 +144,18 @@ To deploy your own:
 3. It just works — make sure you specify the `dist/` dir.
 
 If you use it as a template, please give credit, or at least a star to this repo. Thanks <3
+
+---
+
+## Projects & Status
+
+| Project | Status | GitHub |
+| ------- | ------ | ------ |
+| Five a Day eVolution | ✅ Active | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/five-a-day) |
+| Joy — AI Journal | 🔬 In Development | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/joy-ai-rest-journaling-system) |
+| Personal Blog | ✅ Active | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/personal-blog) |
+| Eternal Crusade | 🔬 In Development | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/eternal-crusade) |
+| My Roadmap | 📋 Active | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/my-roadmap) |
 
 ---
 
