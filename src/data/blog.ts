@@ -10,6 +10,7 @@ const MAX_POSTS = 3
 // Render's router prefixes internal links with "a/" in the feed response.
 // Strip that prefix and prepend the real frontend base URL.
 function fixPostUrl(url: string): string {
+  if (url.startsWith('http')) return url
   return `${BLOG_FRONTEND}/${url.replace(/^a\//, '')}`
 }
 
