@@ -22,13 +22,13 @@ export default function Home() {
       <Divider />
       <Projects />
       <Divider />
-      <OpenSource />
-      <Divider />
-      <Testimonials />
-      <Divider />
       <Blog />
       <Divider />
       <Services />
+      <Divider />
+      <Testimonials />
+      <Divider />
+      <OpenSource />
       <Divider />
       <Contact />
       <Footer />

@@ -5,7 +5,7 @@ import {
   IcoGithub, IcoLinkedin, /* IcoInstagram, */ IcoCodewars, IcoMail, IcoWhatsapp, IcoDevto, IcoMenu, IcoClose,
 } from '../icons'
 
-const NAV_SECTIONS = ['About', 'Experience', 'Projects', 'Open Source', 'Testimonials', 'Blog', 'Services', 'Contact']
+const NAV_SECTIONS = ['About', 'Experience', 'Projects', 'Blog', 'Services', 'Testimonials', 'Open Source', 'Contact']
 
 const SOCIAL = [
   { key: 'github',    icon: <IcoGithub />,    href: SITE.social.github },
