@@ -1,4 +1,4 @@
-import { useBlogPosts } from '../data/blog'
+import { useBlogPosts, BLOG_FRONTEND } from '../data/blog'
 import { Section, SectionHeading } from '../components/ui'
 import { IcoExternal } from '../components/icons'
 import type { BlogPost } from '../types'
@@ -17,20 +17,31 @@ function PostCard({ p }: { p: BlogPost }) {
 }
 
 export function Blog() {
-  const { posts, isLive } = useBlogPosts()
+  const { posts, showFallback } = useBlogPosts()
 
   return (
     <Section id="blog">
       <SectionHeading>Personal Blog</SectionHeading>
 
-      {!isLive && (
-        <p className="text-slate-500 text-xs mb-5 tracking-wide uppercase">
-          Preview — posts coming soon
+      {showFallback && (
+        <p className="blog-live-link text-slate-500 text-xs mb-5">
+          Fetching latest blog posts from{' '}
+          <a href={BLOG_FRONTEND} target="_blank" rel="noopener noreferrer"
+            className="text-indigo-400 hover:text-indigo-300 transition-colors">
+            {BLOG_FRONTEND}
+          </a>
         </p>
       )}
 
       <div className="space-y-4">
         {posts.map((p, i) => <PostCard key={i} p={p} />)}
+      </div>
+
+      <div className="mt-6 flex justify-end">
+        <a href={BLOG_FRONTEND} target="_blank" rel="noopener noreferrer"
+          className="blog-live-link flex items-center gap-1.5 text-indigo-400 text-xs tracking-widest uppercase font-medium">
+          Visit the blog <IcoExternal />
+        </a>
       </div>
     </Section>
   )

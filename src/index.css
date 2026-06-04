@@ -123,6 +123,15 @@ html, body {
   box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.22), 0 0 22px rgba(16, 185, 129, 0.12);
 }
 
+/* Blog — pulsing glow link to the blog */
+@keyframes blog-link-pulse {
+  0%, 100% { opacity: 0.55; text-shadow: none; }
+  50%       { opacity: 1;    text-shadow: 0 0 14px rgba(129, 140, 248, 0.55); }
+}
+.blog-live-link {
+  animation: blog-link-pulse 2.8s ease-in-out infinite;
+}
+
 /* Teaching card sparkle twinkle */
 @keyframes sparkle-twinkle {
   0%, 100% { opacity: 0.15; transform: scale(0.8); }

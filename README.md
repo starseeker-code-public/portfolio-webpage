@@ -18,7 +18,13 @@ Personal portfolio and CV for Joaquin Hernandez Martinez
 
 | Version | Date | Description |
 | ------- | ---- | ----------- |
-| **current** | 2026-04-16 | Blog and Contributions added back |
+| **current** | 2026-06-04 | Blog live API with localStorage cache, background retry, and fallback message |
+| — | 2026-06-04 | Years of experience auto-calculated from career start date |
+| — | 2026-06-04 | Contact section cleaned up — email/phone/location + icon-only row |
+| — | 2026-06-04 | Testimonials recommendation note fades in after 2 s |
+| — | 2026-06-04 | Open Source section shows only real contribution (rich) |
+| — | 2026-06-04 | Galaxy favicon, Netlify status badge, Projects & Status table in README |
+| — | 2026-04-16 | Blog and Contributions added back |
 | — | 2026-04-15 | Updated sections and activated Blog and Contributions |
 | — | 2026-03-17 | Added name effect |
 
@@ -83,9 +89,16 @@ src/
 
 ### Blog Posts
 
-The `Blog` section fetches live posts from the personal blog repository at runtime via `src/data/blog.ts`. The hook (`useBlogPosts`) calls `BLOG_API_URL` on mount and replaces the preview post with the live feed on success. On network failure it silently falls back to the single preview post — no broken UI.
+Live blog posts are fetched at runtime via `src/data/blog.ts` (`useBlogPosts` hook). The fetch pipeline works as follows:
 
-**To publish a post**, add an entry to `posts.json` in the [personal-blog](https://github.com/starseeker-code-public/personal-blog) repo:
+1. **On load** — fetches `BLOG_API_URL` (the personal-blog backend on Render). Up to 3 latest posts are shown.
+2. **Success** — posts are saved to `localStorage` and rendered immediately.
+3. **Failure** — user sees the last cached posts from `localStorage` silently. A background async retry fires after 2 minutes (and once more if that also fails), saving fresh data to cache for the next visit without touching the current UI.
+4. **No cache + failure** — a blinking fallback message is shown pointing to the blog URL.
+
+The API endpoint (`BLOG_API_URL`) and blog frontend URL (`BLOG_FRONTEND`) are the single source of truth in `src/data/blog.ts` — both exported and used across the Blog section.
+
+**Expected API response shape:**
 
 ```json
 [
@@ -93,12 +106,12 @@ The `Blog` section fetches live posts from the personal blog repository at runti
     "title": "Post title",
     "date": "Jun 2026",
     "readTime": "5 min",
-    "url": "https://link-to-post"
+    "url": "posts/post-slug"
   }
 ]
 ```
 
-The file must be served at `BLOG_API_URL` (currently the raw GitHub URL defined in `src/data/blog.ts`).
+> Note: the backend (Render) prefixes post URLs with `a/` due to its internal router. `fixPostUrl()` in `blog.ts` strips this and prepends `BLOG_FRONTEND`.
 
 ---
 
@@ -149,13 +162,13 @@ If you use it as a template, please give credit, or at least a star to this repo
 
 ## Projects & Status
 
-| Project | Status | GitHub |
-| ------- | ------ | ------ |
-| Five a Day eVolution | ✅ Active | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/five-a-day) |
-| Joy — AI Journal | 🔬 In Development | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/joy-ai-rest-journaling-system) |
-| Personal Blog | ✅ Active | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/personal-blog) |
-| Eternal Crusade | 🔬 In Development | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/eternal-crusade) |
-| My Roadmap | 📋 Active | [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/starseeker-code-public/my-roadmap) |
+| Project | Status | GitHub | Demo |
+| ------- | ------ | ------ | ---- |
+| Five a Day eVolution | ✅ Active | [![GitHub five-a-day](https://img.shields.io/badge/five--a--day-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/starseeker-code-public/five-a-day) | [![Live demo](https://img.shields.io/badge/live-demo-6366f1?style=flat-square&logo=render&logoColor=white)](https://fiveaday-web.onrender.com) |
+| Joy — AI Journal | 🔬 In Development | [![GitHub joy-ai-journal](https://img.shields.io/badge/joy--ai--journal-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/starseeker-code-public/joy-ai-rest-journaling-system) | — |
+| Personal Blog | [![Blog API](https://img.shields.io/website?url=https%3A%2F%2Fpersonal-blog-backend-e538.onrender.com%2Fapi%2Ffeed%2Fportfolio&label=blog%20api&style=flat-square)](https://personal-blog-backend-e538.onrender.com/api/feed/portfolio) | [![GitHub personal-blog](https://img.shields.io/badge/personal--blog-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/starseeker-code-public/personal-blog) | [![Live demo](https://img.shields.io/badge/live-demo-6366f1?style=flat-square&logo=render&logoColor=white)](https://personal-blog-frontend-jjzy.onrender.com/) |
+| Eternal Crusade | 🔬 In Development | [![GitHub eternal-crusade](https://img.shields.io/badge/eternal--crusade-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/starseeker-code-public/eternal-crusade) | — |
+| My Roadmap | 📋 Active | [![GitHub my-roadmap](https://img.shields.io/badge/my--roadmap-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/starseeker-code-public/my-roadmap) | — |
 
 ---
 
