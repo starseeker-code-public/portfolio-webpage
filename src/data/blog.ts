@@ -3,7 +3,7 @@ import type { BlogPost } from '../types'
 
 export const BLOG_API_URL = 'https://personal-blog-backend-e538.onrender.com/api/feed/portfolio'
 
-export const BLOG_FRONTEND = 'https://personal-blog-frontend-jjzy.onrender.com'
+export const BLOG_FRONTEND = 'https://joaquin-blog.uk'
 const CACHE_KEY = 'blog_posts_cache'
 const MAX_POSTS = 3
 
