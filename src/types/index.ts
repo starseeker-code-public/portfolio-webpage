@@ -1,11 +1,15 @@
 export interface Project {
   title: string
+  /** Matches the repo / local folder name — also the cover filename in src/assets/projects. */
+  slug: string
   desc: string
-  image: string
+  /** Explicit cover override; when absent the slug-named asset is used, else a generated cover. */
+  image?: string
   github: string
   projectUrl: string
   tags: string[]
   isInDevelopment: boolean
+  isFeatured: boolean
 }
 
 export interface ExperienceEntry {
