@@ -183,9 +183,6 @@ export function Projects() {
         </>
       )}
 
-      <p className="projects-coming-soon text-center text-sm text-indigo-400/70 mt-6 italic">
-        More to come — updating my public GitHub
-      </p>
     </Section>
   )
 }
