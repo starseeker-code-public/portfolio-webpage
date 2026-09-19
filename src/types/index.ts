@@ -1,5 +1,7 @@
 export interface Project {
   title: string
+  /** Optional one-line caption under the title, e.g. real-world status of the project. */
+  subtitle?: string
   /** Matches the repo / local folder name — also the cover filename in src/assets/projects. */
   slug: string
   desc: string

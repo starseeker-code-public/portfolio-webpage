@@ -124,6 +124,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
 export const PROJECTS: Project[] = [
   {
     title:  'Five a Day Evolution - Academy Management Software',
+    subtitle: 'Built, deployed & maintained — live in production for a real academy (see testimonials)',
     slug:   'five-a-day',  // connects with the image
     desc:   'Full-stack academy software for payments, students and batteries included automation (emails, tasks, etc...). Built with Django, PostgreSQL database and Redis with Celery. Features Google Oauth authentication, several embedded apps (email automation, todo list and sync, excel processing and import/export, google automation, accountability and management), and containerized deployment as well as production deployment in Google Cloud Platform.',
     github: 'https://github.com/starseeker-code-public/five-a-day#five-a-day-evolution',
@@ -441,15 +442,15 @@ export const SERVICES: Service[] = [
 
 
 export const TESTIMONIALS: Testimonial[] = [
+  { name: 'Silvia Yubitza', role: 'Five a Day Owner',
+    text: 'Joaquín Hernández Martínez demonstrated strong leadership and engineering skill by independently planning, developing, and delivering a web application that actually works and helps us immensely. Not only is he responsible for programming, but also for testing and ensuring that everything is deployed to the testing and production environments, and he is always available in case of an emergency. A true one man company',
+    email: 'hellofiveaday@gmail.com', phone: '+34 967 04 90 96' },
   { name: 'María Jesús Martínez Leo', role: 'Senior HR specialist',
     text: 'I recommend Joaquín Hernández Martínez as a capable engineer. He demonstrated leadership overcoming the challenges in our team, and proved to be a worthy member and team player of the Systems team. To be noted were his contributions to software design, his attention to PR reviews and quality code, and his deep knowledge of Python backend frameworks like Django and Flask. He is a valuable team member due to his experience and knowledge.',
     email: 'mariajesus.martinez@atm-maggioli.es', phone: '+34 628 077 018' },
   { name: 'Cesar Boria', role: 'Senior Python Engineer at Mercedes Benz',
     text: 'Joaquín is a very good team mate. I worked with him developing Pulumi services in a microservices architecture to provision Azure services for AI and Data teams worldwide. His knowledge of design patterns and distributed backend systems was particularly useful. He lead a BDD E2E testing project too and was responsible for ADX Azure component development from scratch. Excellent PR reviews.',
     email: 'cesar.boria@mercedes-benz.com', phone: '+34 620 35 05 37' },
-  { name: 'Silvia Yubitza', role: 'Five a Day Owner',
-    text: 'Joaquín Hernández Martínez demonstrated strong leadership and engineering skill by independently planning, developing, and delivering a production-ready web application for managing students, payments, and administrative workflows, showing the ability to turn complex requirements into practical and reliable software solutions.',
-    email: 'hellofiveaday@gmail.com', phone: '+34 967 04 90 96' },
 ]
 
 export const CV_CERTIFICATIONS: Certification[] = [

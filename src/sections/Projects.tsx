@@ -124,7 +124,12 @@ function ProjectCard({ project, tall, flagship, eager }: { project: Project; tal
       )}
       <ProjectCover project={project} tall={tall} eager={eager} />
       <div className="p-4 sm:p-5 flex flex-col flex-1">
-        <h3 className="text-white font-semibold text-lg mb-2">{project.title}</h3>
+        <h3 className={`text-white font-semibold text-lg ${project.subtitle ? 'mb-1' : 'mb-2'}`}>{project.title}</h3>
+        {project.subtitle && (
+          <p className={`text-xs uppercase tracking-wider mb-3 ${flagship ? 'text-amber-300/80' : 'text-indigo-400'}`}>
+            {project.subtitle}
+          </p>
+        )}
         <p className="text-slate-400 text-sm leading-relaxed flex-1 mb-4">{project.desc}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.map(t => <Tag key={t} label={t} />)}
