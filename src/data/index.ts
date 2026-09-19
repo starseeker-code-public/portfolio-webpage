@@ -35,7 +35,7 @@ export const SITE = {
 
 export const STATS: Stat[] = [
   { label: 'Years exp.',   value: `${YEARS_EXP}+` },
-  { label: 'Projects',     value: '20+' },
+  { label: 'Projects',     get value() { return `${PROJECTS.length}` } },
   { label: 'Codewars kyu', value: '3' },
 ]
 

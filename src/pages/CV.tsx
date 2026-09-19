@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
 import {
   SITE, SKILL_GROUPS, SPECIALIZATIONS,
   EXPERIENCE, TEACHING,
@@ -9,6 +7,7 @@ import {
   // OPEN_SOURCE,
 } from '../data'
 import { IcoDownload } from '../components/icons'
+import { canHover } from '../hooks/useMediaQuery'
 import Footer from '../components/layout/Footer'
 
 /* ── Inline GitHub SVG for CV header (matches CV font size) ── */
@@ -105,7 +104,7 @@ const DARK: ThemeColors = {
 function CvHeading({ children, t }: { children: React.ReactNode; t: ThemeColors }) {
   return (
     <h2 style={{
-      fontFamily: "'Fira Code', monospace", fontSize: '7.5pt', fontWeight: 700,
+      fontFamily: "'Fira Code', monospace", fontSize: 'calc(7.5pt * var(--cv-scale, 1))', fontWeight: 700,
       letterSpacing: '.12em', textTransform: 'uppercase' as const,
       color: t.accent, borderBottom: `1px solid ${t.headingBorder}`,
       paddingBottom: '3px', margin: '14px 0 8px',
@@ -119,7 +118,7 @@ function CvHeading({ children, t }: { children: React.ReactNode; t: ThemeColors 
 function CvTag({ label, t }: { label: string; t: ThemeColors }) {
   return (
     <span style={{
-      fontFamily: "'Fira Code', monospace", fontSize: '7.5pt',
+      fontFamily: "'Fira Code', monospace", fontSize: 'calc(7.5pt * var(--cv-scale, 1))',
       background: t.tagBg, color: t.tagText,
       borderRadius: '3px', padding: '1px 6px',
       transition: 'background 0.5s, color 0.5s',
@@ -133,7 +132,9 @@ export default function CV() {
   const [dark, setDark] = useState(true)
   const [isGenerating, setIsGenerating] = useState(false)
   const [showPrintingOverlay, setShowPrintingOverlay] = useState(false)
+  const [lettersOpen, setLettersOpen] = useState(false)
   const cvRef = useRef<HTMLDivElement>(null)
+  const lettersRef = useRef<HTMLDivElement>(null)
   const overlayTimeoutRef = useRef<number | null>(null)
   const t = dark ? DARK : LIGHT
   const pageBg = dark ? '#060516' : '#eef2ff'
@@ -145,6 +146,20 @@ export default function CV() {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (!lettersOpen) return
+    const onPointerDown = (e: PointerEvent) => {
+      if (!lettersRef.current?.contains(e.target as Node)) setLettersOpen(false)
+    }
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') setLettersOpen(false) }
+    document.addEventListener('pointerdown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [lettersOpen])
 
   const waitForNextPaint = () =>
     new Promise<void>(resolve => {
@@ -172,6 +187,11 @@ export default function CV() {
     setIsGenerating(true)
 
     try {
+      // Loaded on demand: these two are ~500 kB and are only needed by this button.
+      const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
+        import('jspdf'),
+        import('html2canvas'),
+      ])
       // Export must always use day mode for a consistent PDF result.
       if (previousDark) {
         setDark(false)
@@ -185,6 +205,7 @@ export default function CV() {
       cvElement.style.setProperty('margin', '24px auto', 'important')
       cvElement.style.setProperty('padding', '14mm', 'important')
       cvElement.style.setProperty('font-size', '10.5pt', 'important')
+      cvElement.style.setProperty('--cv-scale', '1', 'important')
 
       if (cvGridElement) {
         cvGridElement.style.setProperty('display', 'grid', 'important')
@@ -338,29 +359,45 @@ export default function CV() {
           </Link>
           <div className="cv-toolbar-actions flex items-center gap-3">
             <button onClick={() => setDark(d => !d)}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors"
+              className="flex items-center justify-center gap-2 px-3 py-2 min-w-[44px] min-h-[44px] rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors"
+              aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
               title={dark ? 'Light mode' : 'Dark mode'}>
               {dark ? <SunIcon /> : <MoonIcon />}
             </button>
-            <div className="relative group">
-              <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
-                <IcoDownload /> Recommendation Letters
-                <svg className="w-3 h-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <div
+              ref={lettersRef}
+              className="relative"
+              onMouseEnter={() => { if (canHover()) setLettersOpen(true) }}
+              onMouseLeave={() => { if (canHover()) setLettersOpen(false) }}
+            >
+              <button
+                onClick={() => setLettersOpen(o => !o)}
+                aria-expanded={lettersOpen}
+                aria-haspopup="menu"
+                className="flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors">
+                <IcoDownload /> <span className="hidden sm:inline">Recommendation Letters</span>
+                <svg className={`w-3 h-3 ml-1 transition-transform duration-300 ${lettersOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
-              <div className="absolute right-0 top-full mt-1 w-48 rounded-lg bg-slate-800 border border-white/10 shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50">
+              <div
+                role="menu"
+                className={`absolute right-0 top-full mt-1 w-48 rounded-lg bg-slate-800 border border-white/10 shadow-xl transition-opacity z-50 ${
+                  lettersOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                }`}>
                 <a href="/recommendations/carta - maggioli.pdf" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2.5 text-slate-200 text-xs hover:bg-slate-700 rounded-t-lg transition-colors">
+                  onClick={() => setLettersOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-slate-200 text-xs hover:bg-slate-700 rounded-t-lg transition-colors">
                   <IcoDownload /> ATM Maggioli
                 </a>
                 <a href="/recommendations/carta - tajamar.pdf" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2.5 text-slate-200 text-xs hover:bg-slate-700 rounded-b-lg transition-colors">
+                  onClick={() => setLettersOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-slate-200 text-xs hover:bg-slate-700 rounded-b-lg transition-colors">
                   <IcoDownload /> Tajamar
                 </a>
               </div>
             </div>
             <button onClick={generatePDF} disabled={isGenerating || showPrintingOverlay}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
-              <IcoDownload /> {showPrintingOverlay ? 'Generating PDF...' : 'Download PDF'}
+              className="flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
+              <IcoDownload /> {showPrintingOverlay ? 'Generating...' : 'Download PDF'}
             </button>
           </div>
         </div>
@@ -371,7 +408,7 @@ export default function CV() {
           margin: '24px auto', background: t.bg,
           padding: '14mm', boxShadow: t.shadow,
           fontFamily: "'Fira Code', monospace",
-          fontSize: '10.5pt', color: t.text, lineHeight: '1.5',
+          fontSize: 'calc(10.5pt * var(--cv-scale, 1))', color: t.text, lineHeight: '1.5',
           transition: 'background 0.5s, color 0.5s, box-shadow 0.5s',
         }}>
 
@@ -387,9 +424,9 @@ export default function CV() {
             flexShrink: 0, transition: 'border-color 0.5s',
           }} />
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '22pt', fontWeight: 700, color: t.accent, lineHeight: 1.1, fontFamily: "'Fira Code', monospace", transition: 'color 0.5s' }}>{SITE.name}</div>
-            <div style={{ fontSize: '10.5pt', color: t.muted, fontFamily: "'Fira Code', monospace", marginTop: '2px', marginBottom: '7px', transition: 'color 0.5s' }}>{SITE.role.join(' · ')}</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px 18px', fontSize: '8.5pt', color: t.muted, fontFamily: "'Fira Code', monospace", transition: 'color 0.5s' }}>
+            <div style={{ fontSize: 'calc(22pt * var(--cv-scale, 1))', fontWeight: 700, color: t.accent, lineHeight: 1.1, fontFamily: "'Fira Code', monospace", transition: 'color 0.5s' }}>{SITE.name}</div>
+            <div style={{ fontSize: 'calc(10.5pt * var(--cv-scale, 1))', color: t.muted, fontFamily: "'Fira Code', monospace", marginTop: '2px', marginBottom: '7px', transition: 'color 0.5s' }}>{SITE.role.join(' · ')}</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '6px 18px', fontSize: 'calc(8.5pt * var(--cv-scale, 1))', color: t.muted, fontFamily: "'Fira Code', monospace", transition: 'color 0.5s' }}>
               <span>📍 <a href={SITE.locationUrl} target="_blank" rel="noopener noreferrer" style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.fullAddress}</a></span>
               <span>📞 <a href={SITE.social.whatsapp} target="_blank" rel="noopener noreferrer" style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.phone}</a></span>
               <span><CvMailIcon /> <a href={`mailto:${SITE.email}`} style={{ color: t.accent, textDecoration: 'none', transition: 'color 0.5s' }}>{SITE.email}</a></span>
@@ -415,23 +452,23 @@ export default function CV() {
               return (
                 <div className="cv-entry section-no-break" style={{ marginBottom: '8px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
-                    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '9pt', fontWeight: 700, transition: 'color 0.5s' }}>
+                    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(9pt * var(--cv-scale, 1))', fontWeight: 700, transition: 'color 0.5s' }}>
                       {e.role}
                       <span style={{ fontWeight: 400, color: t.muted, margin: '0 4px' }}>·</span>
                       {e.companyUrl.trim().length > 0 ? (
                         <a href={e.companyUrl} target="_blank" rel="noopener noreferrer"
-                          style={{ color: t.accentLight, fontWeight: 500, textDecoration: 'none', fontSize: '8.5pt', transition: 'color 0.5s' }}>
+                          style={{ color: t.accentLight, fontWeight: 500, textDecoration: 'none', fontSize: 'calc(8.5pt * var(--cv-scale, 1))', transition: 'color 0.5s' }}>
                           {e.company}
                         </a>
                       ) : (
-                        <span style={{ color: t.accentLight, fontWeight: 500, fontSize: '8.5pt', transition: 'color 0.5s' }}>{e.company}</span>
+                        <span style={{ color: t.accentLight, fontWeight: 500, fontSize: 'calc(8.5pt * var(--cv-scale, 1))', transition: 'color 0.5s' }}>{e.company}</span>
                       )}
                     </span>
-                    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '7.5pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
+                    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(7.5pt * var(--cv-scale, 1))', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
                   </div>
-                  <div style={{ fontSize: '8.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', marginTop: '2px', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
+                  <div style={{ fontSize: 'calc(8.5pt * var(--cv-scale, 1))', color: t.muted, lineHeight: 1.45, textAlign: 'justify', marginTop: '2px', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
                   {e.projectInfo && (
-                    <div style={{ fontSize: '8pt', color: t.muted, lineHeight: 1.4, textAlign: 'justify', marginTop: '3px', fontStyle: 'italic', transition: 'color 0.5s' }}>
+                    <div style={{ fontSize: 'calc(8pt * var(--cv-scale, 1))', color: t.muted, lineHeight: 1.4, textAlign: 'justify', marginTop: '3px', fontStyle: 'italic', transition: 'color 0.5s' }}>
                       <span style={{ fontStyle: 'normal', fontWeight: 600, color: t.accent, transition: 'color 0.5s' }}>Project: </span>{e.projectInfo}
                     </div>
                   )}
@@ -445,22 +482,22 @@ export default function CV() {
             {/* Teaching (second position) */}
             <div className="cv-entry section-no-break" style={{ marginBottom: '10px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
-                <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '9pt', fontWeight: 700, transition: 'color 0.5s' }}>
+                <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(9pt * var(--cv-scale, 1))', fontWeight: 700, transition: 'color 0.5s' }}>
                   {TEACHING.role}
-                  <span style={{ fontSize: '7.5pt', fontWeight: 400, fontStyle: 'italic', color: t.muted }}> (also teach)</span>
+                  <span style={{ fontSize: 'calc(7.5pt * var(--cv-scale, 1))', fontWeight: 400, fontStyle: 'italic', color: t.muted }}> (also teach)</span>
                   <span style={{ fontWeight: 400, color: t.muted, margin: '0 4px' }}>·</span>
                   {TEACHING.companyUrl.trim().length > 0 ? (
                     <a href={TEACHING.companyUrl} target="_blank" rel="noopener noreferrer"
-                      style={{ color: t.accentLight, fontWeight: 500, textDecoration: 'none', fontSize: '8.5pt', transition: 'color 0.5s' }}>
+                      style={{ color: t.accentLight, fontWeight: 500, textDecoration: 'none', fontSize: 'calc(8.5pt * var(--cv-scale, 1))', transition: 'color 0.5s' }}>
                       {TEACHING.company}
                     </a>
                   ) : (
-                    <span style={{ color: t.accentLight, fontWeight: 500, fontSize: '8.5pt', transition: 'color 0.5s' }}>{TEACHING.company}</span>
+                    <span style={{ color: t.accentLight, fontWeight: 500, fontSize: 'calc(8.5pt * var(--cv-scale, 1))', transition: 'color 0.5s' }}>{TEACHING.company}</span>
                   )}
                 </span>
-                <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '7.5pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
+                <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(7.5pt * var(--cv-scale, 1))', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{TEACHING.period}</span>
               </div>
-              <div style={{ fontSize: '8.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', marginTop: '2px', transition: 'color 0.5s' }}>{TEACHING.desc}</div>
+              <div style={{ fontSize: 'calc(8.5pt * var(--cv-scale, 1))', color: t.muted, lineHeight: 1.45, textAlign: 'justify', marginTop: '2px', transition: 'color 0.5s' }}>{TEACHING.desc}</div>
             </div>
 
             {/* Separator between current roles and previous */}
@@ -470,23 +507,23 @@ export default function CV() {
             {EXPERIENCE.slice(1).map((e, i) => (
               <div key={i} className="cv-entry section-no-break" style={{ marginBottom: '8px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '4px' }}>
-                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '9pt', fontWeight: 700, transition: 'color 0.5s' }}>
+                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(9pt * var(--cv-scale, 1))', fontWeight: 700, transition: 'color 0.5s' }}>
                     {e.role}
                     <span style={{ fontWeight: 400, color: t.muted, margin: '0 4px' }}>·</span>
                     {e.companyUrl.trim().length > 0 ? (
                       <a href={e.companyUrl} target="_blank" rel="noopener noreferrer"
-                        style={{ color: t.accentLight, fontWeight: 500, textDecoration: 'none', fontSize: '8.5pt', transition: 'color 0.5s' }}>
+                        style={{ color: t.accentLight, fontWeight: 500, textDecoration: 'none', fontSize: 'calc(8.5pt * var(--cv-scale, 1))', transition: 'color 0.5s' }}>
                         {e.company}
                       </a>
                     ) : (
-                      <span style={{ color: t.accentLight, fontWeight: 500, fontSize: '8.5pt', transition: 'color 0.5s' }}>{e.company}</span>
+                      <span style={{ color: t.accentLight, fontWeight: 500, fontSize: 'calc(8.5pt * var(--cv-scale, 1))', transition: 'color 0.5s' }}>{e.company}</span>
                     )}
                   </span>
-                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '7.5pt', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
+                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(7.5pt * var(--cv-scale, 1))', color: t.muted, whiteSpace: 'nowrap' as const, transition: 'color 0.5s' }}>{e.period}</span>
                 </div>
-                <div style={{ fontSize: '8.5pt', color: t.muted, lineHeight: 1.45, textAlign: 'justify', marginTop: '2px', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
+                <div style={{ fontSize: 'calc(8.5pt * var(--cv-scale, 1))', color: t.muted, lineHeight: 1.45, textAlign: 'justify', marginTop: '2px', transition: 'color 0.5s' }}>{e.desc}{e.details ? ` ${e.details}` : ''}</div>
                 {e.projectInfo && (
-                  <div style={{ fontSize: '8pt', color: t.muted, lineHeight: 1.4, textAlign: 'justify', marginTop: '3px', fontStyle: 'italic', transition: 'color 0.5s' }}>
+                  <div style={{ fontSize: 'calc(8pt * var(--cv-scale, 1))', color: t.muted, lineHeight: 1.4, textAlign: 'justify', marginTop: '3px', fontStyle: 'italic', transition: 'color 0.5s' }}>
                     <span style={{ fontStyle: 'normal', fontWeight: 600, color: t.accent, transition: 'color 0.5s' }}>Project: </span>{e.projectInfo}
                   </div>
                 )}
@@ -511,7 +548,7 @@ export default function CV() {
             <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '4px', marginBottom: '4px' }}>
               {SPECIALIZATIONS.map(s => (
                 <span key={s} style={{
-                  fontFamily: "'Fira Code', monospace", fontSize: '7.5pt', fontWeight: 600,
+                  fontFamily: "'Fira Code', monospace", fontSize: 'calc(7.5pt * var(--cv-scale, 1))', fontWeight: 600,
                   background: dark ? 'rgba(129,140,248,0.2)' : '#e0e7ff',
                   color: t.accent, borderRadius: '3px', padding: '2px 8px',
                   transition: 'background 0.5s, color 0.5s',
@@ -527,7 +564,7 @@ export default function CV() {
             <CvHeading t={t}>Skills</CvHeading>
             {SKILL_GROUPS.map(g => (
               <div key={g.label} style={{ marginBottom: '6px' }}>
-                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: '8.5pt', fontWeight: 700, marginBottom: '3px', transition: 'color 0.5s' }}>{g.label}</div>
+                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(8.5pt * var(--cv-scale, 1))', fontWeight: 700, marginBottom: '3px', transition: 'color 0.5s' }}>{g.label}</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '3px' }}>
                   {g.items.map(s => <CvTag key={s} label={s} t={t} />)}
                 </div>
@@ -541,12 +578,12 @@ export default function CV() {
             {CV_LANGUAGES.map((l, i) => (
               <div key={i} style={{
                 display: 'flex', justifyContent: 'space-between', fontFamily: "'Fira Code', monospace",
-                fontSize: '9pt', padding: '3px 0',
+                fontSize: 'calc(9pt * var(--cv-scale, 1))', padding: '3px 0',
                 borderBottom: i < CV_LANGUAGES.length - 1 ? `1px solid ${t.border}` : 'none',
                 transition: 'border-color 0.5s, color 0.5s',
               }}>
                 <span>{l.lang}</span>
-                <span style={{ color: t.accent, fontSize: '8.5pt', transition: 'color 0.5s' }}>{l.level}</span>
+                <span style={{ color: t.accent, fontSize: 'calc(8.5pt * var(--cv-scale, 1))', transition: 'color 0.5s' }}>{l.level}</span>
               </div>
             ))}
             </div>
@@ -556,8 +593,8 @@ export default function CV() {
             <CvHeading t={t}>Education</CvHeading>
             {CV_EDUCATION.map((e, i) => (
               <div key={i} style={{ marginBottom: '7px' }}>
-                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: '9pt', fontWeight: 600, transition: 'color 0.5s' }}>{e.degree}</div>
-                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: '8.5pt', color: t.muted, transition: 'color 0.5s' }}>{e.school} · {e.year}</div>
+                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(9pt * var(--cv-scale, 1))', fontWeight: 600, transition: 'color 0.5s' }}>{e.degree}</div>
+                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(8.5pt * var(--cv-scale, 1))', color: t.muted, transition: 'color 0.5s' }}>{e.school} · {e.year}</div>
               </div>
             ))}
             </div>
@@ -567,8 +604,8 @@ export default function CV() {
             <CvHeading t={t}>Certifications</CvHeading>
             {CV_CERTIFICATIONS.map((c, i) => (
               <div key={i} style={{ marginBottom: '6px' }}>
-                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: '9pt', fontWeight: 600, transition: 'color 0.5s' }}>{c.name}</div>
-                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: '8pt', color: t.muted, transition: 'color 0.5s' }}>{c.issuer}{c.year ? ` · ${c.year}` : ''}</div>
+                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(9pt * var(--cv-scale, 1))', fontWeight: 600, transition: 'color 0.5s' }}>{c.name}</div>
+                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 'calc(8pt * var(--cv-scale, 1))', color: t.muted, transition: 'color 0.5s' }}>{c.issuer}{c.year ? ` · ${c.year}` : ''}</div>
               </div>
             ))}
             </div>

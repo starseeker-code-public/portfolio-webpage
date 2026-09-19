@@ -26,17 +26,17 @@ export function Contact() {
         </p>
       )}
 
-      <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
         <a href={`mailto:${SITE.email}`}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm transition-colors">
-          <IcoMail /> {SITE.email}
+          className="flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm transition-colors break-all sm:break-normal">
+          <IcoMail /> <span>{SITE.email}</span>
         </a>
         <a href={SITE.phoneUrl}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
+          className="flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
           📞 {SITE.phone}
         </a>
         <a href={SITE.locationUrl} target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
+          className="flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
           📍 {SITE.location}
         </a>
       </div>

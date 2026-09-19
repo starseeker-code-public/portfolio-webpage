@@ -117,7 +117,7 @@ function AccordionItem({ service, index, isOpen, onToggle }: {
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center gap-4 px-5 py-4 text-left group"
+        className="w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 min-h-[44px] text-left group"
       >
         <div className="w-10 h-10 rounded-xl bg-indigo-950/70 border border-indigo-700/25 flex items-center justify-center shrink-0 [&_svg]:w-5 [&_svg]:h-5 transition-colors duration-300 group-hover:border-indigo-600/40 group-hover:bg-indigo-950/90">
           <ServiceIcon index={index} />
@@ -144,7 +144,7 @@ function AccordionItem({ service, index, isOpen, onToggle }: {
         className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
         style={{ maxHeight: isOpen ? `${height}px` : '0px' }}
       >
-        <div ref={contentRef} className="px-5 pb-5 pt-0">
+        <div ref={contentRef} className="px-4 sm:px-5 pb-5 pt-0">
           <div className="border-t border-white/5 pt-4">
             <p className="text-slate-400 text-sm leading-relaxed text-justify">{service.details}</p>
           </div>

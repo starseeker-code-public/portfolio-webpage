@@ -14,9 +14,9 @@ const MOCK_REPOS = [
 
 function RepoCard({ r }: { r: typeof MOCK_REPOS[number] }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/50 p-5 flex flex-col">
+    <div className="rounded-xl border border-white/10 bg-slate-900/50 p-4 sm:p-5 flex flex-col">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-white font-semibold text-sm">{r.name}</h3>
+        <h3 className="text-white font-semibold text-sm truncate">{r.name}</h3>
         <span className="flex items-center gap-1 text-xs text-slate-400"><IcoStar />{r.stars.toLocaleString()}</span>
       </div>
       <p className="text-slate-400 text-xs leading-relaxed flex-1 mb-4">{r.desc}</p>
@@ -44,7 +44,7 @@ export function OpenSource() {
         </p>
       )}
 
-      <div className="grid sm:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {repos.map(r => <RepoCard key={r.name} r={r} />)}
       </div>
     </Section>

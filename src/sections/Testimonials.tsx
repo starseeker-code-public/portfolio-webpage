@@ -32,11 +32,15 @@ export function Testimonials() {
     <Section id="testimonials">
       <SectionHeading>Testimonials</SectionHeading>
 
-      {/* Arrows + carousel in a row — arrows stay fixed in place */}
+      {/* Arrows flank the card from sm up; below that they would eat ~110px of a
+          328px row and squeeze the quote into a ~168px column, so they move
+          under the card instead. */}
       <div className="flex items-center gap-4 max-w-2xl mx-auto">
-        <Arrow direction="left" onClick={prev} />
+        <div className="hidden sm:block">
+          <Arrow direction="left" onClick={prev} />
+        </div>
 
-        <div className="relative flex-1 overflow-hidden">
+        <div className="relative flex-1 min-w-0 overflow-hidden">
           {TESTIMONIALS.map((t, i) => {
             const offset = i - active
             const isActive = offset === 0
@@ -55,12 +59,13 @@ export function Testimonials() {
                   right: 0,
                   opacity: isActive ? 1 : 0.3,
                   transform: `translateX(${pos * 60}px) scale(${isActive ? 1 : 0.92})`,
+                  width: '100%',
                   zIndex: isActive ? 10 : 5,
                   pointerEvents: isActive ? 'auto' : 'none',
                   filter: isActive ? 'none' : 'blur(1.5px)',
                 }}
               >
-                <div className={`rounded-xl border p-6 flex flex-col transition-all duration-500 ${
+                <div className={`rounded-xl border p-4 sm:p-6 flex flex-col transition-all duration-500 ${
                   isActive ? 'border-indigo-500/30 bg-slate-900/70' : 'border-white/5 bg-slate-900/30'
                 }`}>
                   <p className="text-indigo-400 text-2xl mb-2 font-serif">"</p>
@@ -68,7 +73,7 @@ export function Testimonials() {
                   <div>
                     <p className="text-white text-sm font-semibold">{t.name}</p>
                     <p className="text-slate-500 text-xs">{t.role}</p>
-                    <p className="text-slate-600 text-xs mt-1">{t.email} · {t.phone}</p>
+                    <p className="text-slate-600 text-xs mt-1 break-words">{t.email} · {t.phone}</p>
                   </div>
                 </div>
               </div>
@@ -76,20 +81,29 @@ export function Testimonials() {
           })}
         </div>
 
-        <Arrow direction="right" onClick={next} />
+        <div className="hidden sm:block">
+          <Arrow direction="right" onClick={next} />
+        </div>
       </div>
 
-      {/* Dots */}
-      <div className="flex justify-center gap-2 mt-5">
+      {/* Dots, flanked by the arrows on phones */}
+      <div className="flex justify-center items-center gap-2 mt-5">
+        <div className="sm:hidden mr-2">
+          <Arrow direction="left" onClick={prev} />
+        </div>
         {TESTIMONIALS.map((_, i) => (
           <button
             key={i}
             onClick={() => setActive(i)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              i === active ? 'bg-indigo-400 w-6' : 'bg-slate-700 hover:bg-slate-600'
+            aria-label={`Go to testimonial ${i + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === active ? 'bg-indigo-400 w-6' : 'bg-slate-700 hover:bg-slate-600 w-2'
             }`}
           />
         ))}
+        <div className="sm:hidden ml-2">
+          <Arrow direction="right" onClick={next} />
+        </div>
       </div>
 
       {/* Delayed recommendation note */}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { SITE, SKILL_GROUPS, YEARS_EXP } from '../data'
 import { Section, SectionHeading } from '../components/ui'
+import { canHover } from '../hooks/useMediaQuery'
 
 /* ── Highlighted keyword ── */
 function K({ children }: { children: React.ReactNode }) {
@@ -14,14 +15,14 @@ function ExpandableGroup({ label, items }: { label: string; items: string[] }) {
   return (
     <div
       className="relative w-full sm:w-auto"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => { if (canHover()) setOpen(true) }}
+      onMouseLeave={() => { if (canHover()) setOpen(false) }}
     >
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
         aria-expanded={open}
-        className={`inline-flex items-center justify-between sm:justify-start w-full sm:w-auto gap-1.5 text-xs px-3 py-1.5 rounded-full cursor-pointer select-none transition-all duration-300 ${
+        className={`inline-flex items-center justify-between sm:justify-start w-full sm:w-auto gap-1.5 text-xs px-3 py-2 min-h-[38px] sm:min-h-0 sm:py-1.5 rounded-full cursor-pointer select-none transition-all duration-300 ${
         open
           ? 'bg-transparent text-indigo-300 border border-indigo-400 shadow-lg shadow-indigo-500/10'
           : 'bg-indigo-900/60 text-indigo-300 border border-indigo-700/50'
@@ -44,10 +45,10 @@ function ExpandableGroup({ label, items }: { label: string; items: string[] }) {
         </div>
       </div>
 
-      <div className={`hidden sm:block absolute top-full left-0 mt-1.5 z-10 transition-all duration-300 ${
+      <div className={`hidden sm:block absolute top-full left-0 right-auto mt-1.5 z-20 transition-all duration-300 ${
         open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1 pointer-events-none'
       }`}>
-        <div className="bg-transparent backdrop-blur border border-indigo-500/30 rounded-lg p-2.5 flex flex-wrap gap-1.5 max-w-xs shadow-xl shadow-black/20">
+        <div className="bg-slate-950/80 backdrop-blur border border-indigo-500/30 rounded-lg p-2.5 flex flex-wrap gap-1.5 w-max max-w-[min(20rem,calc(100vw-2rem))] shadow-xl shadow-black/20">
           {items.map(item => (
             <span key={item} className="text-xs px-2 py-0.5 rounded-full bg-transparent text-indigo-300 border border-indigo-700/50 whitespace-nowrap">
               {item}
@@ -88,7 +89,7 @@ export function About() {
   return (
     <Section id="about">
       <SectionHeading>About Me</SectionHeading>
-      <div ref={sectionRef} className="grid sm:grid-cols-2 gap-10 items-start">
+      <div ref={sectionRef} className="grid sm:grid-cols-2 gap-8 sm:gap-10 items-start">
 
         {/* Bio */}
         <div>

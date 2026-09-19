@@ -56,12 +56,12 @@ export function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4 pt-14">
+    <section className="relative z-10 min-h-[100svh] flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 pt-24">
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-indigo-700/15 blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 left-1/4 w-48 h-48 rounded-full bg-violet-800/10 blur-3xl pointer-events-none" />
 
       <p className="text-indigo-400 text-xs tracking-[0.3em] uppercase mb-4"><RoleRotator roles={SITE.role} /></p>
-      <h1 className="text-5xl sm:text-7xl font-bold text-white leading-tight mb-6 font-anta">
+      <h1 className="text-[2.75rem] sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 font-anta break-words max-w-full">
         {SITE.name.split(' ')[0]}{' '}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
           {SITE.name.split(' ')[1]}
@@ -80,7 +80,7 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="flex gap-3 flex-wrap justify-center">
+      <div className="flex gap-3 flex-wrap justify-center w-full max-w-sm sm:max-w-none">
         <button onClick={() => scrollTo('projects')}
           className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors">
           View Projects

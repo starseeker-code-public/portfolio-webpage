@@ -35,7 +35,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur border-b border-white/5" style={{ background: 'rgba(6, 5, 22, 0.88)' }}>
-      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+      <div className="max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
 
         {/* Logo */}
         <Link to="/" className="text-indigo-400 font-bold tracking-widest text-sm shrink-0">
@@ -43,42 +43,47 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav sections */}
-        <ul className="hidden lg:flex gap-5 flex-1">
+        <ul className="hidden md:flex md:gap-3 lg:gap-5 flex-1">
           {NAV_SECTIONS.map(l => (
             <li key={l}>
               <button onClick={() => scrollTo(l)}
-                className="text-slate-400 hover:text-white text-xs tracking-wide transition-colors">
+                className="text-slate-400 hover:text-white text-[11px] lg:text-xs tracking-wide transition-colors whitespace-nowrap">
                 {l}
               </button>
             </li>
           ))}
           <li>
             <Link to="/cv"
-              className={`text-xs tracking-wide transition-colors ${location.pathname === '/cv' ? 'text-indigo-400' : 'text-slate-400 hover:text-white'}`}>
+              className={`text-[11px] lg:text-xs tracking-wide transition-colors ${location.pathname === '/cv' ? 'text-indigo-400' : 'text-slate-400 hover:text-white'}`}>
               CV
             </Link>
           </li>
         </ul>
 
         {/* Social icons — desktop */}
-        <div className="hidden sm:flex items-center gap-3 shrink-0">
+        <div className="hidden sm:flex md:hidden lg:flex items-center shrink-0">
           {SOCIAL.map(s => (
             <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer"
-              className="text-slate-500 hover:text-indigo-400 transition-colors">
+              aria-label={s.key}
+              className="flex items-center justify-center w-11 h-11 text-slate-500 hover:text-indigo-400 transition-colors">
               {s.icon}
             </a>
           ))}
         </div>
 
         {/* Mobile toggle */}
-        <button className="lg:hidden text-slate-400 ml-auto" onClick={() => setOpen(o => !o)}>
+        <button
+          className="md:hidden flex items-center justify-center w-11 h-11 -mr-2 text-slate-400 ml-auto"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          onClick={() => setOpen(o => !o)}>
           {open ? <IcoClose /> : <IcoMenu />}
         </button>
       </div>
 
       {/* Mobile drawer */}
       {open && (
-        <div className="lg:hidden border-t border-white/5 px-4 pb-6" style={{ background: 'rgb(6, 5, 22)' }}>
+        <div className="md:hidden border-t border-white/5 px-4 pb-6 max-h-[calc(100vh-3.5rem)] overflow-y-auto" style={{ background: 'rgb(6, 5, 22)' }}>
           {NAV_SECTIONS.map(l => (
             <button key={l} onClick={() => scrollTo(l)}
               className="block w-full text-left py-3 text-slate-300 hover:text-white text-sm border-b border-white/5">
@@ -89,10 +94,11 @@ export default function Navbar() {
             className="block w-full text-left py-3 text-slate-300 hover:text-white text-sm border-b border-white/5">
             CV
           </Link>
-          <div className="flex gap-5 pt-5">
+          <div className="flex flex-wrap gap-2 pt-4">
             {SOCIAL.map(s => (
               <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="text-slate-500 hover:text-indigo-400 transition-colors">
+                aria-label={s.key}
+                className="flex items-center justify-center w-11 h-11 rounded-lg text-slate-500 hover:text-indigo-400 hover:bg-white/5 transition-colors">
                 {s.icon}
               </a>
             ))}

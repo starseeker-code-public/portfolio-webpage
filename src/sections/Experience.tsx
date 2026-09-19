@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { EXPERIENCE, TEACHING } from '../data'
 import { Section, SectionHeading, Tag } from '../components/ui'
 
@@ -6,6 +6,20 @@ const HIGHLIGHT_COUNT = 3
 
 function CollapseToggle({ text, label, openLabel }: { text: string; label: string; openLabel: string }) {
   const [open, setOpen] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(0)
+
+  /* Measured rather than capped: a fixed max-height silently clipped the longer
+     entries once the column got narrow enough to wrap them past the cap. */
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    const measure = () => setHeight(el.scrollHeight)
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [text])
 
   return (
     <>
@@ -18,8 +32,13 @@ function CollapseToggle({ text, label, openLabel }: { text: string; label: strin
         </svg>
         {open ? openLabel : label}
       </button>
-      <div className={`overflow-hidden transition-all duration-400 ease-in-out ${open ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-        <p className="text-slate-500 text-sm leading-relaxed text-justify">{text}</p>
+      <div
+        className={`overflow-hidden transition-all duration-400 ease-in-out ${open ? 'opacity-100 mt-2' : 'opacity-0'}`}
+        style={{ maxHeight: open ? `${height}px` : '0px' }}
+      >
+        <div ref={contentRef}>
+          <p className="text-slate-500 text-sm leading-relaxed text-justify">{text}</p>
+        </div>
       </div>
     </>
   )
@@ -42,7 +61,7 @@ export function Experience() {
       {/* ── Work experience ── */}
       <div className="space-y-6">
         {EXPERIENCE.map((e, i) => (
-          <div key={i} className={`rounded-xl border border-white/10 bg-slate-900/50 p-6${i === 0 ? ' first-card-highlight' : ''}`}>
+          <div key={i} className={`rounded-xl border border-white/10 bg-slate-900/50 p-4 sm:p-6${i === 0 ? ' first-card-highlight' : ''}`}>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
               <div>
                 {i === 0 && <p className="text-xs text-indigo-400 uppercase tracking-wider mb-1">Currently working</p>}
@@ -60,7 +79,7 @@ export function Experience() {
                   <p className="text-indigo-400 text-sm">{e.company}</p>
                 )}
               </div>
-              <span className="text-xs text-slate-500 shrink-0">{e.period}</span>
+              <span className="text-xs text-slate-500 sm:shrink-0">{e.period}</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed text-justify">{e.desc}</p>
 
@@ -80,7 +99,7 @@ export function Experience() {
       </div>
 
       {/* ── Teaching highlight ── */}
-      <div className="mt-16 relative teaching-card rounded-xl border border-indigo-500/25 bg-indigo-950/20 p-6 overflow-hidden">
+      <div className="mt-16 relative teaching-card rounded-xl border border-indigo-500/25 bg-indigo-950/20 p-4 sm:p-6 overflow-hidden">
         {/* Decorative sparkles */}
         <Sparkle className="absolute top-3 right-4 text-indigo-400/40 sparkle-delay-0" />
         <Sparkle className="absolute top-5 right-14 text-violet-400/30 sparkle-delay-1" />

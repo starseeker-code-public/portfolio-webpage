@@ -82,14 +82,25 @@ function GeneratedCover({ project, height }: { project: Project; height: string 
   )
 }
 
-function ProjectCover({ project, tall }: { project: Project; tall?: boolean }) {
+function ProjectCover({ project, tall, eager }: { project: Project; tall?: boolean; eager?: boolean }) {
   const height = tall ? 'h-40 sm:h-56' : 'h-40'
   const src = project.image ?? COVER_BY_SLUG[project.slug]
   if (!src) return <GeneratedCover project={project} height={height} />
-  return <img src={src} alt={project.title} className={`w-full ${height} object-cover`} />
+  return (
+    <img
+      src={src}
+      alt={project.title}
+      /* width/height reserve the box so the card does not jolt as the cover decodes */
+      width={900}
+      height={420}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      className={`w-full ${height} object-cover`}
+    />
+  )
 }
 
-function ProjectCard({ project, tall, flagship }: { project: Project; tall?: boolean; flagship?: boolean }) {
+function ProjectCard({ project, tall, flagship, eager }: { project: Project; tall?: boolean; flagship?: boolean; eager?: boolean }) {
   const hasGithub = project.github.trim().length > 0
   const hasProjectUrl = project.projectUrl.trim().length > 0
 
@@ -111,15 +122,15 @@ function ProjectCard({ project, tall, flagship }: { project: Project; tall?: boo
           Finished
         </span>
       )}
-      <ProjectCover project={project} tall={tall} />
-      <div className="p-5 flex flex-col flex-1">
+      <ProjectCover project={project} tall={tall} eager={eager} />
+      <div className="p-4 sm:p-5 flex flex-col flex-1">
         <h3 className="text-white font-semibold text-lg mb-2">{project.title}</h3>
         <p className="text-slate-400 text-sm leading-relaxed flex-1 mb-4">{project.desc}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.map(t => <Tag key={t} label={t} />)}
         </div>
         {(hasGithub || hasProjectUrl) && (
-          <div className="flex flex-wrap items-center gap-4 mt-auto">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-auto">
             {hasGithub && (
               <a href={project.github} target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm transition-colors">
@@ -152,7 +163,7 @@ export function Projects() {
       {featured.length > 0 && (
         <div className={`grid gap-6 ${featured.length > 1 ? 'sm:grid-cols-2' : ''}`}>
           {featured.map((p, i) => (
-            <ProjectCard key={p.slug} project={p} tall={featured.length === 1} flagship={i === 0} />
+            <ProjectCard key={p.slug} project={p} tall={featured.length === 1} flagship={i === 0} eager={i === 0} />
           ))}
         </div>
       )}
@@ -162,7 +173,7 @@ export function Projects() {
           <button
             onClick={() => setShowAll(o => !o)}
             aria-expanded={showAll}
-            className={`w-full flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-slate-900/40 hover:bg-slate-900/70 hover:border-indigo-400/30 text-indigo-400 hover:text-indigo-300 text-sm py-3 transition-colors ${featured.length > 0 ? 'mt-6' : ''}`}
+            className={`w-full flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-slate-900/40 hover:bg-slate-900/70 hover:border-indigo-400/30 text-indigo-400 hover:text-indigo-300 text-sm py-3 min-h-[44px] transition-colors ${featured.length > 0 ? 'mt-6' : ''}`}
           >
             <svg className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -172,7 +183,7 @@ export function Projects() {
           </button>
 
           {showAll && (
-            <div className="grid sm:grid-cols-2 gap-6 mt-6">
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
               {rest.map((p, i) => (
                 <div key={p.slug} className="project-reveal h-full" style={{ animationDelay: `${Math.min(i, 8) * 45}ms` }}>
                   <ProjectCard project={p} />
