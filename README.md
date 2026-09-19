@@ -18,7 +18,8 @@ Personal portfolio and CV for Joaquin Hernandez Martinez
 
 | Version | Date | Description |
 | ------- | ---- | ----------- |
-| **current** | 2026-09-19 | ESLint toolchain actually installed — `npm run lint` runs clean |
+| **current** | 2026-09-19 | Contact form sends real email via a Netlify Function → five-a-day backend (token stays server-side) |
+| — | 2026-09-19 | ESLint toolchain actually installed — `npm run lint` runs clean |
 | — | 2026-09-19 | CV download serves the static PDF exported from the CV `.odt`; falls back to in-browser rendering when none is uploaded |
 | — | 2026-06-04 | Blog live API with localStorage cache, background retry, and fallback message |
 | — | 2026-06-04 | Years of experience auto-calculated from career start date |
@@ -77,6 +78,10 @@ src/
 │   └── CV.tsx      # Printable CV page (yes, it prints nicely)
 ├── index.css       # Global styles, animations, print styles
 └── App.tsx         # Router. Two routes.
+
+netlify/
+└── functions/
+    └── contact.ts  # Server-side half of the contact form — holds the API token
 ```
 
 ### Design Principles
@@ -114,6 +119,30 @@ The API endpoint (`BLOG_API_URL`) and blog frontend URL (`BLOG_FRONTEND`) are th
 ```
 
 > Note: the backend (Render) prefixes post URLs with `a/` due to its internal router. `fixPostUrl()` in `blog.ts` strips this and prepends `BLOG_FRONTEND`.
+
+### Contact Form
+
+The Contact section posts a real message to my inbox. There is no form provider involved — the mail is sent by the [five-a-day](https://github.com/starseeker-code-public/five-a-day) backend on Cloud Run, which already has a working SMTP account.
+
+```text
+browser  ──POST──▶  /.netlify/functions/contact  ──POST + Bearer──▶  five-a-day  ──SMTP──▶  inbox
+                    (Netlify Function, holds the token)              /api/portfolio/contact/
+```
+
+**The function is not optional plumbing.** This is a static site: everything the browser can read is public, so a `VITE_`-prefixed token would be a secret published to anyone who opens devtools — and a leaked token on a mail endpoint is a spam relay with someone else's domain attached. The function runs on Netlify's servers, so `process.env` there is genuinely server-side. It also means the call is server-to-server, so the backend never sees a browser `Origin` and needs no CORS configuration at all.
+
+Each layer does a different job: the function knows who the *visitor* is (per-IP throttle, honeypot, validation), while the backend's own rate limit is a global cap, since every request reaches it from one Netlify egress address.
+
+**Environment variables** (Netlify → Site configuration → Environment variables):
+
+| Variable | Required | Notes |
+| -------- | -------- | ----- |
+| `PORTFOLIO_CONTACT_TOKEN` | yes | Same value as the `PORTFOLIO_CONTACT_TOKEN` secret in Google Secret Manager. Without it the form answers 503 and tells visitors to email me directly. |
+| `PORTFOLIO_CONTACT_ENDPOINT` | no | Defaults to the production Cloud Run URL; set it to point at a different backend. |
+
+Provisioning the backend half (the secret, the IAM binding, the smoke test and the rotation order) is in `DEPLOYMENT.md` in the five-a-day repo.
+
+> **Local development:** `npm run dev` serves the site but *not* the function, so submitting the form fails with "Could not reach the server". Use `netlify dev` to run both. The failure is deliberate — faking a success in development hides exactly the bug this form is most likely to have.
 
 ### CV Download
 

@@ -6,3 +6,14 @@
 [build]
   command = "npm run build"
   publish = "dist"
+
+# The contact form's server-side half. It holds PORTFOLIO_CONTACT_TOKEN, which a
+# static bundle cannot: anything the browser can read is public. See the header
+# of netlify/functions/contact.ts.
+#
+# The directory is Netlify's default and is stated anyway — it is the one line
+# that says this deploy has a server-side piece at all, and `publish = "dist"`
+# above reads like a purely static site without it.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

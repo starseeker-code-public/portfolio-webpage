@@ -1,0 +1,25 @@
+{
+  /* The Netlify Functions live outside `src`, so the app's tsconfig does not see
+     them — and an untypechecked file is not where the API token should live.
+
+     Separate from tsconfig.json rather than folded into it: these run on Node,
+     not in a browser. Merging them would put Node's globals on the app's
+     compilation, where `process` and `Buffer` resolving happily is exactly the
+     mistake you want the compiler to catch. */
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["netlify"]
+}
