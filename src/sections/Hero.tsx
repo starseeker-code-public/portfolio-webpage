@@ -6,10 +6,10 @@ function Typewriter({ text, speed = 45 }: { text: string; speed?: number }) {
   const [displayed, setDisplayed] = useState('')
   const [done, setDone] = useState(false)
 
+  /* No reset here: the caller keys this component on `text`, so a new tagline remounts it with
+     fresh state. Resetting from inside the effect would cascade an extra render on every mount. */
   useEffect(() => {
     let i = 0
-    setDisplayed('')
-    setDone(false)
     const id = setInterval(() => {
       i++
       setDisplayed(text.slice(0, i))
@@ -68,7 +68,7 @@ export function Hero() {
         </span>
       </h1>
       <p className="text-slate-400 max-w-lg text-base sm:text-lg mb-10">
-        <Typewriter text={SITE.tagline} />
+        <Typewriter key={SITE.tagline} text={SITE.tagline} />
       </p>
 
       <div className="flex flex-wrap justify-center gap-6 mb-10">

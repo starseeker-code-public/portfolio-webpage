@@ -18,7 +18,8 @@ Personal portfolio and CV for Joaquin Hernandez Martinez
 
 | Version | Date | Description |
 | ------- | ---- | ----------- |
-| **current** | 2026-09-19 | CV download serves the static PDF exported from the CV `.odt`; falls back to in-browser rendering when none is uploaded |
+| **current** | 2026-09-19 | ESLint toolchain actually installed — `npm run lint` runs clean |
+| — | 2026-09-19 | CV download serves the static PDF exported from the CV `.odt`; falls back to in-browser rendering when none is uploaded |
 | — | 2026-06-04 | Blog live API with localStorage cache, background retry, and fallback message |
 | — | 2026-06-04 | Years of experience auto-calculated from career start date |
 | — | 2026-06-04 | Contact section cleaned up — email/phone/location + icon-only row |
@@ -133,6 +134,10 @@ npm run dev
 ```
 
 Open `http://localhost:5173`. I'm proud of the stars animation. Print the CV. Send it to someone who's hiring. Thanks <3
+
+```bash
+npm run lint      # ESLint 10, flat config
+```
 
 ### Build for production
 

@@ -10,6 +10,9 @@ export function Stars() {
      reshuffled the whole sky on any parent re-render. */
   const count = isMobile ? 110 : 300
 
+  /* eslint-disable react-hooks/purity -- a decorative sky is supposed to come out different every
+     visit, and the useMemo above is precisely what pins it for the component's lifetime. Generating
+     it in an effect instead would cost a first paint with no stars. */
   const stars = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({
@@ -21,6 +24,7 @@ export function Stars() {
       })),
     [count],
   )
+  /* eslint-enable react-hooks/purity */
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">

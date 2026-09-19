@@ -20,4 +20,10 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    /* Re-export barrels. The rule says outright it can't see through `export *`, and these files
+       hold no component of their own, so they are never a fast-refresh boundary. */
+    files: ['src/**/index.{ts,tsx}'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ])

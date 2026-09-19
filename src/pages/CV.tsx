@@ -15,6 +15,8 @@ import Footer from '../components/layout/Footer'
 const STATIC_PDF = __CV_STATIC_PDF__
 const STATIC_PDF_NAME = STATIC_PDF ? decodeURIComponent(STATIC_PDF.split('/').pop() ?? '') : ''
 const DOWNLOAD_BTN = 'flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors'
+/* How long the "Printing PDF..." overlay lingers once there's nothing left to do. */
+const OVERLAY_LINGER_MS = 1000
 
 /* ── Inline GitHub SVG for CV header (matches CV font size) ── */
 function CvGithubIcon() {
@@ -174,6 +176,28 @@ export default function CV() {
       })
     })
 
+  const openPrintingOverlay = () => {
+    if (overlayTimeoutRef.current !== null) {
+      window.clearTimeout(overlayTimeoutRef.current)
+      overlayTimeoutRef.current = null
+    }
+    setShowPrintingOverlay(true)
+  }
+
+  const closePrintingOverlaySoon = () => {
+    overlayTimeoutRef.current = window.setTimeout(() => {
+      setShowPrintingOverlay(false)
+      overlayTimeoutRef.current = null
+    }, OVERLAY_LINGER_MS)
+  }
+
+  /* The static PDF needs no work at all, but the overlay is half the charm — so the download gets
+     the same beat before the browser saves the file. The anchor's default action still runs. */
+  const downloadStaticPDF = () => {
+    openPrintingOverlay()
+    closePrintingOverlaySoon()
+  }
+
   const generatePDF = async () => {
     if (!cvRef.current || isGenerating) return
 
@@ -184,12 +208,7 @@ export default function CV() {
     const previousDark = dark
     const exportScale = 2
 
-    if (overlayTimeoutRef.current !== null) {
-      window.clearTimeout(overlayTimeoutRef.current)
-      overlayTimeoutRef.current = null
-    }
-
-    setShowPrintingOverlay(true)
+    openPrintingOverlay()
     setIsGenerating(true)
 
     try {
@@ -344,11 +363,7 @@ export default function CV() {
         setDark(true)
       }
       setIsGenerating(false)
-
-      overlayTimeoutRef.current = window.setTimeout(() => {
-        setShowPrintingOverlay(false)
-        overlayTimeoutRef.current = null
-      }, 1000)
+      closePrintingOverlaySoon()
     }
   }
 
@@ -402,8 +417,9 @@ export default function CV() {
               </div>
             </div>
             {STATIC_PDF ? (
-              <a href={STATIC_PDF} download={STATIC_PDF_NAME} className={DOWNLOAD_BTN}>
-                <IcoDownload /> Download PDF
+              <a href={STATIC_PDF} download={STATIC_PDF_NAME} onClick={downloadStaticPDF}
+                className={DOWNLOAD_BTN}>
+                <IcoDownload /> {showPrintingOverlay ? 'Generating...' : 'Download PDF'}
               </a>
             ) : (
               <button onClick={generatePDF} disabled={isGenerating || showPrintingOverlay}

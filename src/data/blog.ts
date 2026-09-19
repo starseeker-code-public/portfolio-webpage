@@ -15,7 +15,7 @@ function fixPostUrl(url: string): string {
 }
 
 function saveToCache(posts: BlogPost[]): void {
-  try { localStorage.setItem(CACHE_KEY, JSON.stringify(posts)) } catch {}
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(posts)) } catch { /* private mode or quota: the cache is best-effort */ }
 }
 
 function loadFromCache(): BlogPost[] | null {
