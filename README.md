@@ -18,7 +18,8 @@ Personal portfolio and CV for Joaquin Hernandez Martinez
 
 | Version | Date | Description |
 | ------- | ---- | ----------- |
-| **current** | 2026-06-04 | Blog live API with localStorage cache, background retry, and fallback message |
+| **current** | 2026-09-19 | CV download serves the static PDF exported from the CV `.odt`; falls back to in-browser rendering when none is uploaded |
+| — | 2026-06-04 | Blog live API with localStorage cache, background retry, and fallback message |
 | — | 2026-06-04 | Years of experience auto-calculated from career start date |
 | — | 2026-06-04 | Contact section cleaned up — email/phone/location + icon-only row |
 | — | 2026-06-04 | Testimonials recommendation note fades in after 2 s |
@@ -112,6 +113,15 @@ The API endpoint (`BLOG_API_URL`) and blog frontend URL (`BLOG_FRONTEND`) are th
 ```
 
 > Note: the backend (Render) prefixes post URLs with `a/` due to its internal router. `fixPostUrl()` in `blog.ts` strips this and prepends `BLOG_FRONTEND`.
+
+### CV Download
+
+The **Download PDF** button on `/cv` has two modes, decided once per build in `vite.config.ts`:
+
+1. **Static PDF** — if `public/downloads/` contains a `*.pdf` (newest wins), the button is a plain link to it. That file is exported from the CV `.odt` (kept outside the repo; LibreOffice, Fira Code embedded), so it's crisp, small, and identical every time.
+2. **In-browser fallback** — with no PDF uploaded, the page renders itself with html2canvas + jsPDF, as before.
+
+To update the CV: edit the `.odt`, export it to PDF, drop the PDF into `public/downloads/`, push. The `.odt` doesn't sync with `src/data/index.ts` — it's the source of truth for the document now.
 
 ---
 

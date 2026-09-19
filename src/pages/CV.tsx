@@ -10,6 +10,12 @@ import { IcoDownload } from '../components/icons'
 import { canHover } from '../hooks/useMediaQuery'
 import Footer from '../components/layout/Footer'
 
+/* Set at build time (vite.config.ts): a PDF dropped into public/downloads is served as-is; without one
+   the page falls back to rendering itself with html2canvas + jsPDF. */
+const STATIC_PDF = __CV_STATIC_PDF__
+const STATIC_PDF_NAME = STATIC_PDF ? decodeURIComponent(STATIC_PDF.split('/').pop() ?? '') : ''
+const DOWNLOAD_BTN = 'flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors'
+
 /* ── Inline GitHub SVG for CV header (matches CV font size) ── */
 function CvGithubIcon() {
   return (
@@ -395,10 +401,16 @@ export default function CV() {
                 </a>
               </div>
             </div>
-            <button onClick={generatePDF} disabled={isGenerating || showPrintingOverlay}
-              className="flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
-              <IcoDownload /> {showPrintingOverlay ? 'Generating...' : 'Download PDF'}
-            </button>
+            {STATIC_PDF ? (
+              <a href={STATIC_PDF} download={STATIC_PDF_NAME} className={DOWNLOAD_BTN}>
+                <IcoDownload /> Download PDF
+              </a>
+            ) : (
+              <button onClick={generatePDF} disabled={isGenerating || showPrintingOverlay}
+                className={`${DOWNLOAD_BTN} disabled:opacity-70 disabled:cursor-not-allowed`}>
+                <IcoDownload /> {showPrintingOverlay ? 'Generating...' : 'Download PDF'}
+              </button>
+            )}
           </div>
         </div>
 
