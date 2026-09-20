@@ -1,11 +1,30 @@
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 [build]
   command = "npm run build"
   publish = "dist"
+
+# There is deliberately no `/* -> /index.html 200` catch-all any more.
+#
+# Every route is prerendered to a real file by scripts/prerender.mjs — dist/index.html
+# and dist/cv/index.html — so Netlify serves them directly and deep links work without
+# a rewrite. The catch-all that used to be here answered *every* URL with the landing
+# page at status 200: /robots.txt, /sitemap.xml and /any-typo all returned the same
+# React shell. That made robots.txt unreadable (served as text/html) and handed crawlers
+# an unlimited set of soft-404 duplicates.
+#
+# Unmatched paths now fall through to dist/404.html, which Netlify serves with a real
+# 404 status. Adding a client-side route means adding it to ROUTE_SEO in src/data/seo.ts
+# so it gets prerendered too — otherwise it will 404.
+
+# Content-hashed by Vite, so the filename changes whenever the bytes do.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/og-image.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
 
 # The contact form's server-side half. It holds PORTFOLIO_CONTACT_TOKEN, which a
 # static bundle cannot: anything the browser can read is public. See the header

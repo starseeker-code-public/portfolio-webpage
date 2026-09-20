@@ -1,3 +1,4 @@
+import { useSeo } from '../hooks/useSeo'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import { Stars, Divider } from '../components/ui'
@@ -10,6 +11,8 @@ import {
 } from '../sections'
 
 export default function Home() {
+  useSeo('/')
+
   return (
     <div className="min-h-screen bg-slate-950 font-sans">
       <Stars />

@@ -1,0 +1,13 @@
+{
+  "name": "Joaquín Hernández Martínez — Senior Python Backend Engineer",
+  "short_name": "JOA.DEV",
+  "description": "Portfolio of Joaquín Hernández Martínez, senior Python backend engineer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060516",
+  "theme_color": "#060516",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.png", "sizes": "128x85", "type": "image/png" }
+  ]
+}

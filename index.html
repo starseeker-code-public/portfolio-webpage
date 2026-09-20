@@ -3,13 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joaquin Hernandez — Portfolio</title>
+
+    <!-- Filled at build time by the `seo` plugin in vite.config.ts, from
+         src/data/seo.ts: title, description, canonical, Open Graph, Twitter
+         card and the schema.org graph. The markers are how scripts/prerender.mjs
+         finds the block to swap when it writes dist/cv/index.html. -->
+    <!--seo:start-->
+    <title>Joaquín Hernández Martínez — Senior Python Backend Engineer</title>
+    <!--seo:end-->
+
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#060516" />
-    <meta name="description" content="Joaquin Hernandez Martinez — Senior Python backend engineer. Distributed systems, APIs, cloud infrastructure and AI-integrated workflows." />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Audiowide&family=Exo+2:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&family=Tomorrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Weights are pinned to what the site actually renders: Exo 2 only ever
+         appears bold (SectionHeading) and Fira Code only regular (the code
+         plate behind project covers). Requesting the full 400–700 range for
+         both cost six extra font files on the critical path. -->
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Audiowide&family=Exo+2:wght@700&family=Fira+Code&family=Tomorrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

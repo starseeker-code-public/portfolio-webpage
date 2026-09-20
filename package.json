@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && tsc -p tsconfig.netlify.json && vite build",
+    "build": "tsc && tsc -p tsconfig.netlify.json && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "og-image": "bash scripts/make-og-image.sh"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",

@@ -8,6 +8,7 @@ import {
 } from '../data'
 import { IcoDownload } from '../components/icons'
 import { canHover } from '../hooks/useMediaQuery'
+import { useSeo } from '../hooks/useSeo'
 import Footer from '../components/layout/Footer'
 
 /* Set at build time (vite.config.ts): a PDF dropped into public/downloads is served as-is; without one
@@ -137,6 +138,8 @@ function CvTag({ label, t }: { label: string; t: ThemeColors }) {
 }
 
 export default function CV() {
+  useSeo('/cv')
+
   const [dark, setDark] = useState(true)
   const [isGenerating, setIsGenerating] = useState(false)
   const [showPrintingOverlay, setShowPrintingOverlay] = useState(false)
