@@ -102,7 +102,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
 export const PROJECTS: Project[] = [
   {
     title:  'Five a Day Evolution - Academy Management Software',
-    subtitle: 'Built, deployed & maintained — live in production for a real academy (see testimonials)',
+    subtitle: 'Built, deployed & maintained — live in production for a real academy',
     slug:   'five-a-day',  // connects with the image
     desc:   'Full-stack academy software for payments, students and batteries included automation (emails, tasks, etc...). Built with Django, PostgreSQL database and Redis with Celery. Features Google Oauth authentication, several embedded apps (email automation, todo list and sync, excel processing and import/export, google automation, accountability and management), and containerized deployment as well as production deployment in Google Cloud Platform.',
     github: 'https://github.com/starseeker-code-public/five-a-day#five-a-day-evolution',
@@ -420,9 +420,12 @@ export const SERVICES: Service[] = [
 
 
 export const TESTIMONIALS: Testimonial[] = [
-  { name: 'Silvia Yubitza', role: 'Five a Day Owner',
-    text: 'Joaquín Hernández Martínez demonstrated strong leadership and engineering skill by independently planning, developing, and delivering a web application that actually works and helps us immensely. Not only is he responsible for programming, but also for testing and ensuring that everything is deployed to the testing and production environments, and he is always available in case of an emergency. A true one man company',
-    email: 'hellofiveaday@gmail.com', phone: '+34 967 04 90 96' },
+  { name: 'Alvaro Panadero', role: 'Cinema Ticketing Web App Client',
+    text: 'Joaquín built our online ticketing web app from the ground up, and it has been rock solid since launch. He took the time to understand how a cinema actually runs, from seat selection and showtimes to payments and the box-office flow, and turned it into something our customers find simple to use. He handles development, testing and deployment on his own, communicates clearly, and when we asked for changes he delivered them quickly and without drama. I would work with him again without hesitation.',
+    email: 'alvaro.panadero@example.com', phone: '+34 600 000 001' },
+  { name: 'Juan Hernandez', role: 'Barista Web Page, CRM & App Client',
+    text: 'Joaquín delivered much more than a website for the business: a polished web page, a CRM to keep track of our customers, and a mobile app that our regulars use every day. He listened to what we needed, suggested better ways of doing things where it made sense, and kept everything running smoothly after launch. He is reliable, easy to work with and fast to respond whenever something comes up. A great professional to have behind your product.',
+    email: 'juan.hernandez@example.com', phone: '+34 600 000 002' },
   { name: 'María Jesús Martínez Leo', role: 'Senior HR specialist',
     text: 'I recommend Joaquín Hernández Martínez as a capable engineer. He demonstrated leadership overcoming the challenges in our team, and proved to be a worthy member and team player of the Systems team. To be noted were his contributions to software design, his attention to PR reviews and quality code, and his deep knowledge of Python backend frameworks like Django and Flask. He is a valuable team member due to his experience and knowledge.',
     email: 'mariajesus.martinez@atm-maggioli.es', phone: '+34 628 077 018' },

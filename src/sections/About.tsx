@@ -97,11 +97,12 @@ export function About() {
           <p className="text-slate-400 leading-relaxed text-justify">
             <K>Senior Python engineer</K> with <K>{YEARS_EXP}+ years</K> building{' '}
             <K>back-end services</K>, <K>REST APIs</K>, and{' '}
-            <K>microservices</K>. Most recently at <K>Mercedes-Benz</K>,{' '}
-            where I evolved large-scale <K>cloud services</K> with 90%+{' '}
-            <K>automated test coverage</K>, and at <K>Frenetic</K>,{' '}
-            where I <K>led</K> a major platform refactor scaling the{' '}
-            <K>team</K> from 4 to 9 engineers. I bring strong{' '}
+            <K>microservices</K>. Most recently at <K>Allot</K> as{' '}
+            <K>full-stack lead engineer</K>, building and testing a{' '}
+            <K>cybersecurity</K> platform for ISPs,
+            and before that at <K>Mercedes-Benz</K>, where I evolved
+            large-scale <K>cloud services</K> with 90%+{' '}
+            <K>automated test coverage</K>. I bring strong{' '}
             <K>testing</K>, <K>monitoring</K>, and daily{' '}
             <K>AI-assisted development</K> to every project.
           </p>
