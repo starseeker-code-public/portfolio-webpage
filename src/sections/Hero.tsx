@@ -112,15 +112,19 @@ export function Hero() {
       {/* Stats and buttons keep their own layout; the portrait takes the space this
           row used to leave empty on its left, which also nudges them right of
           centre. On phones there is no width to share, so it stacks above them. */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 w-full">
-        {/* Frame: a tilted ellipse that slowly changes shape, with a second, more
-            steeply tilted outline offset behind it and a soft glow. The frame is
-            rotated but the photo inside is counter-rotated, so it is the window
-            that is diagonal and the person stays upright. */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14 w-full">
+        {/* Frame, galaxy-style: the photo sits in a tilted elliptical window, sliced
+            by a diagonal "slash" (two halves of the same photo, slightly apart, so
+            the gap glows), while two thin tilted orbits carry a small light each.
+            The orbits sit behind the photo, so the lights pass out of sight on the
+            far side of it. Everything here is decoration except the one photo. */}
         <div className="hero-portrait relative shrink-0 w-32 h-[170px] sm:w-36 sm:h-48 lg:w-44 lg:h-[235px]">
           <div className="hero-portrait-glow absolute -inset-4 rounded-full bg-gradient-to-br from-indigo-500/50 to-violet-500/40 blur-2xl pointer-events-none" />
-          <div className="hero-frame-outline absolute inset-0 border border-indigo-400/50" aria-hidden="true" />
-          <div className="hero-frame absolute inset-0 overflow-hidden ring-2 ring-indigo-400/40 shadow-xl shadow-indigo-500/20">
+
+          <div className="hero-orbit hero-orbit-a" aria-hidden="true"><span className="hero-orbit-dot" /></div>
+          <div className="hero-orbit hero-orbit-b" aria-hidden="true"><span className="hero-orbit-dot" /></div>
+
+          <div className="hero-frame absolute inset-y-0 inset-x-[5%] overflow-hidden bg-indigo-200 ring-2 ring-indigo-400/40 shadow-xl shadow-indigo-500/25">
             <img
               src="/me-hero.jpg"
               alt={`Portrait of ${SITE.name}`}
@@ -128,7 +132,14 @@ export function Hero() {
               height={235}
               fetchPriority="high"
               decoding="async"
-              className="hero-frame-img w-full h-full object-cover object-top"
+              className="hero-frame-img hero-slash-top absolute inset-0 w-full h-full object-cover object-top"
+            />
+            <img
+              src="/me-hero.jpg"
+              alt=""
+              aria-hidden="true"
+              decoding="async"
+              className="hero-frame-img hero-slash-bottom absolute inset-0 w-full h-full object-cover object-top"
             />
           </div>
         </div>
