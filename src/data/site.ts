@@ -23,5 +23,6 @@ export const SITE = {
     codewars:  'https://www.codewars.com/users/Starseeker1414',
     devto:     'https://dev.to/starseeker-code',
     whatsapp:  'https://wa.me/34696026863',
+    discord:   'https://discord.com/users/453584738415017996',  // username: starseeker_14
   },
 }

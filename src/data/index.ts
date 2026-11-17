@@ -420,18 +420,18 @@ export const SERVICES: Service[] = [
 
 
 export const TESTIMONIALS: Testimonial[] = [
-  { name: 'Alvaro Panadero', role: 'Cinema Ticketing Web App Client',
-    text: 'Joaquín built our online ticketing web app from the ground up, and it has been rock solid since launch. He took the time to understand how a cinema actually runs, from seat selection and showtimes to payments and the box-office flow, and turned it into something our customers find simple to use. He handles development, testing and deployment on his own, communicates clearly, and when we asked for changes he delivered them quickly and without drama. I would work with him again without hesitation.',
-    email: 'alvaro.panadero@example.com', phone: '+34 600 000 001' },
-  { name: 'Juan Hernandez', role: 'Barista Web Page, CRM & App Client',
-    text: 'Joaquín delivered much more than a website for the business: a polished web page, a CRM to keep track of our customers, and a mobile app that our regulars use every day. He listened to what we needed, suggested better ways of doing things where it made sense, and kept everything running smoothly after launch. He is reliable, easy to work with and fast to respond whenever something comes up. A great professional to have behind your product.',
-    email: 'juan.hernandez@example.com', phone: '+34 600 000 002' },
   { name: 'María Jesús Martínez Leo', role: 'Senior HR specialist',
     text: 'I recommend Joaquín Hernández Martínez as a capable engineer. He demonstrated leadership overcoming the challenges in our team, and proved to be a worthy member and team player of the Systems team. To be noted were his contributions to software design, his attention to PR reviews and quality code, and his deep knowledge of Python backend frameworks like Django and Flask. He is a valuable team member due to his experience and knowledge.',
     email: 'mariajesus.martinez@atm-maggioli.es', phone: '+34 628 077 018' },
   { name: 'Cesar Boria', role: 'Senior Python Engineer at Mercedes Benz',
     text: 'Joaquín is a very good team mate. I worked with him developing Pulumi services in a microservices architecture to provision Azure services for AI and Data teams worldwide. His knowledge of design patterns and distributed backend systems was particularly useful. He lead a BDD E2E testing project too and was responsible for ADX Azure component development from scratch. Excellent PR reviews.',
     email: 'cesar.boria@mercedes-benz.com', phone: '+34 620 35 05 37' },
+  { name: 'Alvaro Panadero', role: 'Cinema Ticketing Web App Client',
+    text: 'Joaquín built our online ticketing web app from the ground up, and it has been rock solid since launch. He took the time to understand how a cinema actually runs, from seat selection and showtimes to payments and the box-office flow, and turned it into something our customers find simple to use. He handles development, testing and deployment on his own, communicates clearly, and when we asked for changes he delivered them quickly and without drama. I would work with him again without hesitation.',
+    email: 'alvaro.panadero@example.com', phone: '+34 600 000 001' },
+  { name: 'Juan Hernandez', role: 'Barista Web Page, CRM & App Client',
+    text: 'Joaquín delivered much more than a website for the business: a polished web page, a CRM to keep track of our customers, and a mobile app that our regulars use every day. He listened to what we needed, suggested better ways of doing things where it made sense, and kept everything running smoothly after launch. He is reliable, easy to work with and fast to respond whenever something comes up. A great professional to have behind your product.',
+    email: 'juan.hernandez@example.com', phone: '+34 600 000 002' },
 ]
 
 export const CV_CERTIFICATIONS: Certification[] = [

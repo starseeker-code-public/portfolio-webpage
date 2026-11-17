@@ -2,12 +2,14 @@ import { useState } from 'react'
 import { SITE } from '../data'
 import { useRandomQuote } from '../data/quotes'
 import { Section, SectionHeading } from '../components/ui'
-import { IcoGithub, IcoLinkedin, IcoWhatsapp, IcoMail } from '../components/icons'
+import { IcoGithub, IcoLinkedin, IcoWhatsapp, IcoDiscord, IcoLocation, IcoMail } from '../components/icons'
 
 const ICON_LINKS = [
   { label: 'GitHub',   icon: <IcoGithub />,   href: SITE.social.github },
   { label: 'LinkedIn', icon: <IcoLinkedin />,  href: SITE.social.linkedin },
   { label: 'WhatsApp', icon: <IcoWhatsapp />,  href: SITE.social.whatsapp },
+  { label: 'Discord (starseeker_14)', icon: <IcoDiscord />, href: SITE.social.discord },
+  { label: `Location: ${SITE.location}`, icon: <IcoLocation />, href: SITE.locationUrl },
 ]
 
 /* The Netlify Function, at its DEFAULT path. It is the only thing that holds the
@@ -200,16 +202,12 @@ export function Contact() {
               className="flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
               📞 {SITE.phone}
             </a>
-            <a href={SITE.locationUrl} target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition-colors">
-              📍 {SITE.location}
-            </a>
           </div>
 
-          <div className="flex gap-3 mt-4">
+          <div className="flex flex-wrap justify-center gap-3 mt-4">
             {ICON_LINKS.map(l => (
               <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
-                aria-label={l.label}
+                aria-label={l.label} title={l.label}
                 className="flex items-center justify-center w-12 h-12 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors">
                 {l.icon}
               </a>
