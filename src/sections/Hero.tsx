@@ -42,10 +42,16 @@ function Typewriter({ text, speed = 45 }: { text: string; speed?: number }) {
     return () => clearInterval(id)
   }, [text, speed])
 
+  /* The part not typed yet stays in the flow, invisible. The paragraph is laid
+     out at its FINAL size from the first frame, so the lines never re-wrap and
+     the hero's vertical centring never shifts — everything around the tagline
+     (portrait, stats, buttons) stays put while the text types. The text still
+     exists exactly once in the DOM. */
   return (
     <span>
       {displayed}
       {!done && <span className="typewriter-cursor" />}
+      <span className="invisible" aria-hidden="true">{text.slice(displayed.length)}</span>
     </span>
   )
 }
@@ -99,32 +105,59 @@ export function Hero() {
           {NAME_TAIL}
         </span>
       </h1>
-      <p className="text-slate-400 max-w-lg text-base sm:text-lg mb-10">
+      <p className="text-slate-400 max-w-3xl text-base sm:text-lg mb-6">
         <Typewriter key={SITE.tagline} text={SITE.tagline} />
       </p>
 
-      <div className="flex flex-wrap justify-center gap-6 mb-10">
-        {STATS.map(s => (
-          <div key={s.label} className="text-center">
-            <p className="text-2xl font-bold text-indigo-400">{s.value}</p>
-            <p className="text-xs text-slate-500 mt-1">{s.label}</p>
+      {/* Stats and buttons keep their own layout; the portrait takes the space this
+          row used to leave empty on its left, which also nudges them right of
+          centre. On phones there is no width to share, so it stacks above them. */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 w-full">
+        {/* Frame: a tilted ellipse that slowly changes shape, with a second, more
+            steeply tilted outline offset behind it and a soft glow. The frame is
+            rotated but the photo inside is counter-rotated, so it is the window
+            that is diagonal and the person stays upright. */}
+        <div className="hero-portrait relative shrink-0 w-32 h-[170px] sm:w-36 sm:h-48 lg:w-44 lg:h-[235px]">
+          <div className="hero-portrait-glow absolute -inset-4 rounded-full bg-gradient-to-br from-indigo-500/50 to-violet-500/40 blur-2xl pointer-events-none" />
+          <div className="hero-frame-outline absolute inset-0 border border-indigo-400/50" aria-hidden="true" />
+          <div className="hero-frame absolute inset-0 overflow-hidden ring-2 ring-indigo-400/40 shadow-xl shadow-indigo-500/20">
+            <img
+              src="/me-hero.jpg"
+              alt={`Portrait of ${SITE.name}`}
+              width={176}
+              height={235}
+              fetchPriority="high"
+              decoding="async"
+              className="hero-frame-img w-full h-full object-cover object-top"
+            />
           </div>
-        ))}
-      </div>
+        </div>
 
-      <div className="flex gap-3 flex-wrap justify-center w-full max-w-sm sm:max-w-none">
-        <button onClick={() => scrollTo('projects')}
-          className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors">
-          View Projects
-        </button>
-        <Link to="/cv"
-          className="px-6 py-3 rounded-lg border border-white/20 hover:border-indigo-500 text-slate-300 hover:text-white text-sm font-medium transition-colors">
-          View CV
-        </Link>
-        <button onClick={() => scrollTo('contact')}
-          className="px-6 py-3 rounded-lg border border-white/10 hover:border-white/30 text-slate-400 hover:text-white text-sm font-medium transition-colors">
-          Contact
-        </button>
+        <div className="flex flex-col items-center">
+          <div className="flex flex-wrap justify-center gap-8 mb-6">
+            {STATS.map(s => (
+              <div key={s.label} className="text-center">
+                <p className="text-4xl font-bold text-indigo-400">{s.value}</p>
+                <p className="text-sm text-slate-500 mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex gap-3 flex-wrap justify-center w-full max-w-sm sm:max-w-none">
+            <button onClick={() => scrollTo('projects')}
+              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors">
+              View Projects
+            </button>
+            <Link to="/cv"
+              className="px-6 py-3 rounded-lg border border-white/20 hover:border-indigo-500 text-slate-300 hover:text-white text-sm font-medium transition-colors">
+              View CV
+            </Link>
+            <button onClick={() => scrollTo('contact')}
+              className="px-6 py-3 rounded-lg border border-white/10 hover:border-white/30 text-slate-400 hover:text-white text-sm font-medium transition-colors">
+              Contact
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   )

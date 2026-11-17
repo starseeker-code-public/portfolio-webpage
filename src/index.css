@@ -12,9 +12,49 @@
   width: 2px;
   height: 1em;
   background: currentColor;
-  margin-left: 2px;
+  /* Net zero width (2px + 2px of margin, minus 4px): the cursor must not push
+     the invisible remainder of the line and re-wrap it as it moves. */
+  margin: 0 -4px 0 2px;
   vertical-align: text-bottom;
   animation: blink 1s step-end infinite;
+}
+
+/* Hero portrait — a slow float, with its glow breathing out of phase so the two
+   never look mechanically locked. Both are transform/opacity only (compositor
+   work), and both are switched off under prefers-reduced-motion below. */
+@keyframes hero-portrait-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes hero-portrait-glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.7;  transform: scale(1.12); }
+}
+/* The frame itself: a tilted ellipse, with a second outline tilted the other way
+   that slowly sways behind it. The photo is counter-rotated (and scaled so it
+   still covers the rotated window), keeping the person upright. */
+@keyframes hero-frame-sway {
+  0%, 100% { transform: translate(14px, 6px) rotate(24deg) scale(1.06); }
+  50%       { transform: translate(14px, 6px) rotate(32deg) scale(1.06); }
+}
+.hero-portrait {
+  animation: hero-portrait-float 6s ease-in-out infinite;
+}
+.hero-frame {
+  transform: rotate(-18deg);
+  border-radius: 50%;
+}
+.hero-frame-img {
+  transform: rotate(18deg) scale(1.25);
+}
+.hero-frame-outline {
+  transform: translate(14px, 6px) rotate(24deg) scale(1.06);
+  border-radius: 50%;
+  animation: hero-frame-sway 12s ease-in-out infinite;
+}
+.hero-portrait-glow {
+  animation: hero-portrait-glow 6s ease-in-out infinite;
+  animation-delay: -1.5s;
 }
 
 /* First experience card subtle highlight — 3 pulses, stays glowing on the third */
@@ -173,7 +213,11 @@ html, body {
   .project-dev-badge,
   .blog-live-link,
   .teaching-sparkle,
-  .typewriter-cursor {
+  .typewriter-cursor,
+  .hero-portrait,
+  .hero-portrait-glow,
+  .hero-frame,
+  .hero-frame-outline {
     animation: none !important;
   }
 

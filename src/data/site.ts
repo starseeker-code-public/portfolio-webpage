@@ -9,7 +9,7 @@ export const SITE = {
   role:      ['Senior Backend Engineer', 'Leader and Architect', 'Fullstack Developer'],
   tagline:   `Building reliable back-end services, APIs, and cloud infrastructure — ${YEARS_EXP}+ years turning complex requirements into production-ready systems. Now with AI expertise`,
   email:     'proyecto_noether@outlook.com',
-  photo:     '/photo.png',
+  photo:     '/me.jpg',
   location:  'Albacete, Spain',
   fullAddress: 'Albacete, Spain',
   locationUrl: 'https://maps.app.goo.gl/DLYp7yCkraK8mQS69',

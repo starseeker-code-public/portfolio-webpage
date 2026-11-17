@@ -1,0 +1,6 @@
+<!doctype html><body style="margin:0;background:#000;color:#fff"><pre id=o style="position:fixed;top:0;left:0;z-index:9"></pre><iframe id=f style="border:0;height:900px"></iframe>
+<script>
+const w=location.hash.slice(1)||'800';const f=document.getElementById('f');f.style.width=w+'px';f.src='/';
+f.onload=()=>setTimeout(()=>{const d=f.contentDocument;const h=[...d.querySelectorAll('h3')].find(e=>e.textContent.includes('Hern'));const col=h.parentElement.parentElement.getBoundingClientRect();const r=h.getBoundingClientRect();const fs=getComputedStyle(h).fontSize;
+document.getElementById('o').textContent=`IW=${f.contentWindow.innerWidth} fs=${fs} h3right=${Math.round(r.right)} colright=${Math.round(col.right)} h=${Math.round(r.height)} fits=${r.right<=col.right+0.5}`;},1500)
+</script>

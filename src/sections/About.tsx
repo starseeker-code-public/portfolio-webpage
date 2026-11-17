@@ -93,7 +93,23 @@ export function About() {
 
         {/* Bio */}
         <div>
-          <h3 className="text-xl font-semibold text-white mb-3">{SITE.name}</h3>
+          {/* A small round portrait beside the name: it puts a face to the text
+              without adding a block to the section, so the two-column layout
+              and its height are unchanged. The name stays on one line, so its
+              size (and the portrait's) steps down where the column is narrowest
+              (sm–md, when the section first splits into two columns). */}
+          <div className="flex items-center gap-3 mb-3">
+            <img
+              src="/me.jpg"
+              alt={`Portrait of ${SITE.name}`}
+              width={64}
+              height={64}
+              loading="lazy"
+              decoding="async"
+              className="w-14 h-14 sm:w-10 sm:h-10 md:w-14 md:h-14 xl:w-16 xl:h-16 shrink-0 rounded-full object-cover object-[50%_30%] ring-2 ring-indigo-500/40 shadow-lg shadow-indigo-500/20"
+            />
+            <h3 className="min-[360px]:whitespace-nowrap text-[1.0625rem] min-[375px]:text-[1.125rem] sm:text-[0.96875rem] md:text-[1.125rem] lg:text-[1.375rem] xl:text-[1.5rem] font-semibold text-white">{SITE.name}</h3>
+          </div>
           <p className="text-slate-400 leading-relaxed text-justify">
             <K>Senior Python engineer</K> with <K>{YEARS_EXP}+ years</K> building{' '}
             <K>back-end services</K>, <K>REST APIs</K>, and{' '}
