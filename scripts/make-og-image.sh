@@ -4,8 +4,12 @@
 # project dependency; rerun this by hand if the favicon changes.
 #
 # public/og-image.jpg (the 1200x630 link-preview picture) is NOT generated here: it
-# is a landscape crop of the original portrait photo, made by hand with
-#   magick <photo> -auto-orient -crop 3072x1613+0+900 +repage -resize 1200x630 #     -strip -sampling-factor 4:2:0 -quality 86 public/og-image.jpg
+# is a tight head-and-shoulders crop of the original portrait photo, made by hand with
+#   magick <photo> -auto-orient -crop 1500x787+485+1050 +repage -resize 1200x630 \
+#     -strip -sampling-factor 4:2:0 -interlace None -quality 88 public/og-image.jpg
+# Kept baseline (not progressive), under ~300 KB, 1.91:1 and with the face centred and
+# large: WhatsApp builds its own small, heavily compressed thumbnail from it, and
+# only a big, central, high-contrast subject survives that.
 # When it changes, bump the `?v=` on OG_IMAGE in src/data/seo.ts so LinkedIn,
 # WhatsApp etc. fetch the new file instead of their cached copy.
 set -euo pipefail

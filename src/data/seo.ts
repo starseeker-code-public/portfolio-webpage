@@ -12,7 +12,7 @@ export const SITE_URL = 'https://joaquin-hm.com'
 /** The `?v=` is a cache-buster. Link-preview crawlers (LinkedIn, WhatsApp, Slack,
  *  X, Facebook) cache the image by URL for days, so replacing og-image.jpg alone
  *  keeps showing the old card. Bump the number whenever the picture changes. */
-export const OG_IMAGE = `${SITE_URL}/og-image.jpg?v=3`
+export const OG_IMAGE = `${SITE_URL}/og-image.jpg?v=5`
 export const OG_IMAGE_ALT =
   'Joaquín Hernández Martínez — Senior Backend Engineer. Python, distributed systems, cloud, AI integration.'
 
@@ -172,6 +172,7 @@ export function renderHeadTags(route: keyof typeof ROUTE_SEO = '/'): string {
     `<meta property="og:title" content="${attr(seo.title)}" />`,
     `<meta property="og:description" content="${attr(seo.description)}" />`,
     `<meta property="og:image" content="${OG_IMAGE}" />`,
+    `<meta property="og:image:type" content="image/jpeg" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
     `<meta property="og:image:alt" content="${attr(OG_IMAGE_ALT)}" />`,

@@ -100,7 +100,7 @@ export function About() {
               (sm–md, when the section first splits into two columns). */}
           <div className="flex items-center gap-3 sm:gap-2.5 md:gap-3 mb-3">
             <img
-              src="/me.jpg"
+              src="/me-about.jpg"
               alt={`Portrait of ${SITE.name}`}
               width={64}
               height={64}
