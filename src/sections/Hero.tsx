@@ -81,6 +81,19 @@ function RoleRotator({ roles }: { roles: string[] }) {
   )
 }
 
+/* The atom's orbits, each with a "light shock" running along its line. Rendered
+   twice (see .hero-orbits in index.css): once whole, behind the photo, and once
+   with only the near half of each ring, in front. */
+function Orbits({ front = false }: { front?: boolean }) {
+  return (
+    <div className={`hero-orbits ${front ? 'hero-orbits-front' : ''}`} aria-hidden="true">
+      <div className="hero-orbit hero-orbit-1"><span className="hero-shock" /></div>
+      <div className="hero-orbit hero-orbit-2"><span className="hero-shock" /></div>
+      <div className="hero-orbit hero-orbit-3"><span className="hero-shock" /></div>
+    </div>
+  )
+}
+
 const NAME_WORDS = SITE.name.split(' ')
 const NAME_TAIL = NAME_WORDS[NAME_WORDS.length - 1]
 const NAME_HEAD = NAME_WORDS.slice(0, -1).join(' ')
@@ -94,7 +107,6 @@ export function Hero() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-indigo-700/15 blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 left-1/4 w-48 h-48 rounded-full bg-violet-800/10 blur-3xl pointer-events-none" />
 
-      <p className="text-indigo-400 text-xs tracking-[0.3em] uppercase mb-4"><RoleRotator roles={SITE.role} /></p>
       {/* The page's one h1, and it has to carry the full legal name: the previous
           version took words [0] and [1] off SITE.name and silently dropped
           "Martínez", so the surname people actually search never appeared in the
@@ -113,17 +125,16 @@ export function Hero() {
           row used to leave empty on its left, which also nudges them right of
           centre. On phones there is no width to share, so it stacks above them. */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14 w-full">
-        {/* Frame, galaxy-style: the photo sits in a tilted elliptical window, while
-            two thin tilted orbits carry a small light each.
-            The orbits sit behind the photo, so the lights pass out of sight on the
-            far side of it. Everything here is decoration except the one photo. */}
+        {/* Frame, atom-style: the photo is the nucleus, in a tilted elliptical
+            window, and three orbits weave over and under it — one layer behind the
+            photo, one in front (faded out over the middle of the photo, so the
+            picture itself stays clear). Decoration only apart from the photo. */}
         <div className="hero-portrait relative shrink-0 w-32 h-[170px] sm:w-36 sm:h-48 lg:w-44 lg:h-[235px]">
           <div className="hero-portrait-glow absolute -inset-4 rounded-full bg-gradient-to-br from-indigo-500/50 to-violet-500/40 blur-2xl pointer-events-none" />
 
-          <div className="hero-orbit hero-orbit-a" aria-hidden="true"><span className="hero-orbit-dot" /></div>
-          <div className="hero-orbit hero-orbit-b" aria-hidden="true"><span className="hero-orbit-dot" /></div>
+          <Orbits />
 
-          <div className="hero-frame absolute inset-y-0 inset-x-[5%] overflow-hidden ring-2 ring-indigo-400/40 shadow-xl shadow-indigo-500/25">
+          <div className="hero-frame absolute inset-y-[14%] inset-x-[18%] overflow-hidden ring-2 ring-indigo-400/40 shadow-xl shadow-indigo-500/25">
             <img
               src="/me-hero.jpg"
               alt={`Portrait of ${SITE.name}`}
@@ -134,9 +145,12 @@ export function Hero() {
               className="hero-frame-img absolute inset-0 w-full h-full object-cover object-top"
             />
           </div>
+
+          <Orbits front />
         </div>
 
         <div className="flex flex-col items-center">
+          <p className="text-indigo-400 text-xs tracking-[0.3em] uppercase mb-7"><RoleRotator roles={SITE.role} /></p>
           <div className="flex flex-wrap justify-center gap-8 mb-6">
             {STATS.map(s => (
               <div key={s.label} className="text-center">

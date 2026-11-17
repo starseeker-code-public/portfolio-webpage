@@ -12,7 +12,7 @@ export const SITE_URL = 'https://joaquin-hm.com'
 /** The `?v=` is a cache-buster. Link-preview crawlers (LinkedIn, WhatsApp, Slack,
  *  X, Facebook) cache the image by URL for days, so replacing og-image.jpg alone
  *  keeps showing the old card. Bump the number whenever the picture changes. */
-export const OG_IMAGE = `${SITE_URL}/og-image.jpg?v=2`
+export const OG_IMAGE = `${SITE_URL}/og-image.jpg?v=3`
 export const OG_IMAGE_ALT =
   'Joaquín Hernández Martínez — Senior Backend Engineer. Python, distributed systems, cloud, AI integration.'
 
